@@ -18,6 +18,10 @@ public class Card {
         return cardValue;
     }
 
+    public int getCardIntValue() {
+        return cardValue.getValue();
+    }
+
 
 
     public String toString(){

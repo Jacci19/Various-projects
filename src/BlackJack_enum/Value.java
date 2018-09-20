@@ -21,7 +21,7 @@ public enum Value {
         this.value = value;
     }
 
-    private int getValue(){
+    public int getValue(){
         return value;
     }
 
