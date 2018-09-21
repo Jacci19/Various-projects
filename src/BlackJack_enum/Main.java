@@ -44,17 +44,30 @@ public class Main {
             System.out.print("OK. Now is my turn. My first two cards are: ");           //tura Przeciwnika
             croupierDeck.giveCards(2, enemyHand, true);
             handDeckInfo(croupierDeck, enemyHand, "my");
-            if (enemyHand.sumHandCardsValues() < overloadValue){
-                while ( overloadValue - enemyHand.sumHandCardsValues() > enemyRiskLevel){
-                    System.out.println("OK. I will take one more card...");
-                    croupierDeck.giveCards(1, enemyHand, true);
-                    handDeckInfo(croupierDeck, enemyHand, "my");
-                }
-                System.out.println("Ok, that's enough. Let's check");
-            }
+
+            enemyTurn(croupierDeck, enemyHand);
+            System.out.println("KONIEC");
+
         }
     }
 
+    private static void enemyTurn(Deck croupierDeck, Hand enemyHand) {
+        if (overloadValue - enemyHand.sumHandCardsValues() > enemyRiskLevel){       //Jeżeli komputer akceptuje ryzyko i chce kartę...
+            System.out.print("OK. I will take one more card: ");
+            croupierDeck.giveCards(1, enemyHand, true);                   //...to bierze kolejną kartę
+            handDeckInfo(croupierDeck, enemyHand, "my");
+
+            if (enemyHand.sumHandCardsValues() >= overloadValue){                    //Jeśli jest "fura"...
+                System.out.println("Oh, I overloaded. I lose :(");                   //...to przegrywa
+            }
+            else{                                                                    //jeśli nie...
+                enemyTurn(croupierDeck, enemyHand);                                  //...to decyduje o kolejnej karcie
+            }
+        }
+        else{                                                                       //jeśli nie akceptuje ryzyka...
+            System.out.println("Ok, that's enough. Let's check");                   // ...to sprawdza
+        }
+    }
 
 
     private static void takeNextCard(Deck croupierDeck, Hand myHand) {
