@@ -10,10 +10,12 @@ public class Main {
 
     private static Hand myHand = new Hand();
     private static Hand enemyHand = new Hand();
+    private static String playerAnswer;
+
+    private static Deck croupierDeck = new Deck();
 
     public static void main(String[] args) {
 
-        Deck croupierDeck = new Deck();
 
         System.out.println("Initial checkings....");
         System.out.println("CroupierDeck:  " + croupierDeck.getCards());
@@ -24,16 +26,21 @@ public class Main {
         System.out.println("Card's suit:  " + croupierDeck.getCards().get(2).getCardSuit());
         System.out.println("Card's value:  " + croupierDeck.getCards().get(2).getCardValue());
         System.out.println("Card's int value:  " + croupierDeck.getCards().get(2).getCardIntValue());
+        System.out.println("Current result: " + myHand.getScore() + " : " + enemyHand.getScore());
 
-
-        System.out.print("\n__________BLACKJACK__________\nHi. I'm the croupier of this game. Let's begin. I'm shuffling a deck and give you two cards: ");
         croupierDeck.shuffle();
+        playGame("\n__________BLACKJACK__________\nHi. I'm the croupier of this game. Let's begin. I'm shuffling a deck and give you two cards: ");
+
+    }
+
+    private static void playGame(String welcomeMsg) {
+        System.out.print(welcomeMsg);
         croupierDeck.giveCards(2, myHand, true);
-        handDeckInfo(croupierDeck, myHand, "your");
-        String playerAnswer = askPlayer("Do you want next card?");            //Zwraca Y lub N
+        handDeckInfo(myHand, "your");
+        playerAnswer = askPlayer("Do you want next card?");            //Zwraca Y lub N
 
         while ((playerAnswer.equals("Y") || playerAnswer.equals("y")) && (!gameEnd)){                   //tura Gracza
-            takeNextCard(croupierDeck, myHand);
+            takeNextCard(myHand);
             if (!overload) playerAnswer = askPlayer("Do you want next card?");
             else{
                 System.out.println("You overloaded!");
@@ -42,28 +49,27 @@ public class Main {
                 summary();
             }
         }
-
         if (playerAnswer.equals("N") || playerAnswer.equals("n")){
             System.out.print("OK. Now is my turn. My first two cards are: ");           //tura Przeciwnika
             croupierDeck.giveCards(2, enemyHand, true);
-            handDeckInfo(croupierDeck, enemyHand, "my");
-
-            enemyTactic(croupierDeck, enemyHand);
+            handDeckInfo(enemyHand, "my");
+            enemyTactic(enemyHand);
+            summary();
         }
     }
 
-    private static void enemyTactic(Deck croupierDeck, Hand enemyHand) {
+    private static void enemyTactic(Hand enemyHand) {
         if (overloadValue - enemyHand.sumHandCardsValues() > enemyRiskLevel){       //Jeżeli komputer akceptuje ryzyko i chce kartę...
             System.out.print("OK. I will take one more card: ");
             croupierDeck.giveCards(1, enemyHand, true);                   //...to bierze kolejną kartę
-            handDeckInfo(croupierDeck, enemyHand, "my");
+            handDeckInfo(enemyHand, "my");
 
             if (enemyHand.sumHandCardsValues() >= overloadValue){                    //Jeśli jest "fura"...
-                System.out.println("Oh, I overloaded... y :(");                   //...to przegrywa
+                System.out.println("Oh, I overloaded...  :(");                   //...to przegrywa
                 myHand.setWin(true);
             }
             else{                                                                    //jeśli nie...
-                enemyTactic(croupierDeck, enemyHand);                                  //...to decyduje o kolejnej karcie
+                enemyTactic(enemyHand);                                  //...to decyduje o kolejnej karcie
             }
         }
         else{                                                                       //jeśli nie akceptuje ryzyka...
@@ -72,11 +78,10 @@ public class Main {
         }
     }
 
-
-    private static void takeNextCard(Deck croupierDeck, Hand myHand) {
+    private static void takeNextCard(Hand myHand) {
         System.out.print("Next card is: ");
         croupierDeck.giveCards(1, myHand, true);
-        handDeckInfo(croupierDeck, myHand, "your");
+        handDeckInfo(myHand, "your");
         if (myHand.sumHandCardsValues() >= overloadValue) overload = true;
     }
 
@@ -92,8 +97,7 @@ public class Main {
         return playerDecision;
     }
 
-    public static void handDeckInfo(Deck deck, Hand hand, String who) {
-        //System.out.println("Deck's size:  " + deck.getSize());
+    public static void handDeckInfo(Hand hand, String who) {
         hand.handInfo(who);
     }
 
@@ -105,13 +109,30 @@ public class Main {
         else {
            enemyHand.setWin(true);
         }
-        summary();
     }
 
     static void summary(){
-        if (myHand.getWin() == true) System.out.println("YOU WIN!");
-        if (enemyHand.getWin() == true) System.out.println("YOU LOSE!");
-        System.out.println("---GAME OVER---");
-    }
+        if (myHand.getWin() == true){
+            System.out.println("YOU WIN!");
+            myHand.scoreUp();
+        }
+        if (enemyHand.getWin() == true){
+            System.out.println("YOU LOSE!");
+            enemyHand.scoreUp();
+        }
+        System.out.println("Current result: " + myHand.getScore() + " : " + enemyHand.getScore());
+        playerAnswer = askPlayer("Do you want to play next?");
+        if ((playerAnswer.equals("Y")) || (playerAnswer.equals("y"))){
+            gameEnd = false;
+            overload = false;
+            myHand.throwCards();
+            enemyHand.throwCards();
+            System.out.println("\nDeck's size:  " + croupierDeck.getSize());
 
+            playGame("OK. Next round. I give you two cards: ");
+        }
+        else{
+            System.out.println("---GAME OVER---");
+        }
+    }
 }

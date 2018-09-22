@@ -5,11 +5,13 @@ import java.util.Collections;
 
 public class Hand {
 
+    private int score;
     private ArrayList<Card> handCards;
     private boolean win = false;
 
     public Hand() {                                     //wypełnienie talii 52 kartami
         handCards = new ArrayList<>();
+        score = 0;
     }
 
     public ArrayList<Card> getHandCards() {
@@ -36,4 +38,20 @@ public class Hand {
         this.win = win;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void scoreUp(){
+        this.score++;
+    }
+
+    public void throwCards(){
+        handCards.clear();
+        setWin(false);
+    }
 }
