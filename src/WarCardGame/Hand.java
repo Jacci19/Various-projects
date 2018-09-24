@@ -1,7 +1,6 @@
-package BlackJack_enum;
+package WarCardGame;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Hand {
 
@@ -28,8 +27,24 @@ public class Hand {
 
    public void handInfo(String who) {
         System.out.println("--" + who.toUpperCase().charAt(0) + who.substring(1) + " hand: " + this.getHandCards());       //aby who zaczynało się wielką literą a w następnej linii małą
-        System.out.println("--Sum of " + who + " hand's cards is: " + this.sumHandCardsValues());
+        //System.out.println("--Sum of " + who + " hand's cards is: " + this.sumHandCardsValues());
    }
+
+    public Card deckOutCard(){
+        return  handCards.remove(0);                 //zwraca pierwszą kartę z listy i jednocześnie usuwa ją z tej listy
+    }
+
+    public void giveCards (int ilosc, Hand player, boolean info){
+        for (int i = 0; i < ilosc; i++){
+            Card someCard =  handCards.get(0);
+            handCards.remove(0);
+            player.getHandCards().add(someCard);
+            if (info){
+                if (i < ilosc - 1) System.out.print(someCard + ", ");
+                else System.out.println(someCard);
+            }
+        }
+    }
 
     public boolean getWin() {
         return win;
@@ -53,5 +68,12 @@ public class Hand {
     public void throwCards(){
         handCards.clear();
         setWin(false);
+    }
+
+    public void swapHand(Hand newHand){
+        Hand tempHand = new Hand();
+        tempHand.handCards = this.handCards;
+        this.handCards = newHand.handCards;
+        newHand.handCards = tempHand.handCards;
     }
 }
