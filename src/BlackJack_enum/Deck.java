@@ -23,10 +23,6 @@ public class Deck {
         Collections.shuffle(cards);                     //potasowanie kart
     }
 
-    public Card deckOutCard(){
-        return cards.remove(0);                 //zwraca pierwszą kartę z listy i jednocześnie usuwa ją z tej listy
-    }
-
     public void giveCards (int ilosc, Hand player, boolean info){
         for (int i = 0; i < ilosc; i++){
             Card someCard = cards.get(0);
