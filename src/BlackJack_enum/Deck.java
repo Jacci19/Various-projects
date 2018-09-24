@@ -23,14 +23,18 @@ public class Deck {
         Collections.shuffle(cards);                     //potasowanie kart
     }
 
-    public void giveCards (int ilosc, Hand player, boolean info){
+    public void giveCards (int ilosc, final Hand player, boolean info){
         for (int i = 0; i < ilosc; i++){
-            Card someCard = cards.get(0);
+            final Card someCard = cards.get(0);
             cards.remove(0);
             player.getHandCards().add(someCard);
             if (info){
-                if (i < ilosc - 1) System.out.print(someCard + ", ");
-                else System.out.println(someCard);
+                if (i < ilosc - 1) {
+                    System.out.print(someCard + ", ");
+                }
+                else {
+                    System.out.println(someCard);
+                }
             }
         }
     }
