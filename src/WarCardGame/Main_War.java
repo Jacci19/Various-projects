@@ -37,7 +37,7 @@ public class Main_War {
         croupierDeck.giveCards(26, myHand, false);
         croupierDeck.giveCards(26, enemyHand, false);
 
-        System.out.println("\n___________________________WAR Card Game___________________________________________");
+        System.out.println("\n___________________________________- WAR Card Game -_________________________________________");
         System.out.println("Play: " + player_1_name + " vs " + player_2_name);
 
 
