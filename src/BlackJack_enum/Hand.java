@@ -5,23 +5,18 @@ import java.util.Collections;
 
 public class Hand {
 
-    private int score;
-    private ArrayList<Card> handCards;
+    private int score = 0;
+    private ArrayList<Card> handCards = new ArrayList<>();
     private boolean win = false;
 
-    public Hand() {
-        handCards = new ArrayList<>();
-        score = 0;
-    }
-
     public ArrayList<Card> getHandCards() {
-        return handCards;
+        return this.handCards;
     }
 
     public int sumHandCardsValues(){
         int sum = 0;
-        for (int i=0; i<handCards.size(); i++){
-            sum += handCards.get(i).getCardIntValue();
+        for (final Card card : this.handCards) {
+            sum += card.getCardIntValue();
         }
         return sum;
     }
