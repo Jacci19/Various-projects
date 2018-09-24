@@ -6,8 +6,6 @@ public class Main_War {
 
     private static Hand myHand = new Hand();
     private static Hand enemyHand = new Hand();
-    private static Hand myNewHand = new Hand();
-    private static Hand enemyNewHand = new Hand();
     private static Deck croupierDeck = new Deck();
 
     private static Card myCard = null, enemyCard = null;
@@ -15,10 +13,13 @@ public class Main_War {
     private static Boolean isWinner = false;
     private static int battleNumber = 0;
 
+    private static String player_1_name = "Jacek";
+    private static String player_2_name = "Enemy";
+
     public static void main(String[] args) {
 
 
-
+/*
         System.out.println("Initial checkings....");
         System.out.println("CroupierDeck:  " + croupierDeck.getCards());
         System.out.println("CroupierDeck' size:  " + croupierDeck.getCards().size());
@@ -29,42 +30,44 @@ public class Main_War {
         System.out.println("Card's value:  " + croupierDeck.getCards().get(2).getCardValue());
         System.out.println("Card's int value:  " + croupierDeck.getCards().get(2).getCardIntValue());
         System.out.println("Current result: " + myHand.getScore() + " : " + enemyHand.getScore());
+*/
 
         croupierDeck.shuffle();
 
-        croupierDeck.giveCards(20, myHand, false);
-        croupierDeck.giveCards(20, enemyHand, false);
+        croupierDeck.giveCards(26, myHand, false);
+        croupierDeck.giveCards(26, enemyHand, false);
 
         System.out.println("\n_______War Card Game________");
 
 
-        while (!isWinner){
+        while (!isWinner && battleNumber < 10000) {
 
-            myHand.handInfo("Jacek");
-            enemyHand.handInfo("Enemy");
+            myHand.handInfo(player_1_name);
+            enemyHand.handInfo(player_2_name);
 
             battleNumber++;
-            placeCard(myHand, myNewHand, "Jacek");
-            placeCard(enemyHand, enemyNewHand, "Enemy");
+            if (battleNumber % 500 == 0) {                           // co tyle rund tasujemy karty w ręce
+                myHand.shuffle();
+                enemyHand.shuffle();
+                System.out.println("Cards have been shuffled");
+            }
+
+            placeCard(myHand, player_1_name);
+            placeCard(enemyHand, player_2_name);
 
             if (!isWinner) compareCards(false);
-
         }
+        if (battleNumber >= 50000) System.out.println("Limit of rounds is reached. The game ends with a draw");
     }
 
-    private static void placeCard(Hand currentHand, Hand newHand, String owner){
+    private static void placeCard(Hand currentHand, String owner) {
 
 
-        if (currentHand.getHandCards().size() > 0){                                         //Jesli w obecnej ręce są karty..
+        if (currentHand.getHandCards().size() > 0) {                                         //Jesli w obecnej ręce są karty..
             if (currentHand == myHand) myCard = currentHand.deckOutCard();                  //to wyłóż kartę z ręki
             if (currentHand == enemyHand) enemyCard = currentHand.deckOutCard();
-        }
-        else if (newHand.getHandCards().size() > 0){                                        //jeśli nie to weź talię zapasową
-            currentHand.swapHand(newHand);
-            System.out.println(owner + " is changing deck");
-        }
-        else{                                                                               //jeśli nie ma kart w talii zapasowej to przegrana
-            newHand.handInfo(owner + " new");
+        } else {                                                                               //jeśli nie ma kart w talii zapasowej to przegrana
+            System.out.println(owner.toUpperCase() + " NO LONGER HAS CARDS.");
             System.out.println(owner.toUpperCase() + " LOSES!");
             isWinner = true;
         }
@@ -83,46 +86,49 @@ public class Main_War {
         return playerDecision;
     }
 
-    private static void compareCards(Boolean drawMode){
+    private static void compareCards(Boolean drawMode) {
         System.out.print("\nBattle " + battleNumber + ": " + myCard + " vs " + enemyCard);
         switch (myCard.compare(enemyCard)) {
             case "bigger":
-                myNewHand.getHandCards().add(myCard);
-                myNewHand.getHandCards().add(enemyCard);
-                if (drawMode){
-                    myNewHand.getHandCards().add(myfirstWarCard);
-                    myNewHand.getHandCards().add(enemyfirstWarCard);
+                myHand.addCardToHandEnd(myCard);
+                myHand.addCardToHandEnd(enemyCard);
+                if (drawMode) {
+                    myHand.addCardToHandEnd(myfirstWarCard);
+                    myHand.addCardToHandEnd(enemyfirstWarCard);
                 }
-
-
-                System.out.println("\t\t_________________________________Jacek's card wins");
+                System.out.println("_________________________________Jacek's card wins");
                 break;
+
             case "smaller":
-                enemyNewHand.getHandCards().add(myCard);
-                enemyNewHand.getHandCards().add(enemyCard);
-                if (drawMode){
-                    enemyNewHand.getHandCards().add(myfirstWarCard);
-                    enemyNewHand.getHandCards().add(enemyfirstWarCard);
+                enemyHand.addCardToHandEnd(myCard);
+                enemyHand.addCardToHandEnd(enemyCard);
+                if (drawMode) {
+                    enemyHand.addCardToHandEnd(myfirstWarCard);
+                    enemyHand.addCardToHandEnd(enemyfirstWarCard);
                 }
-
-                System.out.println("\t\t_________________________________Enemy's card wins");
+                System.out.println("_________________________________Enemy's card wins");
                 break;
+
             case "equal":
-                System.out.println("\t\t_________________________________D R A W____________");
+                System.out.println("_________________________________D R A W____________");
                 drawProcedure();
+                break;
         }
     }
 
-    private static void drawProcedure(){
-        placeCard(myHand, myNewHand, "Jacek");
+    private static void drawProcedure() {
+        placeCard(myHand, player_1_name);
         myfirstWarCard = myCard;
-        placeCard(enemyHand, enemyNewHand, "Enemy");
+        placeCard(enemyHand, player_2_name);
         enemyfirstWarCard = enemyCard;
 
-        placeCard(myHand, myNewHand, "Jacek");
-        placeCard(enemyHand, enemyNewHand, "Enemy");
-        System.out.println("Draw mode.\nJacek's cards: " +  myfirstWarCard + ", " + myCard + "\nEnemy's cards: " +  enemyfirstWarCard + ", " + enemyCard);
-
+        if (!isWinner) {
+            placeCard(myHand, player_1_name);
+            placeCard(enemyHand, player_2_name);
+            System.out.println("Draw mode (war): \n" + player_1_name + "'s war cards: " + myfirstWarCard + ", " + myCard + "\n" + player_2_name + "'s war cards: " + enemyfirstWarCard + ", " + enemyCard);
+            myHand.handInfo(player_1_name);
+            enemyHand.handInfo(player_2_name);
+        }
         if (!isWinner) compareCards(true);
     }
 

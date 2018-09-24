@@ -1,12 +1,14 @@
 package WarCardGame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Hand {
 
     private int score;
     private ArrayList<Card> handCards;
     private boolean win = false;
+
 
     public Hand() {
         handCards = new ArrayList<>();
@@ -76,4 +78,13 @@ public class Hand {
         this.handCards = newHand.handCards;
         newHand.handCards = tempHand.handCards;
     }
+
+    public void addCardToHandEnd(Card card){
+        this.handCards.add(handCards.size(), card);
+    }
+
+    public void shuffle(){
+        Collections.shuffle(handCards);                     //potasowanie kart
+    }
+
 }

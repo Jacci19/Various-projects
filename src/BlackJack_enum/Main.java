@@ -17,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
 
 
+/*
         System.out.println("Initial checkings....");
         System.out.println("CroupierDeck:  " + croupierDeck.getCards());
         System.out.println("CroupierDeck' size:  " + croupierDeck.getCards().size());
@@ -27,6 +28,7 @@ public class Main {
         System.out.println("Card's value:  " + croupierDeck.getCards().get(2).getCardValue());
         System.out.println("Card's int value:  " + croupierDeck.getCards().get(2).getCardIntValue());
         System.out.println("Current result: " + myHand.getScore() + " : " + enemyHand.getScore());
+*/
 
         croupierDeck.shuffle();
         playGame("\n__________BLACKJACK__________\nHi. I'm the croupier of this game. Let's begin. I'm shuffling a deck and give you two cards: ");
