@@ -5,7 +5,7 @@ public class Card {
     private Suit cardSuit;
     private Value cardValue;
 
-    public Card(Suit suit, Value value) {
+    public Card(final Suit suit, final Value value) {
         cardSuit = suit;
         cardValue = value;
     }
