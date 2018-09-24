@@ -9,12 +9,12 @@ public class Main_War {
     private static Deck croupierDeck = new Deck();
 
     private static Card myCard = null, enemyCard = null;
-    private static Card myfirstWarCard = null, enemyfirstWarCard = null;
+    private static Card myfirstWarCard = null, enemyfirstWarCard = null, myZeroWarCard = null, enemyZeroWarCard = null;
     private static Boolean isWinner = false;
     private static int battleNumber = 0;
 
     private static String player_1_name = "Jacek";
-    private static String player_2_name = "Enemy";
+    private static String player_2_name = "Kamil";
 
     public static void main(String[] args) {
 
@@ -37,14 +37,12 @@ public class Main_War {
         croupierDeck.giveCards(26, myHand, false);
         croupierDeck.giveCards(26, enemyHand, false);
 
-        System.out.println("\n_______War Card Game________");
+        System.out.println("\n___________________________WAR Card Game___________________________________________");
+        System.out.println("Play: " + player_1_name + " vs " + player_2_name);
 
 
         while (!isWinner && battleNumber < 10000) {
-
-            myHand.handInfo(player_1_name);
-            enemyHand.handInfo(player_2_name);
-
+            showBothPlayersHandCards();
             battleNumber++;
             if (battleNumber % 500 == 0) {                           // co tyle rund tasujemy karty w ręce
                 myHand.shuffle();
@@ -87,36 +85,50 @@ public class Main_War {
     }
 
     private static void compareCards(Boolean drawMode) {
-        System.out.print("\nBattle " + battleNumber + ": " + myCard + " vs " + enemyCard);
+
+        if (!drawMode){
+            System.out.println("\n_____________________________________________________________________________________________");
+            System.out.println("Battle " + battleNumber + ": " + myCard + " vs " + enemyCard);
+        }
+        else System.out.println("\nWar Battle: " + myCard + " vs " + enemyCard);
+
         switch (myCard.compare(enemyCard)) {
             case "bigger":
                 myHand.addCardToHandEnd(myCard);
                 myHand.addCardToHandEnd(enemyCard);
                 if (drawMode) {
+                    myHand.addCardToHandEnd(myZeroWarCard);
+                    myHand.addCardToHandEnd(enemyZeroWarCard);
                     myHand.addCardToHandEnd(myfirstWarCard);
                     myHand.addCardToHandEnd(enemyfirstWarCard);
                 }
-                System.out.println("_________________________________Jacek's card wins");
+                if (!drawMode) System.out.println(" - " + player_1_name + " win cards: (" + myCard +  ", " + enemyCard + ")");
+                else System.out.println(" - " + player_1_name + " win cards: (" + myCard +  ", " + enemyCard +  ", " + myZeroWarCard +  ", " + enemyZeroWarCard +  ", " + myfirstWarCard +  ", " + enemyfirstWarCard + ")");
                 break;
 
             case "smaller":
-                enemyHand.addCardToHandEnd(myCard);
                 enemyHand.addCardToHandEnd(enemyCard);
+                enemyHand.addCardToHandEnd(myCard);
                 if (drawMode) {
-                    enemyHand.addCardToHandEnd(myfirstWarCard);
+                    enemyHand.addCardToHandEnd(enemyZeroWarCard);
+                    enemyHand.addCardToHandEnd(myZeroWarCard);
                     enemyHand.addCardToHandEnd(enemyfirstWarCard);
+                    enemyHand.addCardToHandEnd(myfirstWarCard);
                 }
-                System.out.println("_________________________________Enemy's card wins");
+                if (!drawMode) System.out.println(" - " + player_2_name + " win cards: (" + enemyCard + ", " + myCard + ")");
+                else System.out.println(" - " + player_2_name + " win cards: (" + enemyCard +  ", " + myCard +  ", " + enemyZeroWarCard +  ", " + myZeroWarCard +  ", " + enemyfirstWarCard +  ", " + myfirstWarCard + ")");
                 break;
 
             case "equal":
-                System.out.println("_________________________________D R A W____________");
+                System.out.println(" - DRAW mode (war): ");
                 drawProcedure();
                 break;
         }
     }
 
     private static void drawProcedure() {
+        myZeroWarCard = myCard;
+        enemyZeroWarCard = enemyCard;
         placeCard(myHand, player_1_name);
         myfirstWarCard = myCard;
         placeCard(enemyHand, player_2_name);
@@ -125,12 +137,16 @@ public class Main_War {
         if (!isWinner) {
             placeCard(myHand, player_1_name);
             placeCard(enemyHand, player_2_name);
-            System.out.println("Draw mode (war): \n" + player_1_name + "'s war cards: " + myfirstWarCard + ", " + myCard + "\n" + player_2_name + "'s war cards: " + enemyfirstWarCard + ", " + enemyCard);
-            myHand.handInfo(player_1_name);
-            enemyHand.handInfo(player_2_name);
+            System.out.println(player_1_name + "'s war cards: " + myfirstWarCard + ", " + myCard + "\n" + player_2_name + "'s war cards: " + enemyfirstWarCard + ", " + enemyCard);
+            showBothPlayersHandCards();
         }
         if (!isWinner) compareCards(true);
     }
 
+    private static void showBothPlayersHandCards(){
+        System.out.println();
+        myHand.handInfo(player_1_name);
+        enemyHand.handInfo(player_2_name);
+    }
 }
 
