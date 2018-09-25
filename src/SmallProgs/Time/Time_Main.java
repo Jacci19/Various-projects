@@ -1,4 +1,4 @@
-package Time;
+package SmallProgs.Time;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
