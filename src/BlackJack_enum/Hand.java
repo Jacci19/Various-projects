@@ -24,7 +24,7 @@ public class Hand {
    public void handInfo(final String who) {
 //        System.out.println("--" + who.toUpperCase().charAt(0) + who.substring(1) + " hand: " + this.getHandCards());       //aby who zaczynało się wielką literą a w następnej linii małą
        System.out.println(String.format("--%s%s hand: %s", who.toUpperCase().charAt(0), who.substring(1), this.getHandCards()));
-        System.out.println("--Sum of " + who + " hand's cards is: " + this.sumHandCardsValues());
+       System.out.println("--Sum of " + who + " hand's cards is: " + this.sumHandCardsValues());
    }
 
     public boolean getWin() {

@@ -1,13 +1,10 @@
 package WarCardGame;
 
-import java.util.Scanner;
-
 public class Main_War {
 
     private static Hand myHand = new Hand();
     private static Hand enemyHand = new Hand();
     private static Deck croupierDeck = new Deck();
-
     private static Card myCard = null, enemyCard = null;
     private static Card myfirstWarCard = null, enemyfirstWarCard = null, myZeroWarCard = null, enemyZeroWarCard = null;
     private static Boolean isWinner = false;
@@ -18,22 +15,7 @@ public class Main_War {
 
     public static void main(String[] args) {
 
-
-/*
-        System.out.println("Initial checkings....");
-        System.out.println("CroupierDeck:  " + croupierDeck.getCards());
-        System.out.println("CroupierDeck' size:  " + croupierDeck.getCards().size());
-        System.out.println("Your Hand:  " + myHand.getHandCards());
-        System.out.println("My Hand:  " + enemyHand.getHandCards());
-        System.out.println("Croupier's Card nr 2:  " + croupierDeck.getCards().get(2));
-        System.out.println("Card's suit:  " + croupierDeck.getCards().get(2).getCardSuit());
-        System.out.println("Card's value:  " + croupierDeck.getCards().get(2).getCardValue());
-        System.out.println("Card's int value:  " + croupierDeck.getCards().get(2).getCardIntValue());
-        System.out.println("Current result: " + myHand.getScore() + " : " + enemyHand.getScore());
-*/
-
         croupierDeck.shuffle();
-
         croupierDeck.giveCards(26, myHand, false);
         croupierDeck.giveCards(26, enemyHand, false);
 
@@ -69,19 +51,6 @@ public class Main_War {
             System.out.println(owner.toUpperCase() + " LOSES!");
             isWinner = true;
         }
-    }
-
-
-    private static String askPlayer(String question) {
-        Scanner inputKey;
-        String playerDecision;
-        do {
-            System.out.println(question + " (Y/N) ");
-            inputKey = new Scanner(System.in);
-            playerDecision = inputKey.next();
-        }
-        while (!playerDecision.equals("Y") && !playerDecision.equals("y") && !playerDecision.equals("N") && !playerDecision.equals("n"));
-        return playerDecision;
     }
 
     private static void compareCards(Boolean drawMode) {
@@ -150,3 +119,4 @@ public class Main_War {
     }
 }
 
+/* jest taki błąd że przy dwóch wojnach pod rząd giną dwie karty z gry, reszta wydaje się OK.*/

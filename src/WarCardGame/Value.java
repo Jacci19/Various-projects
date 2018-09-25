@@ -17,7 +17,7 @@ public enum Value {
 
     private final int value;
 
-    private Value(int value){               //konstruktor
+    Value(int value){               //konstruktor
         this.value = value;
     }
 
