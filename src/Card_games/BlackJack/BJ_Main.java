@@ -17,7 +17,6 @@ public class BJ_Main {
 
     public static void main(String[] args) {
 
-
 /*
         System.out.println("Initial checkings....");
         System.out.println("CroupierDeck:  " + croupierDeck.getCards());
