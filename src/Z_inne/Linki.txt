@@ -1,0 +1,20 @@
+Dokumentacja:
+
+https://docs.oracle.com/javase/8/docs/api/index-files/index-1.html
+
+
+
+
+Kursy Video:
+https://www.youtube.com/watch?v=wa8fZP6IBuU&list=PLTs20Q-BTEMMJHb4GWFT34PAWxYyzndIY         - Samuraj programowania  (POL)
+https://www.youtube.com/watch?v=IcXr1m0eBtY&list=PLED70A92187B1406A                         - CoraxTheTutor (POL)
+https://www.youtube.com/user/ExcelKurs/videos                                               - Zlote kursy (BlackJack) - Java kurs POL
+
+
+Inne:
+
+http://javadevmatt.pl/wp-content/uploads/2017/11/lista.jpg                                  - propozycje zadań
+https://pl.wikipedia.org/wiki/ASCII                                                         - tabela ASCII
+
+
+http://uczymysiekodowac.pl/wp-content/uploads/2016/05/lekcja_6_wyswietlanie-danych-na-ekranie1.004.jpeg         - znaki specjalne

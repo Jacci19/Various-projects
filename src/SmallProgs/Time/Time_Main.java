@@ -1,5 +1,6 @@
 package SmallProgs.Time;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -28,8 +29,13 @@ public class Time_Main {
         GregorianCalendar todayGC = new GregorianCalendar();
         System.out.println("\nDzisiejsza data GC: " + todayGC);
         System.out.printf("Dzisiejsza data GC POL: %tc\n", todayGC);
+        System.out.println(todayGC.get(Calendar.YEAR));
 
-
+        GregorianCalendar birthday = new GregorianCalendar(2019, 10, 11);        //miesiące liczymy od 0 (grudzień  = 11)
+        System.out.printf("Jakieś urodziny: %tc\n", birthday);
+        if (todayGC.before(birthday)){                                          // jest też after
+            System.out.println("Jest przed urodzinami");
+        }
 
     }
 }

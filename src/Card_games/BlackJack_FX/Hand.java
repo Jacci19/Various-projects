@@ -1,4 +1,4 @@
-package Card_games.BlackJack;
+package Card_games.BlackJack_FX;
 
 import java.util.ArrayList;
 
