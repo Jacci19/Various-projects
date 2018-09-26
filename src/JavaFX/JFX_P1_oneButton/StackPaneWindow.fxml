@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.JFX_P1_oneButton.StackPaneController">
+   <children>
+      <Button fx:id="btn1" lineSpacing="10.0" mnemonicParsing="false" onAction="#onActionBtn" onMouseEntered="#onMouseEnteredBtn" text="START" textFill="#1a4286" textOverrun="CLIP" underline="true" />
+   </children>
+</StackPane>
