@@ -4,3 +4,5 @@ import innych moich programów do Various projects
 
 BlacJackFX
 Main z AnchorPane działa a ze StackPane nie działa
+
+Opóznienia w javie

@@ -7,7 +7,7 @@ public class Deck {
 
     private ArrayList<Card> cards;
 
-    Deck() {                                     //wypełnienie talii 52 kartami
+    public Deck() {                                     //wypełnienie talii 52 kartami
         this.cards = new ArrayList<>();
         for (int s = 0; s < 4; s++){                                                //liczba kolorów (suits) w talii
             for (int v = 0; v < 13; v++){                                           //liczba wartości (values) w talii

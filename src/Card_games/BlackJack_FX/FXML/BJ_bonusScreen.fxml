@@ -2,16 +2,18 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_bonusControl">
+<AnchorPane fx:id="bonusAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_bonusControl">
     <children>
-        <Label layoutX="231.0" layoutY="96.0" text="BonusScreen">
+        <Label layoutX="439.0" layoutY="25.0" text="BonusScreen">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button fx:id="bonusReturnButton" layoutX="520.0" layoutY="351.0" mnemonicParsing="false" onAction="#bonusReturnButtonOnAction" text="Return" />
+        <Button fx:id="bonusReturnButton" layoutX="621.0" layoutY="14.0" mnemonicParsing="false" onAction="#bonusReturnButtonOnAction" prefHeight="62.0" prefWidth="120.0" text="Return" />
+      <ImageView fx:id="imgTest" fitHeight="260.0" fitWidth="173.0" layoutX="1013.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

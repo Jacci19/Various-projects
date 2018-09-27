@@ -5,14 +5,20 @@ public class Card {
 
     private Suit cardSuit;
     private Value cardValue;
+    private String imgFileName;
 
-    Card(final Suit suit, final Value value) {
+    public Card(final Suit suit, final Value value) {
         this.cardSuit = suit;
         this.cardValue = value;
+        this.imgFileName = value.toString() + "_" + suit.toString();
     }
 
     private int getCardIntValue() {
         return cardValue.getValue();
+    }
+
+    public String getImgFileName() {
+        return imgFileName;
     }
 
     public String toString(){

@@ -5,11 +5,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
     <children>
-        <Button fx:id="gameReturnButton" layoutX="509.0" layoutY="342.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" text="Return" />
-        <Label layoutX="230.0" layoutY="91.0" text="GameScreen">
+        <Button fx:id="gameReturnButton" layoutX="524.0" layoutY="502.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" text="Return" />
+        <Label layoutX="484.0" layoutY="129.0" text="GameScreen">
             <font>
                 <Font size="24.0" />
             </font>
