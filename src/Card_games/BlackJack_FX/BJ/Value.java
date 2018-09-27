@@ -1,4 +1,4 @@
-package Card_games.BlackJack;
+package Card_games.BlackJack_FX.BJ;
 
 public enum Value {
     Two(2),
