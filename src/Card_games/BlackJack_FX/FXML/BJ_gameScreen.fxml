@@ -1,16 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
+<AnchorPane fx:id="gameAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
     <children>
-        <Button fx:id="gameReturnButton" layoutX="524.0" layoutY="502.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" text="Return" />
-        <Label layoutX="484.0" layoutY="129.0" text="GameScreen">
+      <HBox layoutX="40.0" layoutY="35.0" prefHeight="27.0" prefWidth="143.0">
+         <children>
+            <Label contentDisplay="CENTER" text="Cards in deck: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="cardsInDeck" text="x">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="40.0" layoutY="363.0" prefHeight="63.0" prefWidth="1134.0" style="-fx-background-color: yellow;">
+         <children>
+            <Label fx:id="croupierLabel" prefHeight="63.0" prefWidth="1085.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding></Label>
+            <VBox fx:id="yesVBox" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="yesButton" mnemonicParsing="false" onAction="#yesButtonOnAction" prefHeight="64.0" prefWidth="100.0" text="YES">
+                     <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </VBox.margin></Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox fx:id="takeEnoughVBox" layoutX="1096.0" layoutY="529.0" spacing="9.0">
+         <children>
+            <Button fx:id="gameTakeButton" mnemonicParsing="false" onAction="#gameTakeButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="TAKE" />
+            <Button fx:id="gameEnoughButton" mnemonicParsing="false" onAction="#gameEnoughButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="ENOUGH" />
+         </children>
+      </VBox>
+      <Label fx:id="myScoreLabel" layoutX="1123.0" layoutY="437.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <Label fx:id="enemyScoreLabel" layoutX="1123.0" layoutY="282.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+        <Button fx:id="gameReturnButton" layoutX="1096.0" layoutY="706.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="RETURN" />
+        <Label layoutX="534.0" layoutY="12.0" text="BLACKJACK">
             <font>
-                <Font size="24.0" />
+                <Font name="System Bold" size="30.0" />
             </font>
         </Label>
     </children>

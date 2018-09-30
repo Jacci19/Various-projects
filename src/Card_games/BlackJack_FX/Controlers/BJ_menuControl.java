@@ -23,11 +23,11 @@ public class BJ_menuControl {
 
     @FXML
     public void gameButtonOnAction(ActionEvent event) throws IOException {
-        System.out.println("Wciœniêto gameButton");
+        System.out.println("Wcisnieto gameButton");
         FXMLLoader gameLoader = new FXMLLoader(this.getClass().getResource("../FXML/BJ_gameScreen.fxml"));      //wczytuje loader fxml planszy game
 
         //Pane gamePane = gameLoader.load();
-        AnchorPane gamePane = gameLoader.load();                    //³aduje fxml do g³ównego kontenera planszy game
+        AnchorPane gamePane = gameLoader.load();                    //?aduje fxml do g³ównego kontenera planszy game
         BJ_gameControl gameContr = gameLoader.getController();                  //wczytuje kontroler planszy game
         gameContr.setMainControl(mainControl);
         mainControl.setScreen(gamePane);                                        //ustawia w mainAnchorPane planszê game
@@ -37,7 +37,7 @@ public class BJ_menuControl {
 
     @FXML
     void bonusButtonOnAction(ActionEvent event)  throws IOException {
-        System.out.println("Wciœniêto bonusButton");
+        System.out.println("Wcisnieto bonusButton");
         FXMLLoader bonusLoader = new FXMLLoader(this.getClass().getResource("../FXML/BJ_bonusScreen.fxml"));
 
         AnchorPane bonusPane = bonusLoader.load();                      //³aduje fxml do g³ównego kontenera planszy bonus
@@ -48,7 +48,7 @@ public class BJ_menuControl {
 
     @FXML
     void exitButtonOnAction(ActionEvent event) {
-        System.out.println("Wciœniêto ExitBtn");
+        System.out.println("Wcisnieto ExitBtn");
         Platform.exit();
     }
 

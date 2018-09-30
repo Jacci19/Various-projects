@@ -13,7 +13,7 @@ public class Card {
         this.imgFileName = value.toString() + "_" + suit.toString();
     }
 
-    private int getCardIntValue() {
+    public int getCardIntValue() {
         return cardValue.getValue();
     }
 

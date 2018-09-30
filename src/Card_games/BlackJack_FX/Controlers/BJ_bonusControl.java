@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import java.util.concurrent.TimeUnit;
+
 
 import java.io.IOException;
 
@@ -22,6 +22,9 @@ public class BJ_bonusControl {
 
     @FXML
     void bonusReturnButtonOnAction(ActionEvent event)   throws IOException {
+
+        mainControl.loadMenuScreen();
+
 
 
 /*
@@ -42,15 +45,15 @@ public class BJ_bonusControl {
             }
         }
 */
-
-
-        mainControl.loadMenuScreen();
     }
+
+
     @FXML
     private ImageView imgTest;
 
     @FXML
     public void initialize() throws IOException {
+/*
         Card card1 = new Card(Suit.Club, Value.Jack);
         setImg(imgTest, card1);
 
@@ -59,22 +62,20 @@ public class BJ_bonusControl {
         placeCard(new Card(Suit.Club, Value.King), 60, 600, 0);
         placeCard(new Card(Suit.Diamond, Value.Two), 70, 600, 10);
         placeCard(new Card(Suit.Spade, Value.Ace), 80, 600, 20);
+*/
 
-        for (int i=0; i<30; i++){
-            placeCard(new Card(Suit.Heart, Value.King),  100+(18*i), 100+(2*i), i * 10);
+        for (int i=0; i<50; i++){
+            placeCard(new Card(Suit.Heart, Value.King),  80+(18*i), 50+(2*i), i * 8);
         }
 
 
         Deck deck = new Deck();
         int j = 0;
         for (Card card: deck.getCards()){
-            placeCard(card,  10+(10*j), 360+(2*j), j * 10);
+            placeCard(card,  10+(15*j), 400+(2*j), j * 9);
             j++;
         }
-
-
     }
-
 
     public void setMainControl(BJ_mainControl mainCtrl) {
         this.mainControl = mainCtrl;
@@ -85,7 +86,7 @@ public class BJ_bonusControl {
        imageView.setImage(img);
     }
 
-    void placeCard(Card card, int x, int y, int angle){
+    public void placeCard(Card card, int x, int y, int angle){
         ImageView imgView = new ImageView();
         imgView.setX((double)(x));
         imgView.setY((double)(y));

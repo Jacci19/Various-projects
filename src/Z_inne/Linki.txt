@@ -8,8 +8,9 @@ https://docs.oracle.com/javase/8/docs/api/index-files/index-1.html
 Kursy Video:
 https://www.youtube.com/watch?v=wa8fZP6IBuU&list=PLTs20Q-BTEMMJHb4GWFT34PAWxYyzndIY         - Samuraj programowania  (POL)
 https://www.youtube.com/watch?v=IcXr1m0eBtY&list=PLED70A92187B1406A                         - CoraxTheTutor (POL)
-https://www.youtube.com/user/ExcelKurs/videos                                               - Zlote kursy (BlackJack) - Java kurs POL
-
+https://www.youtube.com/user/ExcelKurs/videos                                               - Zlote kursy (BlackJack) - Java kurs POL  (blackjack)
+https://www.youtube.com/watch?v=0ii0-1FGCig&list=PL0NHOHZVAjfDo3lN3Ae13vJDd8lW_-K0B         - K B  (POL)
+https://www.youtube.com/watch?v=rEzzJaoC6uo&list=PLpzwMkmxJDUwQuQR7Rezut5UE_8UGDxkU         - ZacznijProgramowac - kurs JavaFX POL (52 lekcje)
 
 Inne:
 

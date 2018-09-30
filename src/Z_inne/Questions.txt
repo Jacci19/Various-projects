@@ -6,3 +6,6 @@ BlacJackFX
 Main z AnchorPane działa a ze StackPane nie działa
 
 Opóznienia w javie
+
+Usuwanie niepotrzebnych plików z projektu w git
+
