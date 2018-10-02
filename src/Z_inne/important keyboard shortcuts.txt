@@ -10,7 +10,7 @@ Reformat code               CTRL + ALT + L
 Optimize imports            CTRL + ALT + O
 Generate method             ALT + INSERT
 Code Completion             CTRL + SPACE
-Surround code block         CTRL + ALT + T
+Surround code block         CTRL + ALT + T                                      - otaczanie kodu przez if, try, while itp.
 Delete line                 CTRL + Y
 Copy line                   CTRL + D
 Navigate open tabs          ALT + left-arrow ALT + right-arrow
@@ -38,3 +38,4 @@ System.out.println();       sout
 
 ALT + 7         - pokazuje strukturę otwartej klasy
 2 x L Shift     - Wyszukiwanie
+CTRL + SHIFT + UP(DOWN) - przenoszenie jednej linii kodu w górę (w dół)
