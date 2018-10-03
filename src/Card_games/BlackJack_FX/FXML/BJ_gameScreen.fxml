@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
+<AnchorPane fx:id="gameAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
     <children>
-      <HBox layoutX="40.0" layoutY="35.0" prefHeight="27.0" prefWidth="143.0">
+      <HBox layoutX="40.0" layoutY="35.0" prefHeight="27.0" prefWidth="143.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label contentDisplay="CENTER" text="Cards in deck: ">
                <font>
@@ -27,7 +27,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox layoutX="40.0" layoutY="363.0" prefHeight="63.0" prefWidth="1134.0" style="-fx-background-color: yellow;">
+      <HBox layoutY="363.0" prefHeight="63.0" prefWidth="1134.0" style="-fx-background-color: yellow;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="26.0">
          <children>
             <Label fx:id="croupierLabel" prefHeight="63.0" prefWidth="1085.0">
                <font>
@@ -49,24 +49,24 @@
             </VBox>
          </children>
       </HBox>
-      <VBox fx:id="takeEnoughVBox" layoutX="1096.0" layoutY="529.0" spacing="9.0">
+      <VBox fx:id="takeEnoughVBox" layoutX="1096.0" layoutY="529.0" spacing="9.0" AnchorPane.bottomAnchor="104.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Button fx:id="gameTakeButton" mnemonicParsing="false" onAction="#gameTakeButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="TAKE" />
             <Button fx:id="gameEnoughButton" mnemonicParsing="false" onAction="#gameEnoughButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="ENOUGH" />
          </children>
       </VBox>
-      <Label fx:id="myScoreLabel" layoutX="1123.0" layoutY="437.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT">
+      <Label fx:id="myScoreLabel" layoutX="1123.0" layoutY="426.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="426.0">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>
       </Label>
-      <Label fx:id="enemyScoreLabel" layoutX="1123.0" layoutY="282.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT">
+      <Label fx:id="enemyScoreLabel" layoutX="1123.0" layoutY="297.0" prefHeight="42.0" prefWidth="74.0" text="0" textAlignment="RIGHT" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="300.0">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>
       </Label>
-        <Button fx:id="gameReturnButton" layoutX="1096.0" layoutY="706.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="RETURN" />
-        <Label layoutX="534.0" layoutY="12.0" text="BLACKJACK">
+        <Button fx:id="gameReturnButton" layoutX="1096.0" layoutY="706.0" mnemonicParsing="false" onAction="#gameReturnButtonOnAction" prefHeight="79.0" prefWidth="90.0" text="RETURN" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="14.0" />
+        <Label layoutX="534.0" layoutY="12.0" text="BLACKJACK" AnchorPane.rightAnchor="499.0" AnchorPane.topAnchor="9.0">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>

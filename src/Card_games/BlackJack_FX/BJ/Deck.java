@@ -1,7 +1,7 @@
 package Card_games.BlackJack_FX.BJ;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+//import javafx.beans.property.SimpleStringProperty;
+//import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -42,7 +42,7 @@ public class Deck {
             Card someCard = cards.get(0);
             cards.remove(0);
 
-            //setCardsInDeckValue(String.valueOf(this.cards.size()));
+           //setCardsInDeckValue(this.cards.size());                         // metoda zaimportowana z Card_games.BlackJack_FX.Controlers.BJ_gameControl
 
             player.getHandCards().add(someCard);
             placeCard(pane, someCard, player.getHandCards().size(), side);
