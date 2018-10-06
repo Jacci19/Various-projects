@@ -1,0 +1,3 @@
+Blackjack_FX - zapis aktualnego wyniku do pliku tekstowego. W menu g³ównym wybór: nowa grs czy kontynuacja.
+
+Gra w statki

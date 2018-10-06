@@ -72,15 +72,23 @@ Metody przeci¹¿one - taka sama nazwa metody.
 
 Polimorfizm
 
-Klasy abstrakcyjne (str. 220)
+Klasy abstrakcyjne (str. 220)________________________
+
+U¿ywamy dla klas, których metody s¹ przes³aniane przez jej klasy pochodne, ale same równie¿ musz¹ posiadaæ definicje tych metod,
+¿eby mo¿na siê by³o odwo³aæ.
+
 U¿ywamy dla klas, które musz¹ byæ przes³oniete w klasach pochodnych bo same nie maj¹ odpowiedniej treœci.
-abstract typ nazwaMetody(lista-parametrow); (metoda ta nie ma cia³a, czyli tego co w nawiasach klamrowych{})
-nie mo¿na tworzyæ obiektów klasy abstrakcyjnej, obiekty mog¹ byæ tworzone z klasy pochodnej po tej bazowej abstrakcyjnej.
+    abstract typ nazwaMetody(lista-parametrow); //(metoda ta nie ma cia³a, czyli tego co w nawiasach klamrowych{})
+Nie mo¿na tworzyæ obiektów klasy abstrakcyjnej, obiekty mog¹ byæ tworzone z klasy pochodnej po tej bazowej abstrakcyjnej.
 
 Final - u¿ycie go przy klasie lub metodzie blokuje mo¿liwoœc tworzenia i klas, metod pochodnych (str. 223)
 
 Klasa Object - zdefiniowana domyœlnie w javie klasa bazowa wszystkich innych klas. (str.225)
 
+LINK____:   https://youtu.be/gfQjtVZ35bM?list=PLED70A92187B1406A&t=381      - corax o polimorfizmie
+LINK____:   https://youtu.be/e-s0LpwFjoI?list=PLED70A92187B1406A&t=59       - corax o klasach abstrakcyjnych i rzutowaniu obiektów
+
+Je¿eli choæ jedna metoda w klasie jest jako abstract to ca³a klasa te¿ musi mieæ dopisek abstract.
 
 _________________________
 Rozdz. 8 Pakiety i interfejsy (str. 227)
@@ -94,7 +102,7 @@ Ka¿dy pakiet tworzy oddzielny katalog na dysku w którym zapisywane s¹ pliki nale
 Pakiety mo¿na zagnie¿d¿aæ, zagnie¿d¿aj¹ siê wtedy te¿ katalogi.
 np. package pakiet1.pakiet2.pakiet3;
 
-Tabel dostêpnoœci (str.231) public, private, protected...
+Tabela dostêpnoœci (str.231) public, private, protected...
 
 S³owo import
 import pakiet.klasa 
@@ -111,6 +119,8 @@ Aby zaimplementowaæ interfejs u¿ywamy s³owa implements
 class nazwaKlasy extends klasaBazowa implements nazwaInterfejsu{....}		//extends klasaBazowa - element opcjonalny
 zmienne i metody od interfejsu musz¹ byæ public.
 Interfejsy mog¹ dzidziczyc po innych interfejsach
+
+Jeœli implementujemy interfejs do klasy abstrakcyjnej to w tej klasie nie musimy definiowaæ metod tego interfejsu. Robimy to w klasach podrzêdnych.
 
 Metoda domyœlna (str. 246) - default, stosujemy w interfejsie. Jesli zawiera domyœln¹ implementacjê nie trzeba jej póŸniej przes³aniaæ.
 
@@ -144,6 +154,8 @@ Wyjatki wbudoawane w Javê, niesprawdzane i sprawdzane, tabela. (str. 269)
 
 Tworzenie klas pochodnych wyj¹tków (gdy chce siê zrobiæ swój w³asny wyj¹tek).
 
+system.err.println("jakaœ wiadomoœæ") - wypisuje coœ w konsoli na czerwono (tak jak b³êdy)
+
 _________________________
 Rozdz. 10 Obs³uga wejœcia i wyjœcia (str. 275)
 Strumienie bajtowe (InputStream, OutputStream)
@@ -160,3 +172,16 @@ Mozna zapisywaæ-odczytywaæ z pliku sekwencyjnie albo u¿yæ RandomAccessFile.
 U¿ywanie printWriter zamiast sout (str. 297). (do profesjopnalnych zastosowañ lepsze od sout.
 
 Klasy opakowuj¹ce - konwersja wczytanego np. z klawiatury formatu na inny.
+
+___________________________
+ArrayList
+
+ArrayList<Integer> tablica = new ArrayList<Integer>;    //deklaracja
+
+NIE MO¯NA napisaæ: ArrayList<int> tablica = new ArrayList<int>;
+
+Mo¿na dodaæ na koñcu pocz¹tkow¹ wielkoœæ tablicy:
+ArrayList<Integer> tablica = new ArrayList<Integer>(20);
+Listy s¹ wolniejsze od zwyk³ych tablic ale czêsto bardziej u¿yteczne.
+
+Aby zrobiæ coœ dla wszystkich elementów arraylist u¿ywamy: for (int i: tablica){...}

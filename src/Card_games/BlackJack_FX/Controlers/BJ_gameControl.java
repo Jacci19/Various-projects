@@ -11,8 +11,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
+
+import Card_games.BlackJack_FX.BJ.Deck.*;
+
 
 public class BJ_gameControl {
 
@@ -57,7 +59,7 @@ public class BJ_gameControl {
         addReversCard();
         takeEnoughVBox.setVisible(false);
         cardsInDeck.setText(String.valueOf(croupierDeck.getCards().size()));
-        croupierLabel.setText("Welcome. I'm the croupier of this game. Can we start?.");
+        croupierLabel.setText("Welcome. I'm the croupier of this game. Can we start?");
     }
 
 
@@ -80,6 +82,7 @@ public class BJ_gameControl {
     @FXML
     void gameTakeButtonOnAction(ActionEvent event) {
         croupierDeck.giveCards(gameAnchorPane, 1, myHand, "down");
+        cardsInDeck.setText(  String.valueOf(croupierDeck.getCards().size())  );                        //odswie¿enie wartoœci labela
         if (myHand.sumHandCardsValues() >= overloadValue) overload = true;
         if (overload) {
             croupierLabel.setText("Sum of your cards: " + myHand.sumHandCardsValues() + "\nYou overloaded! YOU LOSE.");
@@ -98,6 +101,7 @@ public class BJ_gameControl {
     @FXML
     void yesButtonOnAction(ActionEvent event) {
 
+        cardsInDeck.setText(  String.valueOf(croupierDeck.getCards().size())  );                        //odswie¿enie wartoœci labela
         switch (gamePart) {
             case 1:                                                                                     //_1_pocz¹tek gry
                 croupierLabel.setText("Welcome. I'm the croupier of this game. Can we start?.");
@@ -215,9 +219,13 @@ public class BJ_gameControl {
         gameAnchorPane.getChildren().add(imgView);
     }
 
+
+
 /*
     public static void setCardsInDeckValue(int value){
         cardsInDeck.setText(String.valueOf(value));
     }
 */
+
+
 }
