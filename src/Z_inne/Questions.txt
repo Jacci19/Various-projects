@@ -3,9 +3,10 @@ https://youtu.be/X-V9Wk3fQ-E?list=PLED70A92187B1406A&t=520        - czy w intell
 import innych moich programów do Various projects
 
 BlacJackFX
-Main z AnchorPane działa a ze StackPane nie działa
+Kubiak_5_Main z AnchorPane działa a ze StackPane nie działa
 
 Opóznienia w javie
 
 Usuwanie niepotrzebnych plików z projektu w git
 
+export gotowego programu

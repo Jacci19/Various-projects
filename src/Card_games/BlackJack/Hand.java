@@ -1,5 +1,6 @@
 package Card_games.BlackJack;
 
+
 import java.util.ArrayList;
 
 public class Hand {
@@ -49,4 +50,5 @@ public class Hand {
         handCards.clear();
         setWin(false);
     }
+
 }
