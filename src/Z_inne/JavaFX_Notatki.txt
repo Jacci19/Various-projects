@@ -42,3 +42,15 @@ Hgrow - Always - dopasowuje swój rozmiar aby wypełnić całą szerokość okna
 hbox.setPadding(new Insets(10)) - ustawienie paddingu dla wszystkich czterech stron ( nie trzeba każdej strony ustawiać oddzielnie)
 
 USE_COMPUTED_SIZE - dopsowywanie rozmiaru okna do rozmiaru jego zawartości.
+
+
+Resource bundles
+Intellij -> PPM - new - resource bundle - + i tworzymy wersje wielojęzykowe
+piszemy inicjacje w main
+Scene Builder -> Preview - Internationalization - Set resource, wybieramy plik bundle. Potem koło zębate przy rubryce Text
+
+
+
+
+
+Settings-Editor - FileEncodings - properties file - zmienił na UTF-8 i zahaczył checkboxa
