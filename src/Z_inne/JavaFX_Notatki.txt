@@ -32,7 +32,13 @@ BorderPane
 - do każdej strefy można dorzucić jakiś kontener
 
 
+ToggleButton - przycisk dwustanowy, po wciśnięciu pozostaje wciśnięty aż do ponownego wciśnięcia.
+ToggleGroup - grupowanie togglebuttonów. W danej grupie może być wciśnięty tylko jeden. Wciśnięcie drugiego powoduje wyciśnięcie pierwszego.
+
+
 
 Spacing - ustalenie odległości pomiędzy elementami
 Hgrow - Always - dopasowuje swój rozmiar aby wypełnić całą szerokość okna
 hbox.setPadding(new Insets(10)) - ustawienie paddingu dla wszystkich czterech stron ( nie trzeba każdej strony ustawiać oddzielnie)
+
+USE_COMPUTED_SIZE - dopsowywanie rozmiaru okna do rozmiaru jego zawartości.
