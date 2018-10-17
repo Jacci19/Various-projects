@@ -17,9 +17,9 @@
       </ToggleButton>
       <ToggleButton mnemonicParsing="false" onAction="#onListaKsiazekAction" prefHeight="80.0" prefWidth="150.0" text="%list.of.books" toggleGroup="$toggleButtons" />
       <ToggleButton mnemonicParsing="false" onAction="#onStatystykiAction" prefHeight="80.0" prefWidth="150.0" text="%stats" toggleGroup="$toggleButtons" />
-      <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#onAddBookAction" prefHeight="80.0" prefWidth="150.0" text="%add.book">
+      <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#onAddBookAction" prefHeight="80.0" prefWidth="164.0" text="%add.book">
          <graphic>
-            <ImageView fitHeight="59.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="47.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Icons/book-opened.png" />
                </image>

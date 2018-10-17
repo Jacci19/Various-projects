@@ -1,6 +1,7 @@
 package JavaFX.MojaBiblioteczka.Controllers;
 
-import JavaFX.MojaBiblioteczka.Dialogs.DialogsUtils;
+import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
+import JavaFX.MojaBiblioteczka.Utils.FxmlUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,17 +31,7 @@ public class MainController {
     }
 
     public void setCenter(String fxmlPath){
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(fxmlPath));                //skopiowane z Main (3 linie + czwarta przerobiona na parent
-        ResourceBundle bundle = ResourceBundle.getBundle("JavaFX.MojaBiblioteczka.Bundles.messages");
-        loader.setResources(bundle);
-        Parent parent = null;
-        try {
-            parent = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        borderPane.setCenter(parent);
+        borderPane.setCenter(FxmlUtils.fxmlLoader(fxmlPath));
     }
 
     public void onZamknijMItemAction() {
@@ -66,6 +57,6 @@ public class MainController {
     }
 
     public void onMItemAboutAction() {
-        DialogsUtils.dialogAboutApplication();                                      //wywołanie okna (alert) z Dialogs/DialogUtils
+        DialogsUtils.dialogAboutApplication();                                      //wywołanie okna (alert) z Utils/DialogUtils
     }
 }
