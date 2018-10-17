@@ -1,9 +1,14 @@
 package JavaFX.MojaBiblioteczka.Controllers;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -33,5 +38,27 @@ public class MainController {
         }
 
         borderPane.setCenter(parent);
+    }
+
+    public void onZamknijMItemAction() {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public void onMItemCaspianAction() {
+        Application.setUserAgentStylesheet(Application.STYLESHEET_CASPIAN);
+    }
+
+    public void onMItemModenaAction() {
+        Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
+    }
+
+    public void onMItemZawszeWierzchAction(ActionEvent myActionEvent) {
+        Stage myStage = (Stage)borderPane.getScene().getWindow();
+        boolean value = ((CheckMenuItem)myActionEvent.getSource()).selectedProperty().get();
+        myStage.setAlwaysOnTop(value);
+    }
+
+    public void onMItemAboutAction() {
     }
 }
