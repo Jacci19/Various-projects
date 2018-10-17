@@ -22,7 +22,7 @@ public class TopMenuButtonsController {
     }
     @FXML
     public void onListaKsiazekAction() {
-        mainController.setCenter(LIST_BOOKS_FXML);
+        mainController.setCenter(LIST_BOOKS_FXML);                                                      //setCenter zdefiniowane jest w MainController
     }
     @FXML
     public void onStatystykiAction() {

@@ -19,3 +19,8 @@ https://pl.wikipedia.org/wiki/ASCII                                             
 
 
 http://uczymysiekodowac.pl/wp-content/uploads/2016/05/lekcja_6_wyswietlanie-danych-na-ekranie1.004.jpeg         - znaki specjalne
+
+
+
+
+https://code.makery.ch/blog/javafx-dialogs-official/   - okna alert

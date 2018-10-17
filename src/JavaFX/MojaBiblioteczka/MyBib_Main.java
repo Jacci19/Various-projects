@@ -20,7 +20,7 @@ public class MyBib_Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("FXML/BorderPaneMain.fxml"));
 
-        Locale.setDefault(new Locale("pl"));                                                            //jak zmienimy na "en" to będą przyciski po angielsku
+        Locale.setDefault(new Locale("en"));                                                            //jak zmienimy na "en" to będą przyciski po angielsku
         ResourceBundle bundle = ResourceBundle.getBundle("JavaFX.MojaBiblioteczka.Bundles.messages");
         loader.setResources(bundle);
 
