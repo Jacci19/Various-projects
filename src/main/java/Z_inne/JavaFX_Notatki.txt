@@ -1,0 +1,56 @@
+﻿Pane
+- dowolne układanie kontrolek - brak zarządzania dziećmi, zmiana rozmiaru zjada kontrolki
+
+Group
+- nie możemy ustawić rozmiaru, rozmiar automatycznie dostosowuje się do zawartości. 
+- Kolejne elementy nakładaja się na siebie dopóki ich nie przesuniemy
+- mozna użyć np. do wymuszenia poziomego układu przycisków w VBox
+
+HBox
+ - układa swoje elementy poziomo, sąsiadująco
+ - niemożna przesuwać elementów poprzez Layout X, Lauout Y
+ - zmiana rozmiaru okna odpowiednio zwęża każdą kontrolkę
+VBox
+ - układa swoje elementy pionowo, sąsiadująco
+ - zmiana rozmiaru okna zjada kontrolki
+ 
+FlowPane
+- połączenie hbox i vbox. Można regulować orientację (pion-poziom)
+- jak elementy nie mieszczą się w wierszu (kolumnie) to są przerzucane do następnego wiersza (kolumny) - także podczas skalowania okna
+
+GridPane
+- podzielony na komórki, w każdyej może być jakaś kontrolka
+- skomplikowany kod w fxml i javie
+- każdy wiersz i kolumna ma swoje właściwości
+
+AnchorPane 
+-można ustalać stałe odległości kontrolek od jego krawędzi
+-stałe odległości kontrolek od krawędzi anchorPanea są zachowywane przy zmianie rozmiaru okna
+
+BorderPane 
+- ma 5 stref: Top, Bottom, Right, left, Center
+- do każdej strefy można dorzucić jakiś kontener
+
+
+ToggleButton - przycisk dwustanowy, po wciśnięciu pozostaje wciśnięty aż do ponownego wciśnięcia.
+ToggleGroup - grupowanie togglebuttonów. W danej grupie może być wciśnięty tylko jeden. Wciśnięcie drugiego powoduje wyciśnięcie pierwszego.
+
+
+
+Spacing - ustalenie odległości pomiędzy elementami
+Hgrow - Always - dopasowuje swój rozmiar aby wypełnić całą szerokość okna
+hbox.setPadding(new Insets(10)) - ustawienie paddingu dla wszystkich czterech stron ( nie trzeba każdej strony ustawiać oddzielnie)
+
+USE_COMPUTED_SIZE - dopsowywanie rozmiaru okna do rozmiaru jego zawartości.
+
+
+Resource bundles
+Intellij -> PPM - new - resource bundle - + i tworzymy wersje wielojęzykowe
+piszemy inicjacje w main
+Scene Builder -> Preview - Internationalization - Set resource, wybieramy plik bundle. Potem koło zębate przy rubryce Text
+
+
+
+
+
+Settings-Editor - FileEncodings - properties file - zmienił na UTF-8 i zahaczył checkboxa

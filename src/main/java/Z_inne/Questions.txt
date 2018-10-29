@@ -1,0 +1,12 @@
+https://youtu.be/X-V9Wk3fQ-E?list=PLED70A92187B1406A&t=520        - czy w intellij da się podobnie szybko przejśc do dokumentacji jak tu w eclipse
+
+import innych moich programów do Various projects
+
+BlacJackFX
+Kubiak_5_Main z AnchorPane działa a ze StackPane nie działa
+
+Opóznienia w javie
+
+Usuwanie niepotrzebnych plików z projektu w git
+
+export gotowego programu
