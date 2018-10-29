@@ -1,9 +1,0 @@
-Import z git do Intellij
-
-File - New - Project from version control - git
-Po imporcie: File - project structure.
-Project - Project SDK - wybieramy java 1.8
-Project - Project compiler output - wybieramy ścieżkę do katalogu out, może go nie być więc go stwórzmy obok katalogu src
-Modules - Sources - PPM na katalogu src i wybieramy Sources
-
-Language level - tu jest 8

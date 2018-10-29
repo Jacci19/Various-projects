@@ -1,0 +1,17 @@
+______________________________________________________________
+Przeróbka zwykłego programu na Maven
+______________________________________________________________
+PPM na Project -> add framework support -> maven
+File -> Project Structure -> Language level -> ustaw 8
+File -> Settings -> Editor -> File Encodings -> Ustaw wszędzie UTF-8
+File | Settings | Build, Execution, Deployment | Compiler | Java Compiler - ustaw na 1.8
+
+Główny folder zmienił się na src/main/Java
+Resourcesy (FXML,Bundles, icons) powinny być w src/main/resources
+
+Powinny już działać programy nie-javaFX.
+
+Naprawiamy JavaFX.
+Przenosimy katalogi typu (FXML, Bundles, icons, img) do resources (najlepiej w takiej strukturze podkatalogów jak było wcześniej w katalogu "java"
+Sprawdzamy ścieżki. Jak odwołujemy się z katalogu "java" do katalogu "resources" to ścieżkę podajemy zaczynając od "/" i podkatalogu katalogu "resources". Możemy skorzystać z opcji "copy relative path spod PPM."
+W Project Structure katalog resources powinien być poprawnie ustawiony.
