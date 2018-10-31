@@ -1,187 +1,187 @@
-Herbert Schildt - JAVA. Przewodnik dla pocz¹tkuj¹cych
+Herbert Schildt - JAVA. Przewodnik dla poczÄ…tkujÄ…cych
 MOJE NOTATKI
 
 
 Lekcja 5
-metody, metody zwracaj¹ce wartoœæ
-Jeœli stworzymy dwie metody o tej samej nazwie ale ró¿nych typach (np. int i float) a potem wywo³amy nazwê tej metody to zostanie wywo³ana ta metoda której zgadza siê typ przekazywanego argumentu. 
+metody, metody zwracajÄ…ce wartoÅ›Ä‡
+JeÅ›li stworzymy dwie metody o tej samej nazwie ale rÃ³Å¼nych typach (np. int i float) a potem wywoÅ‚amy nazwÄ™ tej metody to zostanie wywoÅ‚ana ta metoda ktÃ³rej zgadza siÄ™ typ przekazywanego argumentu. 
 
-Klasy piszemy z wielkiej litery, metody i zmienne - z ma³ej.
+Klasy piszemy z wielkiej litery, metody i zmienne - z maÅ‚ej.
 
-W Javie mo¿emy dziedziczyæ tylko po jednej klasie nadrzêdne. Nie ma wielodziedziczenia. Nie mo¿na zapisaæ: "public class Dog extends klasa1, klasa2"
+W Javie moÅ¼emy dziedziczyÄ‡ tylko po jednej klasie nadrzÄ™dne. Nie ma wielodziedziczenia. Nie moÅ¼na zapisaÄ‡: "public class Dog extends klasa1, klasa2"
 
-private - dostêpne tylko w tej klesie
-public - dostêpne w ca³ym projekcie
-protected - dostêpne w klasach pochodnych i klasach z tego pakietu 
-nic - modyfikator domyœlny - dostêpne w klasach z tego samego pakietu
+private - dostÄ™pne tylko w tej klesie
+public - dostÄ™pne w caÅ‚ym projekcie
+protected - dostÄ™pne w klasach pochodnych i klasach z tego pakietu 
+nic - modyfikator domyÅ›lny - dostÄ™pne w klasach z tego samego pakietu
 
 
 Wyr1 ? Wyr2 : Wyr3   
-SprawdŸ Wyr 1, jeœli jest Wyr1=true to wykonaj Wyr2, jeœli Wyr1=false to wykonaj wyr3
+SprawdÅº Wyr 1, jeÅ›li jest Wyr1=true to wykonaj Wyr2, jeÅ›li Wyr1=false to wykonaj wyr3
 _________________________
 
-Rozdz.6 Wiêcej o metodach i klasach
-Jeœli przy klasie nie ma modyfikatora dostêpu to wtedy jest domyœlny: public.
+Rozdz.6 WiÄ™cej o metodach i klasach
+JeÅ›li przy klasie nie ma modyfikatora dostÄ™pu to wtedy jest domyÅ›lny: public.
 
-Argumenty metodom mo¿na przekazywaæ przez wartoœæ lub przez referencjê (str.165). Raz Ÿród³o siê modyfikuje( przez wartoœæ) a raz nie (przez referencjê).
-Jako argumenty mo¿na przekazywaæ te¿ obiekty. Metody mog¹ równie¿ zwracaæ obiekty jako wynik (return)
+Argumenty metodom moÅ¼na przekazywaÄ‡ przez wartoÅ›Ä‡ lub przez referencjÄ™ (str.165). Raz ÅºrÃ³dÅ‚o siÄ™ modyfikuje( przez wartoÅ›Ä‡) a raz nie (przez referencjÄ™).
+Jako argumenty moÅ¼na przekazywaÄ‡ teÅ¼ obiekty. Metody mogÄ… rÃ³wnieÅ¼ zwracaÄ‡ obiekty jako wynik (return)
 
-Przeci¹¿anie metod - Dwie lub wiêcej metod w tej samej klasie mo¿e mieæ t¹ sam¹ nazwê a ró¿ni¹ siê tylko deklaracjami parametrów. Nie wystarczy, ¿e bêd¹ siê ró¿niæ tylko zwracanym typem. Mo¿e wyst¹piæ konwersja typów(str. 170). Dziêki temu jedna metoda mo¿e realizowaæ dzia³ania dla ró¿nych typów danych wejœciowych. Nie trzeba dla ka¿dego typu pisaæ oddzielnej metody.
-Sygnatura - tak nazywamy metodê wraz z list¹ jej parametrów. Bez typu zwracanego przez metodê.
-Mo¿na te¿ przeci¹¿aæ konstruktory.
+PrzeciÄ…Å¼anie metod - Dwie lub wiÄ™cej metod w tej samej klasie moÅ¼e mieÄ‡ tÄ… samÄ… nazwÄ™ a rÃ³Å¼niÄ… siÄ™ tylko deklaracjami parametrÃ³w. Nie wystarczy, Å¼e bÄ™dÄ… siÄ™ rÃ³Å¼niÄ‡ tylko zwracanym typem. MoÅ¼e wystÄ…piÄ‡ konwersja typÃ³w(str. 170). DziÄ™ki temu jedna metoda moÅ¼e realizowaÄ‡ dziaÅ‚ania dla rÃ³Å¼nych typÃ³w danych wejÅ›ciowych. Nie trzeba dla kaÅ¼dego typu pisaÄ‡ oddzielnej metody.
+Sygnatura - tak nazywamy metodÄ™ wraz z listÄ… jej parametrÃ³w. Bez typu zwracanego przez metodÄ™.
+MoÅ¼na teÅ¼ przeciÄ…Å¼aÄ‡ konstruktory.
 
-Rekurencja - metoda wywo³uje sam¹ siebie. Musi zawieraæ jakiœ warunek aby jeden przebieg programu by³ bez rekurencji aby program siê nie zapêtli³ na sta³e.
+Rekurencja - metoda wywoÅ‚uje samÄ… siebie. Musi zawieraÄ‡ jakiÅ› warunek aby jeden przebieg programu byÅ‚ bez rekurencji aby program siÄ™ nie zapÄ™tliÅ‚ na staÅ‚e.
 
-Static - jeœli klasa jest static to mo¿na u¿ywaæ jej zanim zadeklarujemy pierwszy obiekt tej klasy
+Static - jeÅ›li klasa jest static to moÅ¼na uÅ¼ywaÄ‡ jej zanim zadeklarujemy pierwszy obiekt tej klasy
 
-Algorytm Quicksort - sortowanie tablicy szybsze ni¿ b¹belkowe
+Algorytm Quicksort - sortowanie tablicy szybsze niÅ¼ bÄ…belkowe
 
-Klasy zagnie¿d¿one - klasy zadeklarowane wewn¹trz innej klasy.
-Klasy wewnêtrzne - rodzaj klas zagnie¿d¿onych w których nie u¿yto s³owa static.
+Klasy zagnieÅ¼dÅ¼one - klasy zadeklarowane wewnÄ…trz innej klasy.
+Klasy wewnÄ™trzne - rodzaj klas zagnieÅ¼dÅ¼onych w ktÃ³rych nie uÅ¼yto sÅ‚owa static.
 
-Zmienne liczby argumentów (...)
+Zmienne liczby argumentÃ³w (...)
 
 _________________________
 Rozdz. 7 Dziedziczenie
 
-Ogólna postaæ: class klasa-pochodna extends klasa-bazowa{...cia³o klasy...}
-Klasa pochodna mo¿e dziedziczyæ tylko po jednej klasie bazowej ( w przeciwieñstwie do jêzyka C+)
-Hierarchia dziedziczenia - Klasa pochodna mo¿e byæ klas¹ bazowa dla innej klasy.
-Klasa pochodna nie ma dostêpu do sk³adowych klasy bazowej oznaczonych jako private.
+OgÃ³lna postaÄ‡: class klasa-pochodna extends klasa-bazowa{...ciaÅ‚o klasy...}
+Klasa pochodna moÅ¼e dziedziczyÄ‡ tylko po jednej klasie bazowej ( w przeciwieÅ„stwie do jÄ™zyka C+)
+Hierarchia dziedziczenia - Klasa pochodna moÅ¼e byÄ‡ klasÄ… bazowa dla innej klasy.
+Klasa pochodna nie ma dostÄ™pu do skÅ‚adowych klasy bazowej oznaczonych jako private.
 
-Konstruktor klasy bazowej tworzy tê czêœæ obiektu któr¹ definiuje klasa bazowa, a 
-konstruktor klasy pochodnej tworzy tê czêœæ obiektu któr¹ definiuje klasa pochodna.
+Konstruktor klasy bazowej tworzy tÄ™ czÄ™Å›Ä‡ obiektu ktÃ³rÄ… definiuje klasa bazowa, a 
+konstruktor klasy pochodnej tworzy tÄ™ czÄ™Å›Ä‡ obiektu ktÃ³rÄ… definiuje klasa pochodna.
 
-Super - s³owo kluczowe. ma dwa zastosowania:
-1. Wywo³anie konstruktora klasy bazowej
-super(lista-parametrów) - wywo³anie konstruktora klasy bazowej - musi zawsze wystêpowaæ na pocz¹tku konstruktora klasy pochodnej.
+Super - sÅ‚owo kluczowe. ma dwa zastosowania:
+1. WywoÅ‚anie konstruktora klasy bazowej
+super(lista-parametrÃ³w) - wywoÅ‚anie konstruktora klasy bazowej - musi zawsze wystÄ™powaÄ‡ na poczÄ…tku konstruktora klasy pochodnej.
 
-2. Dostêp do sk³adowych klasy bazowej przes³oniêtych przez sk³adow¹ klasy pochodnej. (str.203)
-postaæ ogólna: super.sk³adowa     - sk³adowa mo¿e byæ zmienn¹ lub metod¹. U¿ywamy gdy nazwa sk³adowej klasy pochodnej przes³ania tak¹ sam¹ nazwê klasy bazowej.
+2. DostÄ™p do skÅ‚adowych klasy bazowej przesÅ‚oniÄ™tych przez skÅ‚adowÄ… klasy pochodnej. (str.203)
+postaÄ‡ ogÃ³lna: super.skÅ‚adowa     - skÅ‚adowa moÅ¼e byÄ‡ zmiennÄ… lub metodÄ…. UÅ¼ywamy gdy nazwa skÅ‚adowej klasy pochodnej przesÅ‚ania takÄ… samÄ… nazwÄ™ klasy bazowej.
 
 Najpierw wykonywany jest konstruktor klasy bazowej a potem konstruktory klas coraz bardziej pochodnych (str.208)
 
-Referencje klasy bazowej i obiekty klasy pochodnej, czyli co mo¿na przypisywaæ do czego (str.209)
+Referencje klasy bazowej i obiekty klasy pochodnej, czyli co moÅ¼na przypisywaÄ‡ do czego (str.209)
 
-Przes³anianie metod.
-Klasa pochodna mo¿e mieæ tak¹ sam¹ metodê jak klasa bazowa (ten sam zwracany typ i ta sama sygnatura). Wywo³anie takiej metody w klasie pochodnej spowoduje wywo³anie metody zdefiniowanej w klasie pochodnej. Aby wywo³aæ przys³oniet¹ metodê z klasy bazowej nale¿y u¿yæ s³owa super, czyli: "super.nazwa_metody()".
+PrzesÅ‚anianie metod.
+Klasa pochodna moÅ¼e mieÄ‡ takÄ… samÄ… metodÄ™ jak klasa bazowa (ten sam zwracany typ i ta sama sygnatura). WywoÅ‚anie takiej metody w klasie pochodnej spowoduje wywoÅ‚anie metody zdefiniowanej w klasie pochodnej. Aby wywoÅ‚aÄ‡ przysÅ‚onietÄ… metodÄ™ z klasy bazowej naleÅ¼y uÅ¼yÄ‡ sÅ‚owa super, czyli: "super.nazwa_metody()".
 
-Nie mylmy przes³aniania z przeci¹¿aniem.
-Metody przes³oniête - taka sama sygnatura (nazwa + argumenty)
-Metody przeci¹¿one - taka sama nazwa metody.
+Nie mylmy przesÅ‚aniania z przeciÄ…Å¼aniem.
+Metody przesÅ‚oniÄ™te - taka sama sygnatura (nazwa + argumenty)
+Metody przeciÄ…Å¼one - taka sama nazwa metody.
 
 Polimorfizm
 
 Klasy abstrakcyjne (str. 220)________________________
 
-U¿ywamy dla klas, których metody s¹ przes³aniane przez jej klasy pochodne, ale same równie¿ musz¹ posiadaæ definicje tych metod,
-¿eby mo¿na siê by³o odwo³aæ.
+UÅ¼ywamy dla klas, ktÃ³rych metody sÄ… przesÅ‚aniane przez jej klasy pochodne, ale same rÃ³wnieÅ¼ muszÄ… posiadaÄ‡ definicje tych metod,
+Å¼eby moÅ¼na siÄ™ byÅ‚o odwoÅ‚aÄ‡.
 
-U¿ywamy dla klas, które musz¹ byæ przes³oniete w klasach pochodnych bo same nie maj¹ odpowiedniej treœci.
-    abstract typ nazwaMetody(lista-parametrow); //(metoda ta nie ma cia³a, czyli tego co w nawiasach klamrowych{})
-Nie mo¿na tworzyæ obiektów klasy abstrakcyjnej, obiekty mog¹ byæ tworzone z klasy pochodnej po tej bazowej abstrakcyjnej.
+UÅ¼ywamy dla klas, ktÃ³re muszÄ… byÄ‡ przesÅ‚oniete w klasach pochodnych bo same nie majÄ… odpowiedniej treÅ›ci.
+    abstract typ nazwaMetody(lista-parametrow); //(metoda ta nie ma ciaÅ‚a, czyli tego co w nawiasach klamrowych{})
+Nie moÅ¼na tworzyÄ‡ obiektÃ³w klasy abstrakcyjnej, obiekty mogÄ… byÄ‡ tworzone z klasy pochodnej po tej bazowej abstrakcyjnej.
 
-Final - u¿ycie go przy klasie lub metodzie blokuje mo¿liwoœc tworzenia i klas, metod pochodnych (str. 223)
+Final - uÅ¼ycie go przy klasie lub metodzie blokuje moÅ¼liwoÅ›c tworzenia i klas, metod pochodnych (str. 223)
 
-Klasa Object - zdefiniowana domyœlnie w javie klasa bazowa wszystkich innych klas. (str.225)
+Klasa Object - zdefiniowana domyÅ›lnie w javie klasa bazowa wszystkich innych klas. (str.225)
 
 LINK____:   https://youtu.be/gfQjtVZ35bM?list=PLED70A92187B1406A&t=381      - corax o polimorfizmie
-LINK____:   https://youtu.be/e-s0LpwFjoI?list=PLED70A92187B1406A&t=59       - corax o klasach abstrakcyjnych i rzutowaniu obiektów
+LINK____:   https://youtu.be/e-s0LpwFjoI?list=PLED70A92187B1406A&t=59       - corax o klasach abstrakcyjnych i rzutowaniu obiektÃ³w
 
-Je¿eli choæ jedna metoda w klasie jest jako abstract to ca³a klasa te¿ musi mieæ dopisek abstract.
+JeÅ¼eli choÄ‡ jedna metoda w klasie jest jako abstract to caÅ‚a klasa teÅ¼ musi mieÄ‡ dopisek abstract.
 
 _________________________
 Rozdz. 8 Pakiety i interfejsy (str. 227)
 
-Pakiety - grupy powi¹zanych klas. Pomagaja organizowaæ kod i tworz¹ kolejn¹ warstwê hermetyzacji.
-Interfejs - definiuje zbiór metod, które zostan¹ zaimplementowane przez klasê.
+Pakiety - grupy powiÄ…zanych klas. Pomagaja organizowaÄ‡ kod i tworzÄ… kolejnÄ… warstwÄ™ hermetyzacji.
+Interfejs - definiuje zbiÃ³r metod, ktÃ³re zostanÄ… zaimplementowane przez klasÄ™.
 
-Pakiety umo¿liwiaj¹ podzia³ przestrzeni nazw. Klasy w tym samym projekcie a w ró¿nych pakietach mog¹ mieæ t¹ sam¹ nazwê.
-ogólna postaæ: package nazwa-pakietu
-Ka¿dy pakiet tworzy oddzielny katalog na dysku w którym zapisywane s¹ pliki nale¿ace do tego pakietu.
-Pakiety mo¿na zagnie¿d¿aæ, zagnie¿d¿aj¹ siê wtedy te¿ katalogi.
+Pakiety umoÅ¼liwiajÄ… podziaÅ‚ przestrzeni nazw. Klasy w tym samym projekcie a w rÃ³Å¼nych pakietach mogÄ… mieÄ‡ tÄ… samÄ… nazwÄ™.
+ogÃ³lna postaÄ‡: package nazwa-pakietu
+KaÅ¼dy pakiet tworzy oddzielny katalog na dysku w ktÃ³rym zapisywane sÄ… pliki naleÅ¼ace do tego pakietu.
+Pakiety moÅ¼na zagnieÅ¼dÅ¼aÄ‡, zagnieÅ¼dÅ¼ajÄ… siÄ™ wtedy teÅ¼ katalogi.
 np. package pakiet1.pakiet2.pakiet3;
 
-Tabela dostêpnoœci (str.231) public, private, protected...
+Tabela dostÄ™pnoÅ›ci (str.231) public, private, protected...
 
-S³owo import
+SÅ‚owo import
 import pakiet.klasa 
-import pakiet.*    - ca³a zawartoœæ pakietu                                                                                                                                                             
+import pakiet.*    - caÅ‚a zawartoÅ›Ä‡ pakietu                                                                                                                                                             
 
-Przyk³ad wbudowanych pakietów Java (str. 235)
-java.lang - ten pakiet jest automatycznie importowany do ka¿dego programu w javie. Inne trzeba importowaæ samemu (s³owem import)
+PrzykÅ‚ad wbudowanych pakietÃ³w Java (str. 235)
+java.lang - ten pakiet jest automatycznie importowany do kaÅ¼dego programu w javie. Inne trzeba importowaÄ‡ samemu (sÅ‚owem import)
 
 
-Interfejs (str. 235) - Zbiór deklaracji metod i zmiennych bez cia³a, abstrakcyjnych
-dostêp interface nazwa{....}
+Interfejs (str. 235) - ZbiÃ³r deklaracji metod i zmiennych bez ciaÅ‚a, abstrakcyjnych
+dostÄ™p interface nazwa{....}
 
-Aby zaimplementowaæ interfejs u¿ywamy s³owa implements
+Aby zaimplementowaÄ‡ interfejs uÅ¼ywamy sÅ‚owa implements
 class nazwaKlasy extends klasaBazowa implements nazwaInterfejsu{....}		//extends klasaBazowa - element opcjonalny
-zmienne i metody od interfejsu musz¹ byæ public.
-Interfejsy mog¹ dzidziczyc po innych interfejsach
+zmienne i metody od interfejsu muszÄ… byÄ‡ public.
+Interfejsy mogÄ… dzidziczyc po innych interfejsach
 
-Jeœli implementujemy interfejs do klasy abstrakcyjnej to w tej klasie nie musimy definiowaæ metod tego interfejsu. Robimy to w klasach podrzêdnych.
+JeÅ›li implementujemy interfejs do klasy abstrakcyjnej to w tej klasie nie musimy definiowaÄ‡ metod tego interfejsu. Robimy to w klasach podrzÄ™dnych.
 
-Metoda domyœlna (str. 246) - default, stosujemy w interfejsie. Jesli zawiera domyœln¹ implementacjê nie trzeba jej póŸniej przes³aniaæ.
+Metoda domyÅ›lna (str. 246) - default, stosujemy w interfejsie. Jesli zawiera domyÅ›lnÄ… implementacjÄ™ nie trzeba jej pÃ³Åºniej przesÅ‚aniaÄ‡.
 
 
 _________________________
-Rozdz. 9 Obs³uga wyj¹tków (str. 253)
+Rozdz. 9 ObsÅ‚uga wyjÄ…tkÃ³w (str. 253)
 
-Podstawowe s³owa kluczowe: try, catch, throw, throws, finally
+Podstawowe sÅ‚owa kluczowe: try, catch, throw, throws, finally
 try{monitorowany kod}
-catch (typWyj¹tku1 obiektWyj¹tku){obs³uga dla typu wyj¹tku nr 1 }
-catch (typWyj¹tku2 obiektWyj¹tku){obs³uga dla typu wyj¹tku nr 2 }
+catch (typWyjÄ…tku1 obiektWyjÄ…tku){obsÅ‚uga dla typu wyjÄ…tku nr 1 }
+catch (typWyjÄ…tku2 obiektWyjÄ…tku){obsÅ‚uga dla typu wyjÄ…tku nr 2 }
 
-obiektWyj¹tku - obiekt przekazywany do klauzuli catch (w ksi¹¿ce" exc, nale¿y do klasy throwable, ma swoje metody) po przechwyceniu przez ni¹ wyj¹tku
-Monitorowanie odbywa siê w ca³ym kodzie zawartym w bloku try. Monitorowana te¿ jest zawartoœæ metod wywo³anych w try.
-Pêtle try mo¿na zagnie¿d¿aæ.
+obiektWyjÄ…tku - obiekt przekazywany do klauzuli catch (w ksiÄ…Å¼ce" exc, naleÅ¼y do klasy throwable, ma swoje metody) po przechwyceniu przez niÄ… wyjÄ…tku
+Monitorowanie odbywa siÄ™ w caÅ‚ym kodzie zawartym w bloku try. Monitorowana teÅ¼ jest zawartoÅ›Ä‡ metod wywoÅ‚anych w try.
+PÄ™tle try moÅ¼na zagnieÅ¼dÅ¼aÄ‡.
 
-Wyj¹tek mo¿emy utworzyæ sami instrukcj¹ throw (str. 262)
-throw new nazwaWyj¹tku();
-Throw mo¿e te¿ s³u¿yæ do ponownego wygenerowania wyj¹tku po jego wczeœniejszej obs³udze przez catch (¿eby inne catch mog³o go jeszcze obs³u¿yæ). Wtedy u¿ywamy te¿ rethrow dla nowego try.
+WyjÄ…tek moÅ¼emy utworzyÄ‡ sami instrukcjÄ… throw (str. 262)
+throw new nazwaWyjÄ…tku();
+Throw moÅ¼e teÅ¼ sÅ‚uÅ¼yÄ‡ do ponownego wygenerowania wyjÄ…tku po jego wczeÅ›niejszej obsÅ‚udze przez catch (Å¼eby inne catch mogÅ‚o go jeszcze obsÅ‚uÅ¼yÄ‡). Wtedy uÅ¼ywamy teÅ¼ rethrow dla nowego try.
 
-Nie trzeba dawaæ try do g³ównego kodu. Mo¿na zrobiæ oddzielny blok zajmuj¹cy siê tylko obs³ug¹ b³êdów (str. 264 list 9.11)
+Nie trzeba dawaÄ‡ try do gÅ‚Ã³wnego kodu. MoÅ¼na zrobiÄ‡ oddzielny blok zajmujÄ…cy siÄ™ tylko obsÅ‚ugÄ… bÅ‚Ä™dÃ³w (str. 264 list 9.11)
 
-finally (str. 265) - s³owem tym oznaczamy blok kodu który ma siê wykonaæ po zakoñczeniu wykonywania tego co w catch. Rozumiem, ¿e jak nie bêdzie b³edu to catch nie zadzia³a i finally siê nie wykona (jednak chyba zawsze siê wykona niezale¿nie czy b³¹d zaszed³).
+finally (str. 265) - sÅ‚owem tym oznaczamy blok kodu ktÃ³ry ma siÄ™ wykonaÄ‡ po zakoÅ„czeniu wykonywania tego co w catch. Rozumiem, Å¼e jak nie bÄ™dzie bÅ‚edu to catch nie zadziaÅ‚a i finally siÄ™ nie wykona (jednak chyba zawsze siÄ™ wykona niezaleÅ¼nie czy bÅ‚Ä…d zaszedÅ‚).
 
-throws (str. 266) - u¿ywamy gdy wyj¹tek trzeba zadeklarowaæ razem z metod¹
+throws (str. 266) - uÅ¼ywamy gdy wyjÄ…tek trzeba zadeklarowaÄ‡ razem z metodÄ…
 
-Jedno catch mo¿e przechwytywaæ kilka ró¿nych wyj¹tków. Wyj¹tki ³¹czy siê wtedy symbolem "|"
+Jedno catch moÅ¼e przechwytywaÄ‡ kilka rÃ³Å¼nych wyjÄ…tkÃ³w. WyjÄ…tki Å‚Ä…czy siÄ™ wtedy symbolem "|"
 
-Wyjatki wbudoawane w Javê, niesprawdzane i sprawdzane, tabela. (str. 269)
-£añcuchy wyj¹tków (gdy jeden wyjatek jest spowodowany przez inny.)
+Wyjatki wbudoawane w JavÄ™, niesprawdzane i sprawdzane, tabela. (str. 269)
+ÅaÅ„cuchy wyjÄ…tkÃ³w (gdy jeden wyjatek jest spowodowany przez inny.)
 
-Tworzenie klas pochodnych wyj¹tków (gdy chce siê zrobiæ swój w³asny wyj¹tek).
+Tworzenie klas pochodnych wyjÄ…tkÃ³w (gdy chce siÄ™ zrobiÄ‡ swÃ³j wÅ‚asny wyjÄ…tek).
 
-system.err.println("jakaœ wiadomoœæ") - wypisuje coœ w konsoli na czerwono (tak jak b³êdy)
+system.err.println("jakaÅ› wiadomoÅ›Ä‡") - wypisuje coÅ› w konsoli na czerwono (tak jak bÅ‚Ä™dy)
 
 _________________________
-Rozdz. 10 Obs³uga wejœcia i wyjœcia (str. 275)
+Rozdz. 10 ObsÅ‚uga wejÅ›cia i wyjÅ›cia (str. 275)
 Strumienie bajtowe (InputStream, OutputStream)
 Strumienie znakowe (Reader, Writer)
 
 Odczyt z pliku (str. 281)
 Zapis do pliku (str. 284)
 
-catch (IOException exc) - IOException jest bazowy dla szczegó³owych wyj¹tków wejscia-wyjœcia wiêc mo¿na u¿ywaæ jego jednego zamiast kilku podrzêdnych.
+catch (IOException exc) - IOException jest bazowy dla szczegÃ³Å‚owych wyjÄ…tkÃ³w wejscia-wyjÅ›cia wiÄ™c moÅ¼na uÅ¼ywaÄ‡ jego jednego zamiast kilku podrzÄ™dnych.
 
-try bez close - (str. 286) nowy sposób wywo³ywania try
-Mozna zapisywaæ-odczytywaæ z pliku sekwencyjnie albo u¿yæ RandomAccessFile.
+try bez close - (str. 286) nowy sposÃ³b wywoÅ‚ywania try
+Mozna zapisywaÄ‡-odczytywaÄ‡ z pliku sekwencyjnie albo uÅ¼yÄ‡ RandomAccessFile.
 
-U¿ywanie printWriter zamiast sout (str. 297). (do profesjopnalnych zastosowañ lepsze od sout.
+UÅ¼ywanie printWriter zamiast sout (str. 297). (do profesjopnalnych zastosowaÅ„ lepsze od sout.
 
-Klasy opakowuj¹ce - konwersja wczytanego np. z klawiatury formatu na inny.
+Klasy opakowujÄ…ce - konwersja wczytanego np. z klawiatury formatu na inny.
 
 ___________________________
 ArrayList
 
 ArrayList<Integer> tablica = new ArrayList<Integer>;    //deklaracja
 
-NIE MO¯NA napisaæ: ArrayList<int> tablica = new ArrayList<int>;
+NIE MOÅ»NA napisaÄ‡: ArrayList<int> tablica = new ArrayList<int>;
 
-Mo¿na dodaæ na koñcu pocz¹tkow¹ wielkoœæ tablicy:
+MoÅ¼na dodaÄ‡ na koÅ„cu poczÄ…tkowÄ… wielkoÅ›Ä‡ tablicy:
 ArrayList<Integer> tablica = new ArrayList<Integer>(20);
-Listy s¹ wolniejsze od zwyk³ych tablic ale czêsto bardziej u¿yteczne.
+Listy sÄ… wolniejsze od zwykÅ‚ych tablic ale czÄ™sto bardziej uÅ¼yteczne.
 
-Aby zrobiæ coœ dla wszystkich elementów arraylist u¿ywamy: for (int i: tablica){...}
+Aby zrobiÄ‡ coÅ› dla wszystkich elementÃ³w arraylist uÅ¼ywamy: for (int i: tablica){...}
