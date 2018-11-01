@@ -2,6 +2,8 @@ package JavaFX.MojaBiblioteczka.Controllers;
 
 import JavaFX.MojaBiblioteczka.ModelFx.CategoryFx;
 import JavaFX.MojaBiblioteczka.ModelFx.CategoryModel;
+import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,6 +22,9 @@ public class CategoryController {
 
     @FXML
     private Button deleteCategoryButton;
+  
+    @FXML
+    private Button editCategoryButton;
 
 
     private CategoryModel categoryModel;
@@ -33,8 +38,9 @@ public class CategoryController {
     }
 
     private void initBindings() {
-        this.addCategoryButton.disableProperty().bind(categoryTextField.textProperty().isEmpty());       //if textField is empty then button is disabled
-        this.deleteCategoryButton.disableProperty().bind(this.categoryModel.categoryProperty().isNull());    //if comboBoxField is empty then deleteBtn is disabled
+        this.addCategoryButton.disableProperty().bind(categoryTextField.textProperty().isEmpty());          //if textField is empty then button is disabled
+        this.deleteCategoryButton.disableProperty().bind(this.categoryModel.categoryProperty().isNull());   //if comboBoxField is empty then deleteBtn is disabled
+        this.editCategoryButton.disableProperty().bind(this.categoryModel.categoryProperty().isNull());     //if comboBoxField is empty then editBtn is disabled
     }
 
 
@@ -52,6 +58,15 @@ public class CategoryController {
     @FXML
     void onCategoryComboBoxAction() {
         this.categoryModel.setCategory(this.categoryComboBox.getSelectionModel().getSelectedItem());    //każdy wybór w comboBox ustawia odpowiednie category
+
+    }
+
+    public void onEditCategoryButtonAction(ActionEvent actionEvent) {
+        String newCategoryName = DialogsUtils.editDialog(this.categoryModel.getCategory().getName());        //do popupu wysyłamy starą wartość, user będzie mógł zamiast niej wpisać nową
+        if(newCategoryName != null){                                                                         //null is wtedy gdy user press cancel
+            this.categoryModel.getCategory().setName(newCategoryName);                                      //ustawiamy nową nazwę kategorii
+            this.categoryModel.updateCategoryInDataBase();                                                  //metoda z categoryModel
+        }
 
     }
 }

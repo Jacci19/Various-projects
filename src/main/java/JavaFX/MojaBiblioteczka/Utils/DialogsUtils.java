@@ -3,6 +3,7 @@ package JavaFX.MojaBiblioteczka.Utils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 
 
 import java.util.Optional;
@@ -36,5 +37,17 @@ public class DialogsUtils {
         TextArea myTextArea = new TextArea(error);
         errorAlert.getDialogPane().setContent(myTextArea);
         errorAlert.showAndWait();
+    }
+
+    public static String editDialog(String value){                                      //okno wyskakujące po wciśnięciu editCategory
+        TextInputDialog dialog = new TextInputDialog(value);
+        dialog.setTitle(bundle.getString("edit.title"));
+        dialog.setHeaderText(bundle.getString("edit.header"));
+        dialog.setContentText(bundle.getString("edit.content"));
+        Optional<String> result = dialog.showAndWait();                                                         //pobieramy wartość która będzie zmieniona w polu tekstowym
+        if (result.isPresent()){                                                    //jeżeli wartość faktycznie jest...
+            return result.get();                                                    // ...to ją pobieramy i zwracamy
+        }
+        return null;
     }
 }

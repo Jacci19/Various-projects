@@ -51,6 +51,16 @@ public class CategoryModel {
         init();                                                                                 //aby po kliku dodaj kategoria od razu pojawiła się w ComboBoxie
     }
 
+    public void updateCategoryInDataBase() {
+        CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());
+        Category tempCategory = categoryDao.findById(Category.class, getCategory().getId());
+        tempCategory.setName(getCategory().getName());                                          //ustawiamy nazwę kategorii znalezionej w bazie na nową wpisaną przez usera w oknie
+        categoryDao.creatOrUpdate(tempCategory);
+        DbManager.closeConnectionSource();
+        init();                                                                                 //aby po kliku dodaj kategoria od razu pojawiła się w ComboBoxie
+    }
+
+
     public ObservableList<CategoryFx> getCategoryList() {                                           //gettery i settery
         return categoryList;
     }
@@ -66,6 +76,7 @@ public class CategoryModel {
     public void setCategory(CategoryFx category) {
         this.category.set(category);
     }
+
 }
 
 

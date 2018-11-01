@@ -55,13 +55,23 @@ public abstract class CommonDao {
         }
     }
 
-    public <T extends BaseModel, I> void deleteById(Class<T> cls, Integer id) {
+    public <T extends BaseModel, I> void deleteById(Class<T> cls, Integer id) {                                         //kasuje po ID
         try {
             Dao<T, I> dao = getDao(cls);
-            dao.deleteById((I) id);
+            dao.queryForId((I) id);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
+    }
+
+    public <T extends BaseModel, I> T findById(Class<T> cls, Integer id) {                                           //znajduje po ID, T - metoda zwraca ten sam typ na którym operujemy
+        try {
+            Dao<T, I> dao = getDao(cls);
+            return dao.queryForId((I) id);
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return null;
     }
 
     public <T extends BaseModel, I> List<T> queryForAll(Class<T> cls) {
