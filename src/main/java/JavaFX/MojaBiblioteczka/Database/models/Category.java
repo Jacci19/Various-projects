@@ -14,7 +14,7 @@ public class Category implements BaseModel {
     @DatabaseField(generatedId = true)                                          //pola tabeli
     private int id;
 
-    @DatabaseField(columnName = "NAME", canBeNull = false)
+    @DatabaseField(columnName = "NAME", canBeNull = false, unique = true)       //unique - może zawierać tylko jeden element o danej nazwie
     private String name;
 
 //    @ForeignCollectionField(eager = true)

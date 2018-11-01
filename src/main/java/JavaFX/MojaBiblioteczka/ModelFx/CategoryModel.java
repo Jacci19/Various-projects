@@ -6,6 +6,7 @@ package JavaFX.MojaBiblioteczka.ModelFx;
 import JavaFX.MojaBiblioteczka.Database.dao.CategoryDao;
 import JavaFX.MojaBiblioteczka.Database.dbutils.DbManager;
 import JavaFX.MojaBiblioteczka.Database.models.Category;
+import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ public class CategoryModel {
     private ObjectProperty<CategoryFx> category = new SimpleObjectProperty<>();                     //to powiążemy z elementami ComboBoxa
 
 
-    public void init(){                                                                             //wypełniamy comboBox elementami BD (inicjalizuje model z danymi), wywołujemy to w categoryController (initialize)
+    public void init() throws ApplicationException {                                                //wypełniamy comboBox elementami BD (inicjalizuje model z danymi), wywołujemy to w categoryController (initialize)
         CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());                 //połączenie do BD
         List<Category> categories = categoryDao.queryForAll(Category.class);                        //robimy listę ze wszystkich category w BD
         this.categoryList.clear();                                                              //czyścimy listę z niepotrzebnych elementów (aby stare elementy się nie duplikowały)
@@ -35,27 +36,27 @@ public class CategoryModel {
 
     }
 
-    public void deleteCategoryById(){
+    public void deleteCategoryById() throws ApplicationException {                              //wyjątki wszystkich metod przerzucamy do categoryController
         CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());
         categoryDao.deleteById(Category.class, category.getValue().getId());
         DbManager.closeConnectionSource();
         init();                                                                                 //aby kategoria usunęła się także z listy a nie tylko z BD
     }
 
-    public void saveCategoryInDataBase(String name){
+    public void saveCategoryInDataBase(String name) throws ApplicationException {               //wyjątek puszczemy wyżej, obsłużymy go w categoryController
         CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());
         Category category = new Category();
         category.setName(name);
-        categoryDao.creatOrUpdate(category);
+        categoryDao.createOrUpdate(category);
         DbManager.closeConnectionSource();
         init();                                                                                 //aby po kliku dodaj kategoria od razu pojawiła się w ComboBoxie
     }
 
-    public void updateCategoryInDataBase() {
+    public void updateCategoryInDataBase() throws ApplicationException {
         CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());
         Category tempCategory = categoryDao.findById(Category.class, getCategory().getId());
         tempCategory.setName(getCategory().getName());                                          //ustawiamy nazwę kategorii znalezionej w bazie na nową wpisaną przez usera w oknie
-        categoryDao.creatOrUpdate(tempCategory);
+        categoryDao.createOrUpdate(tempCategory);
         DbManager.closeConnectionSource();
         init();                                                                                 //aby po kliku dodaj kategoria od razu pojawiła się w ComboBoxie
     }

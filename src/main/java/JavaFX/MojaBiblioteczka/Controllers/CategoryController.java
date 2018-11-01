@@ -3,6 +3,7 @@ package JavaFX.MojaBiblioteczka.Controllers;
 import JavaFX.MojaBiblioteczka.ModelFx.CategoryFx;
 import JavaFX.MojaBiblioteczka.ModelFx.CategoryModel;
 import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
+import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,7 +33,11 @@ public class CategoryController {
     @FXML
     public void initialize(){
         this.categoryModel = new CategoryModel();
-        this.categoryModel.init();                                              //inicjacja comboBoxa z CategoryModel (wypełniamy go danymi z BD)
+        try {                                                                       //wyjątki wrzucone z categoryModel
+            this.categoryModel.init();                                              //inicjacja comboBoxa z CategoryModel (wypełniamy go danymi z BD)
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());
+        }
         this.categoryComboBox.setItems(this.categoryModel.getCategoryList());   //przypisujemy te dane do comboBoxa
         initBindings();
     }
@@ -46,13 +51,21 @@ public class CategoryController {
 
     @FXML
     void onAddCategoryButtonAction() {
-        this.categoryModel.saveCategoryInDataBase(categoryTextField.getText());
+        try {
+            this.categoryModel.saveCategoryInDataBase(categoryTextField.getText());
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());                                                   //aby komunikat pojawił się w naszym okienku alert
+        }
         categoryTextField.clear();
     }
 
     @FXML
     void onDeleteCategoryButtonAction() {
-        this.categoryModel.deleteCategoryById();
+        try {                                                                                          //wyjątki wrzucone z categoryModel
+            this.categoryModel.deleteCategoryById();
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());
+        }
     }
 
     @FXML
@@ -65,7 +78,11 @@ public class CategoryController {
         String newCategoryName = DialogsUtils.editDialog(this.categoryModel.getCategory().getName());        //do popupu wysyłamy starą wartość, user będzie mógł zamiast niej wpisać nową
         if(newCategoryName != null){                                                                         //null is wtedy gdy user press cancel
             this.categoryModel.getCategory().setName(newCategoryName);                                      //ustawiamy nową nazwę kategorii
-            this.categoryModel.updateCategoryInDataBase();                                                  //metoda z categoryModel
+            try {
+                this.categoryModel.updateCategoryInDataBase();                                                  //metoda z categoryModel
+            } catch (ApplicationException e) {
+                DialogsUtils.errorDialog(e.getMessage());
+            }
         }
 
     }
