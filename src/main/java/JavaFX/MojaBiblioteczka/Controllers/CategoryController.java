@@ -6,9 +6,7 @@ import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class CategoryController {
 
@@ -20,6 +18,9 @@ public class CategoryController {
 
     @FXML
     private ComboBox<CategoryFx> categoryComboBox;
+
+    @FXML
+    private TreeView<String> categoryTreeView;
 
     @FXML
     private Button deleteCategoryButton;
@@ -39,6 +40,7 @@ public class CategoryController {
             DialogsUtils.errorDialog(e.getMessage());
         }
         this.categoryComboBox.setItems(this.categoryModel.getCategoryList());   //przypisujemy te dane do comboBoxa
+        this.categoryTreeView.setRoot(this.categoryModel.getRoot());
         initBindings();
     }
 

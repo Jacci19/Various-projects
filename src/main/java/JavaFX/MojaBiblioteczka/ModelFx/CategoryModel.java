@@ -6,11 +6,13 @@ package JavaFX.MojaBiblioteczka.ModelFx;
 import JavaFX.MojaBiblioteczka.Database.dao.CategoryDao;
 import JavaFX.MojaBiblioteczka.Database.dbutils.DbManager;
 import JavaFX.MojaBiblioteczka.Database.models.Category;
+import JavaFX.MojaBiblioteczka.Utils.converters.ConverterCategory;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeItem;
 
 import java.util.List;
 
@@ -20,20 +22,35 @@ public class CategoryModel {
 
     private ObservableList<CategoryFx> categoryList = FXCollections.observableArrayList();          //to powiążemy z naszym ComboBoxem
     private ObjectProperty<CategoryFx> category = new SimpleObjectProperty<>();                     //to powiążemy z elementami ComboBoxa
+    private TreeItem<String> root = new TreeItem<>();                                               //____________https://docs.oracle.com/javafx/2/ui_controls/tree-view.htm
 
 
     public void init() throws ApplicationException {                                                //wypełniamy comboBox elementami BD (inicjalizuje model z danymi), wywołujemy to w categoryController (initialize)
         CategoryDao categoryDao = new CategoryDao(DbManager.getConnectionSource());                 //połączenie do BD
         List<Category> categories = categoryDao.queryForAll(Category.class);                        //robimy listę ze wszystkich category w BD
-        this.categoryList.clear();                                                              //czyścimy listę z niepotrzebnych elementów (aby stare elementy się nie duplikowały)
-        categories.forEach(c->{
-            CategoryFx categoryFx = new CategoryFx();
-            categoryFx.setId(c.getId());                                                        //wszystko z mojej category przepisujemy do CategoryFX  (id)
-            categoryFx.setName(c.getName());                                                    //wszystko z mojej category przepisujemy do CategoryFX  (name)
-            this.categoryList.add(categoryFx);
-        });
+        initCategoryList(categories);
+        initRoot(categories);
         DbManager.closeConnectionSource();                                                          //zamykamy połączenie z BD
 
+    }
+
+    private void initRoot(List<Category> categories) {                                          // init naszego treeView z kategoriami
+        this.root.getChildren().clear();                                                        // aby elementy drzewa się nie duplikowały
+        categories.forEach(c->{                                                                 // W pętli pobieramy każdą kategorię
+            TreeItem<String> categoryItem = new TreeItem<>(c.getName());                        // tworzymy od początku nowy treeItem który inicjalizowany jest nazwą kategorii
+            c.getBooks().forEach(b->{
+                categoryItem.getChildren().add(new TreeItem<>(b.getTitle()));
+            });
+            root.getChildren().add(categoryItem);                                               // dodajemy ten item do naszego roota.
+        });                                                                                     // W treeView pojawiają się kategorie
+    }
+
+    private void initCategoryList(List<Category> categories) {
+        this.categoryList.clear();                                                              //czyścimy listę z niepotrzebnych elementów (aby stare elementy się nie duplikowały)
+        categories.forEach(c->{
+            CategoryFx categoryFx = ConverterCategory.converttoCategoryFx(c);
+            this.categoryList.add(categoryFx);
+        });
     }
 
     public void deleteCategoryById() throws ApplicationException {                              //wyjątki wszystkich metod przerzucamy do categoryController
@@ -77,7 +94,12 @@ public class CategoryModel {
     public void setCategory(CategoryFx category) {
         this.category.set(category);
     }
-
+    public TreeItem<String> getRoot() {
+        return root;
+    }
+    public void setRoot(TreeItem<String> root) {
+        this.root = root;
+    }
 }
 
 

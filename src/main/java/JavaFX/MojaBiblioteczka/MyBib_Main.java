@@ -3,6 +3,7 @@
 package JavaFX.MojaBiblioteczka;
 
 import JavaFX.MojaBiblioteczka.Database.dbutils.DbManager;
+import JavaFX.MojaBiblioteczka.Utils.FillDataBase;
 import JavaFX.MojaBiblioteczka.Utils.FxmlUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ public class MyBib_Main extends Application {
         primaryStage.show();
 
         DbManager.initDatabase();
+        FillDataBase.fillDatabase();
     }
 
 

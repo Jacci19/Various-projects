@@ -66,7 +66,7 @@ public abstract class CommonDao {
     public <T extends BaseModel, I> void deleteById(Class<T> cls, Integer id) throws ApplicationException {                                         //kasuje po ID
         try {
             Dao<T, I> dao = getDao(cls);
-            dao.queryForId((I) id);
+            dao.deleteById((I) id);
         } catch (SQLException e) {
             LOGGER.warn(e.getCause().getMessage());
             throw new ApplicationException(FxmlUtils.getResourceBundle().getString("error.delete"));

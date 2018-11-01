@@ -13,7 +13,10 @@ public class Author implements BaseModel{
     private int id;
 
     @DatabaseField(columnName = "NAME", canBeNull = false)
-    private String nameAndSurname;
+    private String name;
+
+    @DatabaseField(columnName = "SURNAME", canBeNull = false)
+    private String surname;
 
     @ForeignCollectionField(eager = true)
     private ForeignCollection<Book> books;
@@ -22,18 +25,30 @@ public class Author implements BaseModel{
     public int getId() {                                                    //Gettery
         return id;
     }
-    public String getNameAndSurname() {
-        return nameAndSurname;
+
+    public String getName() {
+        return name;
     }
+
+    public String getSurname() {
+        return surname;
+    }
+
     public ForeignCollection<Book> getBooks() {
         return books;
     }
     public void setId(int id) {                                             //Settery
         this.id = id;
     }
-    public void setNameAndSurname(String nameAndSurname) {
-        this.nameAndSurname = nameAndSurname;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public void setBooks(ForeignCollection<Book> books) {
         this.books = books;
     }
