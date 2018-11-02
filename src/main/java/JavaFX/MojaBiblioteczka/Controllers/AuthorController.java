@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class AuthorController {
 
@@ -47,6 +48,13 @@ public class AuthorController {
         this.authorTableView.setItems(this.authorModel.getAuthorFxObservableList());                        //podpięcie listy do tableView
         this.nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());                //ustalamy że kolumna name ma operować na nameProperty które jest w autorze
         this.surnameColumn.setCellValueFactory(cellData -> cellData.getValue().surnameProperty());
+
+        this.nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());                            //uaktywnia komórki tabeli (po kliknięciu można je edytować)
+        this.surnameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        this.authorTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{    //klikanie na wiersz tabeli
+            this.authorModel.setAuthorFxObjectPropertyEdit(newValue);                                  //to robię z wierszem tabeli który kliknąłem
+        } );
     }
 
     @FXML
@@ -62,5 +70,23 @@ public class AuthorController {
         this.nameTextField.clear();
         this.surnameTextField.clear();
 
+    }
+
+    public void onNameEditCommit(TableColumn.CellEditEvent<AuthorFx, String> authorFxStringCellEditEvent) {
+        this.authorModel.getAuthorFxObjectPropertyEdit().setName(authorFxStringCellEditEvent.getNewValue());       //pobieramy obiekt który kliknął user i ustawiamy mu name
+        updateInDatabase();
+    }
+
+    public void onSurnameEditCommit(TableColumn.CellEditEvent<AuthorFx, String> authorFxStringCellEditEvent) {
+        this.authorModel.getAuthorFxObjectPropertyEdit().setSurname(authorFxStringCellEditEvent.getNewValue());       //pobieramy obiekt który kliknął user i ustawiamy mu surname
+        updateInDatabase();
+    }
+
+    private void updateInDatabase() {
+        try {
+            this.authorModel.saveAuthorEditInDataBase();
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());
+        }
     }
 }

@@ -15,6 +15,8 @@ import java.util.List;
 public class AuthorModel {
 
     private ObjectProperty<AuthorFx> authorFxObjectProperty = new SimpleObjectProperty<>(new AuthorFx());           //w stworzonym SOP inicjalizujemy pustego authora
+    private ObjectProperty<AuthorFx> authorFxObjectPropertyEdit = new SimpleObjectProperty<>(new AuthorFx());       //do edycji komórek tabeli
+
     private ObservableList<AuthorFx> authorFxObservableList = FXCollections.observableArrayList();                   //lista do obsługi tableView
 
     public void init() throws ApplicationException {
@@ -30,12 +32,20 @@ public class AuthorModel {
     }
 
     public void saveAuthorInDataBase() throws ApplicationException {
-        AuthorDao authorDao = new AuthorDao(DbManager.getConnectionSource());
-        Author author = ConverterAuthor.convertToAuthor(this.getAuthorFxObjectProperty());
-        authorDao.createOrUpdate(author);                                                                           //zapisujemy autora do BD
-        DbManager.closeConnectionSource();
-        this.init();                                                                                                //aby po press dodaj autor od razu show w tabeli
+        saveOrUpdate(this.getAuthorFxObjectProperty());
     }
+    public void saveAuthorEditInDataBase() throws ApplicationException {                                           //zapis dla obiektów: authorFxObjectPropertyEdit
+        saveOrUpdate(this.getAuthorFxObjectPropertyEdit());
+    }
+
+    private void saveOrUpdate(AuthorFx authorFxObjectPropertyEdit) throws ApplicationException {
+        AuthorDao authorDao = new AuthorDao(DbManager.getConnectionSource());
+        Author author = ConverterAuthor.convertToAuthor(authorFxObjectPropertyEdit);
+        authorDao.createOrUpdate(author);
+        DbManager.closeConnectionSource();
+        this.init();
+    }
+
 
     public AuthorFx getAuthorFxObjectProperty() {                                           //gettery i settety
         return authorFxObjectProperty.get();
@@ -51,5 +61,15 @@ public class AuthorModel {
     }
     public void setAuthorFxObservableList(ObservableList<AuthorFx> authorFxObservableList) {
         this.authorFxObservableList = authorFxObservableList;
+    }
+    public AuthorFx getAuthorFxObjectPropertyEdit() {
+        return authorFxObjectPropertyEdit.get();
+    }
+    public ObjectProperty<AuthorFx> authorFxObjectPropertyEditProperty() {
+        return authorFxObjectPropertyEdit;
+    }
+
+    public void setAuthorFxObjectPropertyEdit(AuthorFx authorFxObjectPropertyEdit) {
+        this.authorFxObjectPropertyEdit.set(authorFxObjectPropertyEdit);
     }
 }

@@ -12,10 +12,10 @@ public class Author implements BaseModel{
     @DatabaseField(generatedId = true)                                      //pola tabeli
     private int id;
 
-    @DatabaseField(columnName = "NAME", canBeNull = false, unique = true)               //takie unique nie są dobre bo Jan Nowak i Jan Kowalski :)
+    @DatabaseField(columnName = "NAME", canBeNull = false)               //takie unique nie są dobre bo Jan Nowak i Jan Kowalski :) - usunęliśmy to od lekcji 41
     private String name;
 
-    @DatabaseField(columnName = "SURNAME", canBeNull = false, unique = true)
+    @DatabaseField(columnName = "SURNAME", canBeNull = false)
     private String surname;
 
     @ForeignCollectionField(eager = true)
