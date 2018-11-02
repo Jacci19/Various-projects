@@ -3,11 +3,9 @@ package Card_games.BlackJack_FX.Controlers;
 import Card_games.BlackJack_FX.BJ.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -50,7 +48,6 @@ public class BJ_bonusControl {
 */
     }
 
-
     @FXML
     private ImageView imgTest;
 
@@ -79,6 +76,9 @@ public class BJ_bonusControl {
             j++;
         }
     }
+
+
+
 
     public void setMainControl(BJ_mainControl mainCtrl) {
         this.mainControl = mainCtrl;

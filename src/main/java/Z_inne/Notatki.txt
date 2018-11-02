@@ -10,8 +10,17 @@ Główny folder zmienił się na src/main/Java
 Resourcesy (FXML,Bundles, icons) powinny być w src/main/resources
 
 Powinny już działać programy nie-javaFX.
-
+_______________________
 Naprawiamy JavaFX.
 Przenosimy katalogi typu (FXML, Bundles, icons, img) do resources (najlepiej w takiej strukturze podkatalogów jak było wcześniej w katalogu "java"
 Sprawdzamy ścieżki. Jak odwołujemy się z katalogu "java" do katalogu "resources" to ścieżkę podajemy zaczynając od "/" i podkatalogu katalogu "resources". Możemy skorzystać z opcji "copy relative path spod PPM."
 W Project Structure katalog resources powinien być poprawnie ustawiony.
+
+______________________________________________________________
+INNE NOTATKI
+______________________________________________________________
+Kolory plików w Intelij + Git:
+- Biały - spushowany kiedyś, nie modyfikowany od czasu ostatniego pusha
+- Niebieski - spushowany kiedyś, zmodyfikowany od czasu ostatniego pusha
+- Zielony - świeżo dodany do gita, jeszcze nie spushowany
+- Czerwony - nie dodany do gita

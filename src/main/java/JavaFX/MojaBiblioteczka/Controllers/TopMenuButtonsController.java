@@ -11,6 +11,7 @@ public class TopMenuButtonsController {
     public static final String STATISTICS_FXML = "/JavaFX/MojaBiblioteczka/FXML/Statistics.fxml";
     public static final String ADD_BOOK_FXML = "/JavaFX/MojaBiblioteczka/FXML/AddBook.fxml";
     public static final String ADD_CATEGORY_FXML = "/JavaFX/MojaBiblioteczka/FXML/AddCategory.fxml";
+    public static final String ADD_AUTHOR_FXML = "/JavaFX/MojaBiblioteczka/FXML/AddAuthor.fxml";
 
     private MainController mainController;
 
@@ -41,10 +42,18 @@ public class TopMenuButtonsController {
     }
 
     @FXML
-    public void onAddCategoryAction(ActionEvent actionEvent) {
+    public void onAddCategoryAction() {
         resetToggleButtons();
         mainController.setCenter(ADD_CATEGORY_FXML);                                                   //ustawia na środku formatkę AddBook
     }
+
+    @FXML
+    public void onAddAuthorAction() {
+        resetToggleButtons();
+        mainController.setCenter(ADD_AUTHOR_FXML);                                                   //ustawia na środku formatkę AddAuthor
+    }
+
+
 
     private void resetToggleButtons() {
         if (toggleButtons.getSelectedToggle() != null){                                                //Aby po wciśnięciu addBook inne przyciski się wyciskały
