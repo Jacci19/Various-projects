@@ -20,15 +20,13 @@ public class AuthorModel {
     private ObservableList<AuthorFx> authorFxObservableList = FXCollections.observableArrayList();                   //lista do obsługi tableView
 
     public void init() throws ApplicationException {
-        AuthorDao authorDao = new AuthorDao(DbManager.getConnectionSource());
+        AuthorDao authorDao = new AuthorDao();
         List<Author> authorList = authorDao.queryForAll(Author.class);                                              //Lista autorów z BD
         this.authorFxObservableList.clear();                                                                        //czyścimy listę, aby w tabeli nie było duplikatów
         authorList.forEach(author -> {
             AuthorFx authorFx = ConverterAuthor.convertToAuthorFx(author);
             this.authorFxObservableList.add(authorFx);
         });                                                                                                         //dodajemy wszystkich autorów do naszej listy
-
-        DbManager.closeConnectionSource();
     }
 
     public void saveAuthorInDataBase() throws ApplicationException {
@@ -39,17 +37,15 @@ public class AuthorModel {
     }
 
     public void deleteAuthorInDataBase() throws ApplicationException {
-        AuthorDao authorDao = new AuthorDao(DbManager.getConnectionSource());
+        AuthorDao authorDao = new AuthorDao();                                                                      //był refaktor
         authorDao.deleteById(Author.class, this.getAuthorFxObjectPropertyEdit().getId());
-        DbManager.closeConnectionSource();
         this.init();
     }
 
     private void saveOrUpdate(AuthorFx authorFxObjectPropertyEdit) throws ApplicationException {
-        AuthorDao authorDao = new AuthorDao(DbManager.getConnectionSource());
+        AuthorDao authorDao = new AuthorDao();
         Author author = ConverterAuthor.convertToAuthor(authorFxObjectPropertyEdit);
         authorDao.createOrUpdate(author);
-        DbManager.closeConnectionSource();
         this.init();
     }
 

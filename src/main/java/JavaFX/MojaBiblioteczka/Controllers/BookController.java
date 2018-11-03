@@ -66,5 +66,10 @@ public class BookController {
 
     public void onAddBookButtonAction() {
         System.out.println(this.bookModel.getBookFxObjectProperty().toString());
+        try {
+            this.bookModel.saveBookInDataBase();
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());
+        }
     }
 }
