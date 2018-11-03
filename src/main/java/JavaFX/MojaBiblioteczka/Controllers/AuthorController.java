@@ -4,11 +4,9 @@ import JavaFX.MojaBiblioteczka.ModelFx.AuthorFx;
 import JavaFX.MojaBiblioteczka.ModelFx.AuthorModel;
 import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class AuthorController {
@@ -31,6 +29,8 @@ public class AuthorController {
     @FXML
     private TableColumn<AuthorFx, String> surnameColumn;
 
+    @FXML
+    private MenuItem deleteAuthoeContextItem;
 
     private AuthorModel authorModel;
 
@@ -41,21 +41,28 @@ public class AuthorController {
         } catch (ApplicationException e) {
             DialogsUtils.errorDialog(e.getMessage());
         }
+        bindings();
+        bindingssTableView();
+    }
+
+    private void bindings() {
         this.authorModel.authorFxObjectPropertyProperty().get().nameProperty().bind(this.nameTextField.textProperty());             //bindowanie pola tekstowego z objProp autora
         this.authorModel.authorFxObjectPropertyProperty().get().surnameProperty().bind(this.surnameTextField.textProperty());       //bindowanie pola tekstowego z objProp autora
         this.addAuthorButton.disableProperty().bind(this.nameTextField.textProperty().isEmpty().or(this.surnameTextField.textProperty().isEmpty()));    //if nameField or surnameField is empty then addButton is disabled
+        this.deleteAuthoeContextItem.disableProperty().bind(this.authorTableView.getSelectionModel().selectedItemProperty().isNull()); //if nic w tabeli nie jest zaznaczone to usun is disabled
+    }
 
+    private void bindingssTableView() {
         this.authorTableView.setItems(this.authorModel.getAuthorFxObservableList());                        //podpięcie listy do tableView
         this.nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());                //ustalamy że kolumna name ma operować na nameProperty które jest w autorze
         this.surnameColumn.setCellValueFactory(cellData -> cellData.getValue().surnameProperty());
-
         this.nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());                            //uaktywnia komórki tabeli (po kliknięciu można je edytować)
         this.surnameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
         this.authorTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{    //klikanie na wiersz tabeli
             this.authorModel.setAuthorFxObjectPropertyEdit(newValue);                                  //to robię z wierszem tabeli który kliknąłem
         } );
     }
+
 
     @FXML
     void onAddAuthorButtonAction() {
@@ -85,6 +92,14 @@ public class AuthorController {
     private void updateInDatabase() {
         try {
             this.authorModel.saveAuthorEditInDataBase();
+        } catch (ApplicationException e) {
+            DialogsUtils.errorDialog(e.getMessage());
+        }
+    }
+
+    public void onDeleteAuthorContextActon() {
+        try {
+            this.authorModel.deleteAuthorInDataBase();
         } catch (ApplicationException e) {
             DialogsUtils.errorDialog(e.getMessage());
         }
