@@ -10,7 +10,7 @@ import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 
 import java.util.Date;
 
-public class FillDataBase {
+public class FillDatabase {
     public static  void fillDatabase(){
         Category category1 = new Category();
         category1.setName("Dramat");
@@ -21,7 +21,7 @@ public class FillDataBase {
         book1.setCategory(category1);
         book1.setAuthor(author1);
         book1.setTitle("Makbet");
-        book1.setIsbn(8386740418l);
+        book1.setIsbn("8386740418l");
         book1.setRating(4);
         book1.setReleaseDate(new Date());
         book1.setAddedDate(new Date());
@@ -47,7 +47,7 @@ public class FillDataBase {
         book2.setCategory(category3);
         book2.setAuthor(author2);
         book2.setTitle("Gottland");
-        book2.setIsbn(9788380493483l);
+        book2.setIsbn("8386740418l");
         book2.setRating(5);
         book2.setReleaseDate(new Date());
         book2.setAddedDate(new Date());
@@ -61,7 +61,7 @@ public class FillDataBase {
         book3.setCategory(category4);
         book3.setAuthor(author3);
         book3.setTitle("Władca Pierścieni");
-        book3.setIsbn(9788377582558l);
+        book3.setIsbn("8386740418l");
         book3.setRating(5);
         book3.setReleaseDate(new Date());
         book3.setAddedDate(new Date());
@@ -73,7 +73,7 @@ public class FillDataBase {
         book4.setCategory(category4);
         book4.setAuthor(author3);
         book4.setTitle("Kolor magii");
-        book4.setIsbn(9788380493483l);
+        book4.setIsbn("8386740418l");
         book4.setRating(3);
         book4.setReleaseDate(new Date());
         book4.setAddedDate(new Date());

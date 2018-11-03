@@ -46,4 +46,9 @@ public class AuthorFx {
     public void setSurname(String surname) {
         this.surname.set(surname);
     }
+
+    @Override                                                   //Aby dobrze się wyświetlało np. w comboBox
+    public String toString() {
+        return name.get() + " " + surname.get();
+    }
 }

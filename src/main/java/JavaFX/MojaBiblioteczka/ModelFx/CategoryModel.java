@@ -48,7 +48,7 @@ public class CategoryModel {
     private void initCategoryList(List<Category> categories) {
         this.categoryList.clear();                                                              //czyścimy listę z niepotrzebnych elementów (aby stare elementy się nie duplikowały)
         categories.forEach(c->{
-            CategoryFx categoryFx = ConverterCategory.converttoCategoryFx(c);
+            CategoryFx categoryFx = ConverterCategory.convertToCategoryFx(c);
             this.categoryList.add(categoryFx);
         });
     }

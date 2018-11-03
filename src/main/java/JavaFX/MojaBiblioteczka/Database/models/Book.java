@@ -28,8 +28,8 @@ public class Book implements BaseModel {
     @DatabaseField(columnName = "RELEASE_DATE")
     private Date releaseDate;
 
-    @DatabaseField(columnName = "ISBN", width = 1)
-    private long isbn;
+    @DatabaseField(columnName = "ISBN")
+    private String isbn;
 
     @DatabaseField(columnName = "RATING", width = 1)
     private int rating;
@@ -77,11 +77,11 @@ public class Book implements BaseModel {
         this.releaseDate = relaseDate;
     }
 
-    public long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
