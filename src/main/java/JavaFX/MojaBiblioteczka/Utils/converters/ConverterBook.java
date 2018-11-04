@@ -17,4 +17,20 @@ public class ConverterBook {
         book.setAddedDate(Utils.convertToDate(bookFx.getAddedDate()));
         return book;
     }
+
+    public static BookFx convertToBookFx(Book book){
+        BookFx bookFx = new BookFx();
+        bookFx.setId(book.getId());
+        bookFx.setTitle(book.getTitle());
+        bookFx.setDescription(book.getDescription());
+        bookFx.setRating(book.getRating());
+        bookFx.setIsbn(book.getIsbn());
+        bookFx.setReleaseDate(Utils.convertToLocalDate(book.getReleaseDate()));
+        bookFx.setAuthorFx(ConverterAuthor.convertToAuthorFx(book.getAuthor()));
+        bookFx.setCategoryFx(ConverterCategory.convertToCategoryFx(book.getCategory()));
+        return bookFx;
+    }
 }
+
+
+//OrmLite nie obsługuje LocalDate dlatego musimy to konwerować na Date

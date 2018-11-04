@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MojaBiblioteczka.Controllers.ListBooksController">
    <children>
       <HBox prefWidth="200.0" spacing="10.0">
@@ -22,15 +21,15 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <TableView fx:id="booksTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <columns>
-          <TableColumn prefWidth="75.0" text="%title.book" />
-          <TableColumn prefWidth="75.0" text="%desc.book" />
-            <TableColumn prefWidth="75.0" text="%author.book" />
-            <TableColumn prefWidth="75.0" text="%category.book" />
-            <TableColumn prefWidth="75.0" text="%rating.book" />
-            <TableColumn prefWidth="75.0" text="%isbn.book" />
-            <TableColumn prefWidth="75.0" text="%release.book" />
+            <TableColumn fx:id="titleColumn" prefWidth="75.0" text="%title.book" />
+            <TableColumn fx:id="descColumn" prefWidth="75.0" text="%desc.book" />
+            <TableColumn fx:id="authorColumn" prefWidth="75.0" text="%author.book" />
+            <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="%category.book" />
+            <TableColumn fx:id="ratingColumn" prefWidth="75.0" text="%rating.book" />
+            <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="%isbn.book" />
+            <TableColumn fx:id="releaseColumn" prefWidth="75.0" text="%release.book" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
