@@ -35,6 +35,7 @@ public class ListBooksModel {
     public void init() throws ApplicationException {
         BookDao bookDao = new BookDao();
         List<Book> books = bookDao.queryForAll(Book.class);
+        bookFxList.clear();                                             //czyścimy listę, aby przy operacjach elementy się nie duplikowały
         books.forEach(book -> {
             //this.bookFxObservableList.add(ConverterBook.convertToBookFx(book));
             this.bookFxList.add(ConverterBook.convertToBookFx(book));
@@ -59,6 +60,13 @@ public class ListBooksModel {
             this.bookFxObservableList.setAll(bookFxList);                                       //... to ładujemy do tableView wszystkie ksiązki
         }
     }
+
+    public void deleteBook(BookFx bookFx) throws ApplicationException {
+        BookDao bookDao = new BookDao();
+        bookDao.deleteById(Book.class, bookFx.getId());
+        init();
+    }
+
     private void initAuthors() throws ApplicationException {
         AuthorDao authorDao = new AuthorDao();
         List<Author> authorList = authorDao.queryForAll(Author.class);

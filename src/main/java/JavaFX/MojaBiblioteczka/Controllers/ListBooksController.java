@@ -6,11 +6,12 @@ import JavaFX.MojaBiblioteczka.ModelFx.CategoryFx;
 import JavaFX.MojaBiblioteczka.ModelFx.ListBooksModel;
 import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.time.LocalDate;
 
@@ -23,7 +24,7 @@ public class ListBooksController {
     @FXML
     private TableView<BookFx> booksTableView;
     @FXML
-    private TableColumn<BookFx, String> titleColumn;
+    private TableColumn<BookFx, String> titleColumn;        // < na jakim typie pracuje tabela, na jakim kolumna tabeli >
     @FXML
     private TableColumn<BookFx, String> descColumn;
     @FXML
@@ -36,6 +37,8 @@ public class ListBooksController {
     private TableColumn<BookFx, String> isbnColumn;
     @FXML
     private TableColumn<BookFx, LocalDate> releaseColumn;
+    @FXML
+    private TableColumn<BookFx, BookFx> deleteColumn;
 
     private ListBooksModel listBooksModel;
 
@@ -63,7 +66,42 @@ public class ListBooksController {
         this.releaseColumn.setCellValueFactory(cellData -> cellData.getValue().releaseDateProperty());
         this.authorColumn.setCellValueFactory(cellData -> cellData.getValue().authorFxProperty());
         this.categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryFxProperty());
+        this.deleteColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));  //bookFx nie jest obiektem obserwowalnym więc musimy go opakować w SimpleObjectProperty
+
+        this.deleteColumn.setCellFactory(param -> new TableCell<BookFx, BookFx>() {             //budujemy komórki w naszych kolumnach
+            Button button = createDeleteButton();
+
+            @Override
+            protected void updateItem(BookFx item, boolean empty) {                             //empty - czy obiekt jest pusty
+                super.updateItem(item, empty);
+
+                if (empty) {                                                                    //gdy wiersz jest pusty to usuwamy przycisk "x" z komórki
+                    setGraphic(null);
+                    return;
+                }
+
+                if (!empty) {                                                                   //gdy wiersz nie jest pusty to ustawiamy przycisk "x" w komórce
+                    setGraphic(button);
+                    button.setOnAction(event -> {                                               //to robi po naciśnięciu przycisku "x"
+                        try {
+                            listBooksModel.deleteBook(item);
+                        } catch (ApplicationException e) {
+                            DialogsUtils.errorDialog(e.getMessage());
+                        }
+                    });
+                }
+            }
+        });
     }
+
+    private Button createDeleteButton() {                                           //utworzenie przycisku x do usuwania książek z tabeli (bez użycia sceneBuilder)
+        Button button = new Button();
+        Image image = new Image(this.getClass().getResource("JavaFX/MojaBiblioteczka/Icons/deleteIcon.png").toString());
+        ImageView imageView = new ImageView(image);
+        button.setGraphic(imageView);
+        return button;
+    }
+
 
     public void onFilterComboBoxAction() {
         System.out.println(this.listBooksModel.categoryFxObjectPropertyProperty().get());
