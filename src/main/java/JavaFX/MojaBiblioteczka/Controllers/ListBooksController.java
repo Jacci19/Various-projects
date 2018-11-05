@@ -5,14 +5,19 @@ import JavaFX.MojaBiblioteczka.ModelFx.BookFx;
 import JavaFX.MojaBiblioteczka.ModelFx.CategoryFx;
 import JavaFX.MojaBiblioteczka.ModelFx.ListBooksModel;
 import JavaFX.MojaBiblioteczka.Utils.DialogsUtils;
+import JavaFX.MojaBiblioteczka.Utils.FxmlUtils;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class ListBooksController {
@@ -39,6 +44,8 @@ public class ListBooksController {
     private TableColumn<BookFx, LocalDate> releaseColumn;
     @FXML
     private TableColumn<BookFx, BookFx> deleteColumn;
+    @FXML
+    private TableColumn<BookFx, BookFx> editColumn;
 
     private ListBooksModel listBooksModel;
 
@@ -67,9 +74,10 @@ public class ListBooksController {
         this.authorColumn.setCellValueFactory(cellData -> cellData.getValue().authorFxProperty());
         this.categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryFxProperty());
         this.deleteColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));  //bookFx nie jest obiektem obserwowalnym więc musimy go opakować w SimpleObjectProperty
+        this.editColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
 
         this.deleteColumn.setCellFactory(param -> new TableCell<BookFx, BookFx>() {             //budujemy komórki w naszych kolumnach
-            Button button = createDeleteButton();
+            Button button = createButton("/JavaFX/MojaBiblioteczka/Icons/deleteIcon.png");
 
             @Override
             protected void updateItem(BookFx item, boolean empty) {                             //empty - czy obiekt jest pusty
@@ -92,11 +100,45 @@ public class ListBooksController {
                 }
             }
         });
+
+        this.editColumn.setCellFactory(param -> new TableCell<BookFx, BookFx>() {             //budujemy komórki w naszych kolumnach
+            Button button = createButton("/JavaFX/MojaBiblioteczka/Icons/editIcon.png");
+
+            @Override
+            protected void updateItem(BookFx item, boolean empty) {                             //empty - czy obiekt jest pusty
+                super.updateItem(item, empty);
+
+                if (empty) {                                                                    //gdy wiersz jest pusty to usuwamy przycisk "x" z komórki
+                    setGraphic(null);
+                    return;
+                }
+
+                if (!empty) {
+                    setGraphic(button);
+                    button.setOnAction(event -> {
+                        FXMLLoader loader = FxmlUtils.getLoader("/JavaFX/MojaBiblioteczka/FXML/AddBook.fxml");
+                        Scene scene = null;
+                        try {
+                            scene = new Scene(loader.load());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        BookController controller = loader.getController();
+                        controller.getBookModel().setBookFxObjectProperty(item);
+                        controller.bindings();
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.initModality(Modality.APPLICATION_MODAL);         //okno będzie nad aplikacją i kontrolki spoza tego okna są niedostępne do czasu zamknięcia tego okna
+                        stage.showAndWait();
+                    });
+                }
+            }
+        });
     }
 
-    private Button createDeleteButton() {                                           //utworzenie przycisku x do usuwania książek z tabeli (bez użycia sceneBuilder)
+    private Button createButton(String path) {                                           //utworzenie przycisku x do usuwania książek z tabeli (bez użycia sceneBuilder)
         Button button = new Button();
-        Image image = new Image(this.getClass().getResource("JavaFX/MojaBiblioteczka/Icons/deleteIcon.png").toString());
+        Image image = new Image(this.getClass().getResource(path).toString());
         ImageView imageView = new ImageView(image);
         button.setGraphic(imageView);
         return button;

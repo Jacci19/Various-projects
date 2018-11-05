@@ -28,6 +28,13 @@ public class FxmlUtils {
         return null;
     }
 
+    public static FXMLLoader getLoader(String fxmlPath){                                                    //używane w przycisku edit BookTableView
+
+        FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource(fxmlPath));
+        loader.setResources(getResourceBundle());
+        return loader;
+    }
+
     public static ResourceBundle getResourceBundle(){
         return ResourceBundle.getBundle("JavaFX.MojaBiblioteczka.Bundles.messages");
     }
