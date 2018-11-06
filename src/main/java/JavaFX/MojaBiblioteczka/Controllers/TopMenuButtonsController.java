@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
 
 public class TopMenuButtonsController {
-
+                                                                                                        //usunęliśmy z formatki przyciski Library i Statistics
     public static final String LIBRARY_FXML = "/JavaFX/MojaBiblioteczka/FXML/Library.fxml";
     public static final String LIST_BOOKS_FXML = "/JavaFX/MojaBiblioteczka/FXML/ListBooks.fxml";
     public static final String STATISTICS_FXML = "/JavaFX/MojaBiblioteczka/FXML/Statistics.fxml";

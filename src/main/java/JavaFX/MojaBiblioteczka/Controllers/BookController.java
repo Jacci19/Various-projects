@@ -12,23 +12,19 @@ import javafx.scene.control.*;
 public class BookController {
 
     @FXML
+    private Button saveBookButton;
+    @FXML
     private ComboBox<CategoryFx> categoryComboBox;
-
     @FXML
     private ComboBox<AuthorFx> authorComboBox;
-
     @FXML
     private TextArea descTextArea;
-
     @FXML
     private Slider ratingSlider;
-
     @FXML
     private TextField isbnTextField;
-
     @FXML
     private DatePicker releaseDatePicker;
-
     @FXML
     private TextField titleTextField;
 
@@ -47,6 +43,16 @@ public class BookController {
         }
 
         bindings();
+        validation();
+    }
+
+    private void validation() {
+        this.saveBookButton.disableProperty().bind(this.authorComboBox.valueProperty().isNull()              //if fields are empty then saveButton should be disabled
+                .or(this.categoryComboBox.valueProperty().isNull())
+                .or(this.titleTextField.textProperty().isEmpty())
+                .or(this.descTextArea.textProperty().isEmpty())
+                .or(this.isbnTextField.textProperty().isEmpty())
+                .or(this.releaseDatePicker.valueProperty().isNull()));
     }
 
     public void bindings() {
@@ -68,9 +74,20 @@ public class BookController {
         System.out.println(this.bookModel.getBookFxObjectProperty().toString());
         try {
             this.bookModel.saveBookInDataBase();
+            clearFields();
         } catch (ApplicationException e) {
             DialogsUtils.errorDialog(e.getMessage());
         }
+    }
+
+    private void clearFields() {                                            //kasujemy wartości pól kiedy książka zostanie dodana (żeby nie dodać dwóch takich samych)
+        this.authorComboBox.getSelectionModel().clearSelection();
+        this.categoryComboBox.getSelectionModel().clearSelection();
+        this.titleTextField.clear();
+        this.descTextArea.clear();
+        this.ratingSlider.setValue(1);
+        this.isbnTextField.clear();
+        this.releaseDatePicker.getEditor().clear();
     }
 
     public BookModel getBookModel() {

@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.sql.SQLException;
+
 public class AuthorController {
 
     @FXML
@@ -34,7 +36,7 @@ public class AuthorController {
 
     private AuthorModel authorModel;
 
-    public void initialize(){
+    public void initialize() {
         this.authorModel = new AuthorModel();
         try {
             this.authorModel.init();
@@ -58,9 +60,9 @@ public class AuthorController {
         this.surnameColumn.setCellValueFactory(cellData -> cellData.getValue().surnameProperty());
         this.nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());                            //uaktywnia komórki tabeli (po kliknięciu można je edytować)
         this.surnameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.authorTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{    //klikanie na wiersz tabeli
+        this.authorTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {    //klikanie na wiersz tabeli
             this.authorModel.setAuthorFxObjectPropertyEdit(newValue);                                  //to robię z wierszem tabeli który kliknąłem
-        } );
+        });
     }
 
 
@@ -100,7 +102,7 @@ public class AuthorController {
     public void onDeleteAuthorContextActon() {
         try {
             this.authorModel.deleteAuthorInDataBase();
-        } catch (ApplicationException e) {
+        } catch (ApplicationException | SQLException e){
             DialogsUtils.errorDialog(e.getMessage());
         }
     }

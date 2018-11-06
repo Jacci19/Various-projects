@@ -44,7 +44,7 @@
             <DatePicker fx:id="releaseDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="%title.book" GridPane.rowIndex="2" />
             <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#onAddBookButtonAction" text="%save.button" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="saveBookButton" mnemonicParsing="false" onAction="#onAddBookButtonAction" text="%save.button" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>

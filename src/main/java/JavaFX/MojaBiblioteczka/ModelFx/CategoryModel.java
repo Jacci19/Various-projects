@@ -3,8 +3,10 @@ package JavaFX.MojaBiblioteczka.ModelFx;
 //ta klasa będzie zajmowała się obsługą logiki biznesowej która bedzie wywoływana w kontrolerze (który obsługuje nasz wil ???).
 // Będzie warstwą pośrednią między javąFX a bazą danych
 
+import JavaFX.MojaBiblioteczka.Database.dao.BookDao;
 import JavaFX.MojaBiblioteczka.Database.dao.CategoryDao;
 import JavaFX.MojaBiblioteczka.Database.dbutils.DbManager;
+import JavaFX.MojaBiblioteczka.Database.models.Book;
 import JavaFX.MojaBiblioteczka.Database.models.Category;
 import JavaFX.MojaBiblioteczka.Utils.converters.ConverterCategory;
 import JavaFX.MojaBiblioteczka.Utils.exceptions.ApplicationException;
@@ -14,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryModel {
@@ -53,9 +56,12 @@ public class CategoryModel {
         });
     }
 
-    public void deleteCategoryById() throws ApplicationException {                              //wyjątki wszystkich metod przerzucamy do categoryController
+    public void deleteCategoryById() throws ApplicationException, SQLException {                              //wyjątki wszystkich metod przerzucamy do categoryController
         CategoryDao categoryDao = new CategoryDao();
         categoryDao.deleteById(Category.class, category.getValue().getId());
+        BookDao bookDao = new BookDao();                                                                            //dodane w lekcji 50
+        bookDao.deleteByColumnName(Book.CATEGORY_ID, category.getValue().getId());
+
         init();                                                                                 //aby kategoria usunęła się także z listy a nie tylko z BD
     }
 

@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.sql.SQLException;
+
 public class CategoryController {
 
     @FXML
@@ -24,7 +26,7 @@ public class CategoryController {
 
     @FXML
     private Button deleteCategoryButton;
-  
+
     @FXML
     private Button editCategoryButton;
 
@@ -32,7 +34,7 @@ public class CategoryController {
     private CategoryModel categoryModel;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.categoryModel = new CategoryModel();
         try {                                                                       //wyjątki wrzucone z categoryModel
             this.categoryModel.init();                                              //inicjacja comboBoxa z CategoryModel (wypełniamy go danymi z BD)
@@ -63,9 +65,9 @@ public class CategoryController {
 
     @FXML
     void onDeleteCategoryButtonAction() {
-        try {                                                                                          //wyjątki wrzucone z categoryModel
+        try {
             this.categoryModel.deleteCategoryById();
-        } catch (ApplicationException e) {
+        } catch (ApplicationException | SQLException e) {                                               //wyjątki wrzucone z categoryModel
             DialogsUtils.errorDialog(e.getMessage());
         }
     }
@@ -78,7 +80,7 @@ public class CategoryController {
 
     public void onEditCategoryButtonAction(ActionEvent actionEvent) {
         String newCategoryName = DialogsUtils.editDialog(this.categoryModel.getCategory().getName());        //do popupu wysyłamy starą wartość, user będzie mógł zamiast niej wpisać nową
-        if(newCategoryName != null){                                                                         //null is wtedy gdy user press cancel
+        if (newCategoryName != null) {                                                                         //null is wtedy gdy user press cancel
             this.categoryModel.getCategory().setName(newCategoryName);                                      //ustawiamy nową nazwę kategorii
             try {
                 this.categoryModel.updateCategoryInDataBase();                                                  //metoda z categoryModel
