@@ -6,12 +6,16 @@
 <?import javafx.scene.text.Font?>
 
 <!--<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.MenuController">-->
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="JavaFX.MyMix.Controllers.MenuController">
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.MenuController">
    <children>
-      <Button fx:id="window01Btn" layoutX="109.0" layoutY="90.0" mnemonicParsing="false" onAction="#onWindow01Action" text="Window 01" />
-      <Button fx:id="window02Btn" layoutX="109.0" layoutY="132.0" mnemonicParsing="false" onAction="#onWindow02Action" text="Window 02" />
-      <Button fx:id="window03Btn" layoutX="109.0" layoutY="174.0" mnemonicParsing="false" onAction="#onWindow03Action" text="Window 03" />
-      <Button fx:id="exitBtn" layoutX="109.0" layoutY="216.0" mnemonicParsing="false" onAction="#onExitBtnAction" prefHeight="25.0" prefWidth="63.0" text="Wyjście" />
+      <Button fx:id="window01Btn" layoutX="38.0" layoutY="67.0" mnemonicParsing="false" onAction="#onWindow01BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 01" />
+      <Button fx:id="window02Btn" layoutX="38.0" layoutY="138.0" mnemonicParsing="false" onAction="#onWindow02BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 02" />
+      <Button fx:id="window03Btn" layoutX="38.0" layoutY="209.0" mnemonicParsing="false" onAction="#onWindow03BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 03" />
+      <Button fx:id="window04Btn" layoutX="38.0" layoutY="280.0" mnemonicParsing="false" onAction="#onWindow04BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 04" />
+      <Button fx:id="window05Btn" layoutX="38.0" layoutY="351.0" mnemonicParsing="false" onAction="#onWindow05BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 05" />
+      <Button fx:id="window06Btn" layoutX="38.0" layoutY="422.0" mnemonicParsing="false" onAction="#onWindow06BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 06" />
+      <Button fx:id="exitBtn" layoutX="38.0" layoutY="711.0" mnemonicParsing="false" onAction="#onExitBtnAction" prefHeight="40.0" prefWidth="100.0" text="EXIT" />
       <Label layoutX="25.0" layoutY="21.0" text="MyMix">
          <font>
             <Font size="24.0" />

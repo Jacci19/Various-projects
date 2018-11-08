@@ -29,7 +29,7 @@ public class MenuController {
         System.out.println("Wcisnieto window02Btn");
         FXMLLoader window02Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/SimpleButtonMenu/FXML/Window_02.fxml"));
         Pane w02Pane = null;
-        try {                                                               //można zrobić też sposobem jak w metodzie onWindow01Action (z throws IOException)
+        try {                                                               //można zrobić też sposobem jak w metodzie onWindow01BtnAction (z throws IOException)
             w02Pane = window02Loader.load();
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,45 +11,80 @@ public class MenuController {
 
     private MainController mainContr;
 
-
+    //w każdej poniższej metodzie możemy nadawać takie same nazwy obiektom bo te obiekty wzajemnie się nie widzą
 
     @FXML
-    public void onWindow01Action() throws IOException {
+    public void onWindow01BtnAction() throws IOException {
         System.out.println("Wcisnieto Window01Btn");
-        FXMLLoader window01Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_01.fxml"));
-        Pane w01Pane = window01Loader.load();
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_01.fxml"));
+        Pane pane = loader.load();
 
-        Window_01_Controller window01contr = window01Loader.getController();
-        window01contr.setMainContr(mainContr);
-        mainContr.setScreen(w01Pane);
+        Window_01_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
     }
 
     @FXML
-    public void onWindow02Action(){
+    public void onWindow02BtnAction(){
         System.out.println("Wcisnieto Window02Btn");
-        FXMLLoader window02Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_02.fxml"));
-        Pane w02Pane = null;
-        try {                                                               //można zrobić też sposobem jak w metodzie onWindow01Action (z throws IOException)
-            w02Pane = window02Loader.load();
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_02.fxml"));
+        Pane pane = null;
+        try {                                                               //można zrobić też sposobem jak w metodzie onWindow01BtnAction (z throws IOException)
+            pane = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Window_02_Controller window02contr = window02Loader.getController();
-        window02contr.setMainContr(mainContr);
-        mainContr.setScreen(w02Pane);
+        Window_02_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
     }
 
     @FXML
-    public void onWindow03Action() throws IOException {
+    public void onWindow03BtnAction() throws IOException {
         System.out.println("Wcisnieto Window03Btn");
-        FXMLLoader window03Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_03.fxml"));
-        Pane w03Pane = window03Loader.load();
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_03.fxml"));
+        Pane pane = loader.load();
 
-        Window_03_Controller window01contr = window03Loader.getController();
-        window01contr.setMainContr(mainContr);
-        mainContr.setScreen(w03Pane);
+        Window_03_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
     }
+
+    @FXML
+    public void onWindow04BtnAction() throws IOException {
+        System.out.println("Wcisnieto Window04Btn");
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_04.fxml"));
+        Pane pane = loader.load();
+
+        Window_04_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
+    }
+
+    @FXML
+    public void onWindow05BtnAction() throws IOException {
+        System.out.println("Wcisnieto Window05Btn");
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_05.fxml"));
+        Pane pane = loader.load();
+
+        Window_05_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
+    }
+
+    @FXML
+    public void onWindow06BtnAction() throws IOException {
+        System.out.println("Wcisnieto Window06Btn");
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_06.fxml"));
+        Pane pane = loader.load();
+
+        Window_06_Controller windowContr = loader.getController();
+        windowContr.setMainContr(mainContr);
+        mainContr.setScreen(pane);
+    }
+
+
 
 
 
