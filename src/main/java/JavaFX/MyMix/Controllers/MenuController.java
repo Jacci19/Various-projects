@@ -1,4 +1,4 @@
-package JavaFX.SimpleButtonMenu.Controllers;
+package JavaFX.MyMix.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,8 +15,8 @@ public class MenuController {
 
     @FXML
     public void onWindow01Action() throws IOException {
-        System.out.println("Wcisnieto window01Btn");
-        FXMLLoader window01Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/SimpleButtonMenu/FXML/Window_01.fxml"));
+        System.out.println("Wcisnieto Window01Btn");
+        FXMLLoader window01Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_01.fxml"));
         Pane w01Pane = window01Loader.load();
 
         Window_01_Controller window01contr = window01Loader.getController();
@@ -26,8 +26,8 @@ public class MenuController {
 
     @FXML
     public void onWindow02Action(){
-        System.out.println("Wcisnieto window02Btn");
-        FXMLLoader window02Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/SimpleButtonMenu/FXML/Window_02.fxml"));
+        System.out.println("Wcisnieto Window02Btn");
+        FXMLLoader window02Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_02.fxml"));
         Pane w02Pane = null;
         try {                                                               //można zrobić też sposobem jak w metodzie onWindow01Action (z throws IOException)
             w02Pane = window02Loader.load();
@@ -38,8 +38,21 @@ public class MenuController {
         Window_02_Controller window02contr = window02Loader.getController();
         window02contr.setMainContr(mainContr);
         mainContr.setScreen(w02Pane);
-
     }
+
+    @FXML
+    public void onWindow03Action() throws IOException {
+        System.out.println("Wcisnieto Window03Btn");
+        FXMLLoader window03Loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_03.fxml"));
+        Pane w03Pane = window03Loader.load();
+
+        Window_03_Controller window01contr = window03Loader.getController();
+        window01contr.setMainContr(mainContr);
+        mainContr.setScreen(w03Pane);
+    }
+
+
+
     @FXML
     public void onExitBtnAction(){
         System.out.println("Wcisnieto ExitBtn");
