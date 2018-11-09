@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<!--<Pane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.Window_03_Controller">-->
+<!--<Pane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W03_Controller_ParallelTransitionlelTransition">-->
 
-<Pane fx:id="window05Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.Window_05_Controller">
+<Pane fx:id="window05Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W05_Controller_BasicTimeline">
    <children>
-      <Label layoutX="500.0" layoutY="20.0" text="WINDOW_05">
+      <Label layoutX="500.0" layoutY="20.0" text="W05_BasicTimeline">
          <font>
             <Font size="26.0" />
          </font>

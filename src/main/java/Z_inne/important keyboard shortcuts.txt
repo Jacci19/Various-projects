@@ -23,7 +23,7 @@ Search in path/project      CTRL + SHIFT + F
 Lookup recent files         CTRL + E
 Show Call hierarchy         CTRL + ALT + H
 Show parameters for method  CTRL + P
-Quick documentation lookup  CTRL + Q
+Quick documentation lookup  CTRL + Q                                            - dokumentacja
 Safe Delete                 ALT + DELETE
 Go to previous/next method  ALT + UP/DOWN
 Go to declaration           CTRL + B

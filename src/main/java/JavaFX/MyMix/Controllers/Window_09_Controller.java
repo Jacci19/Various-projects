@@ -5,12 +5,12 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class Window_04_Controller {
+public class Window_09_Controller {
 
     private MainController mainContr;
 
     @FXML
-    private Pane window04Pane;
+    private Pane window09Pane;
     @FXML
     public void initialize(){
 

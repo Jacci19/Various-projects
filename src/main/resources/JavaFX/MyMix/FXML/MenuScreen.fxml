@@ -9,12 +9,16 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.MenuController">
    <children>
-      <Button fx:id="window01Btn" layoutX="38.0" layoutY="67.0" mnemonicParsing="false" onAction="#onWindow01BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 01" />
-      <Button fx:id="window02Btn" layoutX="38.0" layoutY="138.0" mnemonicParsing="false" onAction="#onWindow02BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 02" />
-      <Button fx:id="window03Btn" layoutX="38.0" layoutY="209.0" mnemonicParsing="false" onAction="#onWindow03BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 03" />
-      <Button fx:id="window04Btn" layoutX="38.0" layoutY="280.0" mnemonicParsing="false" onAction="#onWindow04BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 04" />
-      <Button fx:id="window05Btn" layoutX="38.0" layoutY="351.0" mnemonicParsing="false" onAction="#onWindow05BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 05" />
-      <Button fx:id="window06Btn" layoutX="38.0" layoutY="422.0" mnemonicParsing="false" onAction="#onWindow06BtnAction" prefHeight="60.0" prefWidth="150.0" text="Window 06" />
+      <Button fx:id="window01Btn" layoutX="38.0" layoutY="67.0" mnemonicParsing="false" onAction="#onWindow01BtnAction" prefHeight="50.0" prefWidth="160.0" text="W01_FadeTransition" />
+      <Button fx:id="window02Btn" layoutX="38.0" layoutY="127.0" mnemonicParsing="false" onAction="#onWindow02BtnAction" prefHeight="50.0" prefWidth="160.0" text="W02_PathTransition" />
+      <Button fx:id="window03Btn" layoutX="38.0" layoutY="187.0" mnemonicParsing="false" onAction="#onWindow03BtnAction" prefHeight="50.0" prefWidth="160.0" text="W03_ParallelTransition" />
+      <Button fx:id="window04Btn" layoutX="38.0" layoutY="247.0" mnemonicParsing="false" onAction="#onWindow04BtnAction" prefHeight="50.0" prefWidth="160.0" text="W04_SequentialTransition" />
+      <Button fx:id="window05Btn" layoutX="38.0" layoutY="307.0" mnemonicParsing="false" onAction="#onWindow05BtnAction" prefHeight="50.0" prefWidth="160.0" text="W05_BasicTimeline" />
+      <Button fx:id="window06Btn" layoutX="38.0" layoutY="367.0" mnemonicParsing="false" onAction="#onWindow06BtnAction" prefHeight="50.0" prefWidth="160.0" text="W06_TimelineEvents" />
+      <Button fx:id="window07Btn" layoutX="38.0" layoutY="427.0" mnemonicParsing="false" onAction="#onWindow07BtnAction" prefHeight="50.0" prefWidth="160.0" text="Window 07" />
+      <Button fx:id="window08Btn" layoutX="38.0" layoutY="487.0" mnemonicParsing="false" onAction="#onWindow08BtnAction" prefHeight="50.0" prefWidth="160.0" text="Window 08" />
+      <Button fx:id="window09Btn" layoutX="38.0" layoutY="547.0" mnemonicParsing="false" onAction="#onWindow09BtnAction" prefHeight="50.0" prefWidth="160.0" text="Window 09" />
+      <Button fx:id="window10Btn" layoutX="38.0" layoutY="607.0" mnemonicParsing="false" onAction="#onWindow10BtnAction" prefHeight="50.0" prefWidth="160.0" text="Window 10" />
       <Button fx:id="exitBtn" layoutX="38.0" layoutY="711.0" mnemonicParsing="false" onAction="#onExitBtnAction" prefHeight="40.0" prefWidth="100.0" text="EXIT" />
       <Label layoutX="25.0" layoutY="21.0" text="MyMix">
          <font>

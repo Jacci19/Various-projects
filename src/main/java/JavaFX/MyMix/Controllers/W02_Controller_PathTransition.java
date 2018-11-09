@@ -15,7 +15,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class Window_02_Controller {
+public class W02_Controller_PathTransition {
 
     private MainController mainContr;
 

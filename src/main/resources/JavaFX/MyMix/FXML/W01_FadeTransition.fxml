@@ -5,9 +5,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<!--<Pane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.Window_01_Controller">-->
 
-<Pane fx:id="window01Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.Window_01_Controller">
+<Pane fx:id="window01Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W01_Controller_FadeTransition">
    <children>
       <Label layoutX="500.0" layoutY="20.0" text="WINDOW_01">
          <font>

@@ -15,7 +15,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class Window_01_Controller {
+public class W01_Controller_FadeTransition {
 
     private MainController mainContr;
 
