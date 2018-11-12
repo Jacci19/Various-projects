@@ -26,12 +26,16 @@ public class W05_Controller_BasicTimeline {
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);
+
         final KeyValue kv = new KeyValue(rectBasicTimeline.xProperty(), 300);                      // wartość klatki kluczowej
         final KeyFrame kf = new KeyFrame(Duration.millis(200), kv);                                         // klatka kluczowa
+
         timeline.getKeyFrames().add(kf);                                                                    // dodanie kk do timeline
+
         //final KeyValue kv2 = new KeyValue(rectBasicTimeline.yProperty(), 300);                            //  to działa równocześnie z poprzednim
         //final KeyFrame kf2 = new KeyFrame(Duration.millis(500), kv2);                                        //
         //timeline.getKeyFrames().add(kf2);                                                                    //
+
         timeline.play();
     }
 

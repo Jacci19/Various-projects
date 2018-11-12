@@ -9,7 +9,7 @@
 
 <Pane fx:id="window05Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W05_Controller_BasicTimeline">
    <children>
-      <Label layoutX="500.0" layoutY="20.0" text="W05_BasicTimeline">
+      <Label layoutX="500.0" layoutY="20.0" text="W05 Basic Timeline">
          <font>
             <Font size="26.0" />
          </font>

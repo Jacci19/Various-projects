@@ -7,9 +7,9 @@
 
 <!--<Pane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W03_Controller_ParallelTransitionlelTransition">-->
 
-<Pane fx:id="window08Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.Window_08_Controller">
+<Pane fx:id="window08Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W08_Controller_CustomInterpolators">
    <children>
-      <Label layoutX="500.0" layoutY="20.0" text="WINDOW_08">
+      <Label layoutX="500.0" layoutY="20.0" text="W08 Custom Interpolators">
          <font>
             <Font size="26.0" />
          </font>

@@ -87,10 +87,10 @@ public class MenuController {
     @FXML
     public void onWindow07BtnAction() throws IOException {
         System.out.println("Wcisnieto Window07Btn");
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_07.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/W07_BuiltInInterpolators.fxml"));
         Pane pane = loader.load();
 
-        Window_07_Controller windowContr = loader.getController();
+        W07_Controller_BuiltInInterpolators windowContr = loader.getController();
         windowContr.setMainContr(mainContr);
         mainContr.setScreen(pane);
     }
@@ -98,10 +98,10 @@ public class MenuController {
     @FXML
     public void onWindow08BtnAction() throws IOException {
         System.out.println("Wcisnieto Window08Btn");
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/Window_08.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/JavaFX/MyMix/FXML/W08_CustomInterpolators.fxml"));
         Pane pane = loader.load();
 
-        Window_08_Controller windowContr = loader.getController();
+        W08_Controller_CustomInterpolators windowContr = loader.getController();
         windowContr.setMainContr(mainContr);
         mainContr.setScreen(pane);
     }

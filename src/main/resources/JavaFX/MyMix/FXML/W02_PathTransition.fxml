@@ -8,7 +8,7 @@
 
 <Pane fx:id="window02Pane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.MyMix.Controllers.W02_Controller_PathTransition">
    <children>
-      <Label layoutX="500.0" layoutY="20.0" text="WINDOW_02">
+      <Label layoutX="500.0" layoutY="20.0" text="W02 Path Transition">
          <font>
             <Font size="26.0" />
          </font>
