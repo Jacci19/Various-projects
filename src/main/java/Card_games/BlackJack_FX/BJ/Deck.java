@@ -2,12 +2,21 @@ package Card_games.BlackJack_FX.BJ;
 
 //import javafx.beans.property.SimpleStringProperty;
 //import javafx.beans.property.StringProperty;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static Card_games.BlackJack_FX.Controlers.BJ_gameControl.REVERSE_CARD_X;
+import static Card_games.BlackJack_FX.Controlers.BJ_gameControl.REVERSE_CARD_Y;
+import Card_games.BlackJack_FX.Controlers.BJ_gameControl.*;
 
 public class Deck {
 
@@ -57,18 +66,45 @@ public class Deck {
 
     public void placeCard(Pane pane, Card card, int which, String side){
 
+        double newX, newY;
+
         ImageView imgView = new ImageView();
+        imgView.setX(REVERSE_CARD_X);
+        imgView.setX(REVERSE_CARD_Y);
+
         if (side.equals("up")){
-            imgView.setX((double)(180+(70*which)));
-            imgView.setY((double)(76));
+            newX = (double)(180+(70*which));
+            newY = (double)(76);
         }
         else{
-            imgView.setX((double)(-30+(70*which)));
-            imgView.setY((double)(460));
+            newX = (double)(-30+(70*which));
+            newY = (double)(460);
         }
+
+
         setImg(imgView, card);
         pane.getChildren().add(imgView);
+        animateCardMotion(imgView, newX, newY);
     }
+
+    private void animateCardMotion (ImageView imageView, double newX, double newY){
+
+        final Timeline timeline = new Timeline();
+        final int duration = (200+ (int)(newX/3) + (int)(newY/2));                                          //aby prędkość ruchu kard była mniej więcej jednakowa
+        timeline.setCycleCount(1);
+        //timeline.setAutoReverse(true);
+
+        final KeyValue kv = new KeyValue(imageView.xProperty(), newX, Interpolator.EASE_BOTH);              // wartość klatki kluczowej
+        final KeyFrame kf = new KeyFrame(Duration.millis(duration), kv);                                    // klatka kluczowa
+        timeline.getKeyFrames().add(kf);                                                                    // dodanie kk do timeline
+
+        final KeyValue kv2 = new KeyValue(imageView.yProperty(), newY,Interpolator.EASE_BOTH);              //  to działa równocześnie z poprzednim
+        final KeyFrame kf2 = new KeyFrame(Duration.millis(duration), kv2);                                        //
+        timeline.getKeyFrames().add(kf2);                                                                    //
+
+        timeline.play();
+    }
+
 
 /*
     void giveCards (Pane pane, int ilosc, Hand player, boolean info,  int x, int y, int angle){

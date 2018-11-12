@@ -5,12 +5,14 @@ import Card_games.BlackJack_FX.BJ.Deck;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 import Card_games.BlackJack_FX.BJ.Deck.*;
@@ -18,6 +20,10 @@ import Card_games.BlackJack_FX.BJ.Deck.*;
 
 public class BJ_gameControl {
 
+    public static final double REVERSE_CARD_X = 40.0;
+    public static final double REVERSE_CARD_Y = 76.0;
+
+    public boolean isAnimationCheckboxSelected = true;
     private Hand myHand = new Hand("down");
     private Hand enemyHand = new Hand("up");
     private static Deck croupierDeck = new Deck();
@@ -26,7 +32,6 @@ public class BJ_gameControl {
     private static boolean overload = false;
     private final static int overloadValue = 31;
     private static int gameNumber = 0;
-
 
 
     private static String gameStatus = "inGame";    //inGame, playerWin, enemyWin, checkResult
@@ -53,8 +58,10 @@ public class BJ_gameControl {
     private Label enemyScoreLabel;
     @FXML
     private Label cardsInDeck;
+    @FXML
+    private CheckBox animationCheckBox;
 
-    public void initialize(){
+    public void initialize() {
         gamePart = 1;
         addReversCard();
         takeEnoughVBox.setVisible(false);
@@ -64,7 +71,7 @@ public class BJ_gameControl {
 
 
     @FXML
-    void gameEnoughButtonOnAction(ActionEvent event) {
+    void gameEnoughButtonOnAction() {
         takeEnoughVBox.setVisible(false);
         croupierLabel.setText("OK. Now is my turn. There is my first two cards");
         croupierDeck.giveCards(gameAnchorPane, 2, enemyHand, "up");
@@ -75,14 +82,14 @@ public class BJ_gameControl {
     }
 
     @FXML
-    void gameReturnButtonOnAction(ActionEvent event) throws IOException {
+    void gameReturnButtonOnAction() throws IOException {
         mainControl.loadMenuScreen();
     }
 
     @FXML
     void gameTakeButtonOnAction(ActionEvent event) {
         croupierDeck.giveCards(gameAnchorPane, 1, myHand, "down");
-        cardsInDeck.setText(  String.valueOf(croupierDeck.getCards().size())  );                        //odswieżenie wartości labela
+        cardsInDeck.setText(String.valueOf(croupierDeck.getCards().size()));                        //odswieżenie wartości labela
         if (myHand.sumHandCardsValues() >= overloadValue) overload = true;
         if (overload) {
             croupierLabel.setText("Sum of your cards: " + myHand.sumHandCardsValues() + "\nYou overloaded! YOU LOSE.");
@@ -97,11 +104,16 @@ public class BJ_gameControl {
 
     }
 
+    @FXML
+    void onAnimationCheckBoxAction() {
+        System.out.println(animationCheckBox.isSelected());
+    }
+
 
     @FXML
-    void yesButtonOnAction(ActionEvent event) {
+    void yesButtonOnAction() {
 
-        cardsInDeck.setText(  String.valueOf(croupierDeck.getCards().size())  );                        //odswieżenie wartości labela
+        cardsInDeck.setText(String.valueOf(croupierDeck.getCards().size()));                        //odswieżenie wartości labela
         switch (gamePart) {
             case 1:                                                                                     //_1_początek gry
                 croupierLabel.setText("Welcome. I'm the croupier of this game. Can we start?.");
@@ -116,20 +128,18 @@ public class BJ_gameControl {
                 startGame();
                 break;
             case 4:                                                                                     //_4_ przed summary
-                switch (enemyHand.enemyTactic(overloadValue, croupierLabel, croupierDeck, gameAnchorPane)){
+                switch (enemyHand.enemyTactic(overloadValue, croupierLabel, croupierDeck, gameAnchorPane)) {
                     case "playerWin":
                         gameStatus = "playerWin";
                         gamePart = 5;
                         break;
                     case "checkResult":
-                        if (myHand.sumHandCardsValues() > enemyHand.sumHandCardsValues()){
+                        if (myHand.sumHandCardsValues() > enemyHand.sumHandCardsValues()) {
                             gameStatus = "playerWin_after_Check";
 
-                        }
-                        else if (myHand.sumHandCardsValues() < enemyHand.sumHandCardsValues()){
+                        } else if (myHand.sumHandCardsValues() < enemyHand.sumHandCardsValues()) {
                             gameStatus = "enemyWin_after_Check";
-                        }
-                        else{
+                        } else {
                             gameStatus = "draw";
                         }
                         gamePart = 5;
@@ -153,14 +163,12 @@ public class BJ_gameControl {
         System.out.println("start");
         takeEnoughVBox.setVisible(true);
 
-        if (gameNumber == 1){
+        if (gameNumber == 1) {
             welcomeText = "So let's begin. I'm shuffling a deck and give you two cards.\nYou may take next one or pass. Sum of your cards: ";
-        }
-        else if (croupierDeck.needShuffling()){
+        } else if (croupierDeck.needShuffling()) {
             croupierDeck = new Deck();
             welcomeText = "Only few cards left in deck. I'm taking a new deck. I give you two cards.\nYou may take next one or pass. Sum of your cards: ";
-        }
-        else{
+        } else {
             welcomeText = "Round " + gameNumber + ". I give you two cards.\nYou may take next one or pass. Sum of your cards: ";
         }
         croupierDeck.giveCards(gameAnchorPane, 2, myHand, "down");
@@ -172,9 +180,9 @@ public class BJ_gameControl {
         this.mainControl = mainCtrl;
     }
 
-    public void summary(String status){
+    public void summary(String status) {
         yesVBox.setVisible(true);
-        switch (status){
+        switch (status) {
             case "playerWin":
                 myHand.scoreUp();
                 myScoreLabel.setText(String.valueOf(myHand.getScore()));
@@ -204,28 +212,24 @@ public class BJ_gameControl {
         }
     }
 
-    void resetGame(){
+    void resetGame() {
         myHand.getHandCards().clear();
         enemyHand.getHandCards().clear();
         overload = false;
         addReversCard();
     }
-    void addReversCard(){
+
+    void addReversCard() {
         ImageView imgView = new ImageView();
-        imgView.setX((double)(40));
-        imgView.setY((double)(76));
+        imgView.setX(REVERSE_CARD_X);
+        imgView.setY(REVERSE_CARD_Y);
         Image img = new Image("/Card_games/BlackJack_FX/Img/_rewers.png");
         imgView.setImage(img);
         gameAnchorPane.getChildren().add(imgView);
     }
 
-
-
-/*
-    public static void setCardsInDeckValue(int value){
-        cardsInDeck.setText(String.valueOf(value));
+    public boolean isAnimationCheckboxChecked() {
+        return animationCheckBox.isSelected();
     }
-*/
-
 
 }

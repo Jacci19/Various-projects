@@ -1,3 +1,5 @@
 Blackjack_FX - zapis aktualnego wyniku do pliku tekstowego. W menu głównym wybór: nowa grs czy kontynuacja.
 
 Gra w statki
+
+Obsługa kontrolki  Animacja w BlackJackFX
