@@ -1,4 +1,4 @@
-package SmallProgs.Kurs_Java8_ZaczProg.InterfacesAll;
+package SmallProgs.Kurs_Java8_ZaczProg.L04_BiConsumerBiFunctionBinaryOperator;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -12,11 +12,13 @@ public class BiConsumerBiFunctionBinaryOperator {
 
     public static void main(String[] args) {
 
-        //BiConsumer_____________________________________________________
+        //BiConsumer_____________________________________________________           //na podanych liczbach wykonuje określone działanie
+        System.out.println("\n_________________BiConsumer_________________");
+
         BiConsumer<Double, Double> biConsumer = (x, y) -> {
             System.out.println("Dodawanie: " + (x + y));
         };
-        biConsumer.accept(1.0, 2.0);
+        biConsumer.accept(1.0, 2.0);                                            //wypisze: Dodawanie: 3.0
 
         BiConsumer<Double, Double> biConsumer1 = (x, y) -> {
             System.out.println("Mnozenie: " + (x * y));
@@ -25,11 +27,13 @@ public class BiConsumerBiFunctionBinaryOperator {
         BiConsumer<Double, Double> biConsumer2 = (x, y) -> {
             System.out.println("Dzielenie: " + (x / y));
         };
-        biConsumer.andThen(biConsumer1).andThen(biConsumer2).accept(3.0, 2.0);
+        biConsumer.andThen(biConsumer1).andThen(biConsumer2).accept(3.0, 2.0);      //wypisze: Dodawanie: 5.0  \n  Mnozenie: 6.0  \n  Dzielenie: 1.5
         // END
 
 
         //BiFunction_____________________________________________________
+        System.out.println("\n_________________BiFunction_________________");
+
         BiFunction<Double, Double, Double> biFunction = (x, y) -> {
             return x + y;
         };
@@ -41,6 +45,8 @@ public class BiConsumerBiFunctionBinaryOperator {
         // END
 
         ///BinaryOperator_____________________________________________________
+        System.out.println("\n_______________BinaryOperator_______________");
+
         BinaryOperator<Integer> binaryOperator = (x, y) -> x + y;
         System.out.println(binaryOperator.apply(4,5));
 

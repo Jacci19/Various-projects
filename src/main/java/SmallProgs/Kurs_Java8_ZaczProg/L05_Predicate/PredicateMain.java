@@ -1,4 +1,4 @@
-package SmallProgs.Kurs_Java8_ZaczProg.PredicateMain;
+package SmallProgs.Kurs_Java8_ZaczProg.L05_Predicate;
 
 import java.util.function.Predicate;
 
@@ -31,7 +31,7 @@ public class PredicateMain {
         }
 
         Predicate<Book> i = Predicate.isEqual(new Book(39.99, "Pani jeziora", "twarda"));
-        System.out.println("Czy ta sama książka? " + i.test(book));
+        System.out.println("Czy ta sama ksiazka? " + i.test(book));
 
     }
 }

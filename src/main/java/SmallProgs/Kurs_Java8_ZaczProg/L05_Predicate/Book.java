@@ -1,4 +1,4 @@
-package SmallProgs.Kurs_Java8_ZaczProg.PredicateMain;
+package SmallProgs.Kurs_Java8_ZaczProg.L05_Predicate;
 
 /**
  * Created by ZacznijProgramowac.
@@ -27,6 +27,7 @@ public class Book implements Cloneable{
     public double price;
     public String cover;
     public boolean isPromotion;
+
 
     @Override
     public boolean equals(Object o) {
@@ -62,6 +63,7 @@ public class Book implements Cloneable{
                 ", isPromotion=" + isPromotion +
                 '}';
     }
+
 
     public Book clone()  {
         try {

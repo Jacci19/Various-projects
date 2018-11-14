@@ -1,10 +1,10 @@
-package SmallProgs.Kurs_Java8_ZaczProg.LambdaCalculator;
+package SmallProgs.Kurs_Java8_ZaczProg.L03_LambdaCalculator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**http://zacznijprogramowac.net/praktyczny-przyklad-kalkulator-lambda-i-interfejs-funkcjonalny/
- *
+ *  https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html                       wszystkie interfejsy funkcjonalne
  * Lekcja opisuje zastosowanie wyrażeń lambda i interfejsu funkcjonalnego w prostym kalkulatorze
  */
 
@@ -17,7 +17,7 @@ public class CalculatorMain {
 
     public static void main(String[] args) {
         fillMap();
-        result("+", 1, 2);
+        result("+", 1, 2);              //jeśli operator = "+" to na danych "a" i "b" wykonaj dodawanie
         result("-", 2, 2);
         result("/", 4, 4);
         result("*", 5, 2);
@@ -25,8 +25,8 @@ public class CalculatorMain {
 
     /** Wypełniamy mapę symbolem kalkulacji i lambdami           */
 
-    private static void fillMap() {
-        calculationMap.put("+", (a, b) -> a + b);
+    private static void fillMap() {                                                 //mapa - lista obiektów typu : (opis, coś)
+        calculationMap.put("+", (a, b) -> a + b);                   //dodaj nowy element do mapy
         calculationMap.put("-", (a, b) -> a - b);
         calculationMap.put("/", (a, b) -> a / b);
         calculationMap.put("*", (a, b) -> a * b);

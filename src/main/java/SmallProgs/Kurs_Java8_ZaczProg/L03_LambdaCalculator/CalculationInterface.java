@@ -1,4 +1,4 @@
-package SmallProgs.Kurs_Java8_ZaczProg.LambdaCalculator;
+package SmallProgs.Kurs_Java8_ZaczProg.L03_LambdaCalculator;
 
 /**      http://zacznijprogramowac.net/praktyczny-przyklad-kalkulator-lambda-i-interfejs-funkcjonalny/                   */
 
