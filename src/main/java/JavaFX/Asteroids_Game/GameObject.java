@@ -9,6 +9,10 @@ public class GameObject {
 
     private Node view;
     private Point2D velocity = new Point2D(0, 0);
+    private double speed = 0.8;
+    private double maxSpeed = 10.0;
+    private double minSpeed = 0.4;
+    private double turnAngle = 8;
 
     private boolean alive = true;
 
@@ -17,8 +21,8 @@ public class GameObject {
     }
 
     public void update() {
-        view.setTranslateX(view.getTranslateX() + velocity.getX());
-        view.setTranslateY(view.getTranslateY() + velocity.getY());
+        view.setTranslateX(view.getTranslateX() + speed * velocity.getX());
+        view.setTranslateY(view.getTranslateY() + speed * velocity.getY());
     }
 
     public void setVelocity(Point2D velocity) {
@@ -47,16 +51,28 @@ public class GameObject {
     }
 
     public void rotateRight() {
-        view.setRotate(view.getRotate() + 5);
-        setVelocity(new Point2D(Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));         //aby pojazd zieniał kierunek ruchu po obrocie
+        view.setRotate(view.getRotate() + turnAngle);
+        setVelocity(new Point2D( Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));         //aby pojazd zieniał kierunek ruchu po obrocie
     }
 
     public void rotateLeft() {
-        view.setRotate(view.getRotate() - 5);
+        view.setRotate(view.getRotate() - turnAngle);
         setVelocity(new Point2D(Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));         //aby pojazd zieniał kierunek ruchu po obrocie
     }
 
     public boolean isColliding(GameObject other) {
         return getView().getBoundsInParent().intersects(other.getView().getBoundsInParent());
+    }
+
+    public void accelerate() {                                                                                              //MOJE
+        if (speed < maxSpeed ){
+            this.speed += 0.2;
+        }
+    }
+
+    public void brake() {                                                                                                   //MOJE
+        if (speed > minSpeed) {
+            this.speed -= 0.4;
+        }
     }
 }

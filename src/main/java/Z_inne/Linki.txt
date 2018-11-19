@@ -24,3 +24,10 @@ http://uczymysiekodowac.pl/wp-content/uploads/2016/05/lekcja_6_wyswietlanie-dany
 
 
 https://code.makery.ch/blog/javafx-dialogs-official/   - okna alert
+
+
+Java 8:
+https://kobietydokodu.pl/niezbednik-juniora-wyrazenia-lambda-i-strumienie/
+http://zacznijprogramowac.net/category/kursy-programowania/kursy-na-blogu/java-8/page/2/
+http://java.org.pl/java_8_lambda.php
+http://devfoundry.pl/wyrazenia-lambda-i-interfejsy-funkcyjne/

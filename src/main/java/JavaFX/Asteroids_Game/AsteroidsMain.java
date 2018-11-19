@@ -26,6 +26,8 @@ public class AsteroidsMain extends Application {
     private List<GameObject> enemies = new ArrayList<>();
 
     private GameObject player;
+    private final int stageWidth = 1600;
+    private final int stageHeight = 1000;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,9 +37,13 @@ public class AsteroidsMain extends Application {
                 player.rotateLeft();
             } else if (e.getCode() == KeyCode.RIGHT) {
                 player.rotateRight();
+            } else if (e.getCode() == KeyCode.UP) {
+                player.accelerate();
+            } else if (e.getCode() == KeyCode.DOWN) {
+                player.brake();
             } else if (e.getCode() == KeyCode.SPACE) {
                 Bullet bullet = new Bullet();
-                bullet.setVelocity(player.getVelocity().normalize().multiply(5));
+                bullet.setVelocity(player.getVelocity().normalize().multiply(10));
                 addBullet(bullet, player.getView().getTranslateX(), player.getView().getTranslateY());
             }
         });
@@ -52,7 +58,7 @@ public class AsteroidsMain extends Application {
 
     private Parent createContent() {
         root = new Pane();
-        root.setPrefSize(1200, 800);
+        root.setPrefSize(stageWidth, stageHeight);           //Wymiary obszaru gry
 
         player = new Player();
         player.setVelocity(new Point2D(1, 0));              // x = 1 oznacza, że obiekt na starcie będzie się poruszał wzdłuż osi x w prawo
@@ -69,6 +75,59 @@ public class AsteroidsMain extends Application {
         return root;
     }
 
+    private void onUpdate() {
+        for (GameObject bullet : bullets) {
+            for (GameObject enemy : enemies) {
+                if (bullet.isColliding(enemy)) {
+                    bullet.setAlive(false);
+                    enemy.setAlive(false);
+
+                    root.getChildren().removeAll(bullet.getView(), enemy.getView());
+                }
+            }
+        }
+/*
+        for (GameObject enemy : enemies) {                                                              //MOJE
+            if (player.isColliding(enemy)) {
+                player.setAlive(false);
+                enemy.setAlive(false);
+
+                root.getChildren().removeAll(player.getView(), enemy.getView());
+            }
+        }
+*/
+
+
+        bullets.removeIf(GameObject::isDead);                                                           //   ::  !!!
+        enemies.removeIf(GameObject::isDead);                                                 //aby bullety nie znikały w miejscu gdzie zniknął enemy
+
+        bullets.forEach(GameObject::update);
+        enemies.forEach(GameObject::update);
+
+        player.update();
+
+        if (Math.random() < 0.04) {                                                         //im większa liczba tym więcej wrogów
+            addEnemy(new Enemy(), Math.random() * root.getPrefWidth(), Math.random() * root.getPrefHeight());
+        }
+
+        blockStageBorders();
+    }
+
+    private void blockStageBorders() {
+        if (player.getView().getTranslateX() > stageWidth - 40){
+            player.getView().setTranslateX(stageWidth-45);
+        }
+        if (player.getView().getTranslateY() > stageHeight-20){
+            player.getView().setTranslateY(stageHeight-25);
+        }
+        if (player.getView().getTranslateX() < 0){
+            player.getView().setTranslateX(0 + 5);
+        }
+        if (player.getView().getTranslateY() < 10){
+            player.getView().setTranslateY(10 + 5);
+        }
+    }
+
     private void addBullet(GameObject bullet, double x, double y) {
         bullets.add(bullet);
         addGameObject(bullet, x, y);
@@ -83,31 +142,6 @@ public class AsteroidsMain extends Application {
         object.getView().setTranslateX(x);
         object.getView().setTranslateY(y);
         root.getChildren().add(object.getView());
-    }
-
-    private void onUpdate() {
-        for (GameObject bullet : bullets) {
-            for (GameObject enemy : enemies) {
-                if (bullet.isColliding(enemy)) {
-                    bullet.setAlive(false);
-                    enemy.setAlive(false);
-
-                    root.getChildren().removeAll(bullet.getView(), enemy.getView());
-                }
-            }
-        }
-
-        bullets.removeIf(GameObject::isDead);
-        enemies.removeIf(GameObject::isDead);
-
-        bullets.forEach(GameObject::update);
-        enemies.forEach(GameObject::update);
-
-        player.update();
-
-        if (Math.random() < 0.01) {
-            addEnemy(new Enemy(), Math.random() * root.getPrefWidth(), Math.random() * root.getPrefHeight());
-        }
     }
 
     private static class Player extends GameObject {
