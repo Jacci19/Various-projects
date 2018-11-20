@@ -1,5 +1,8 @@
 package JavaFX.AnimatingParametricEquations;
 
+/**  https://github.com/AlmasB/FXTutorials/blob/master/src/com/almasb/parametric/DrawingApp.java
+ https://www.youtube.com/watch?v=KvtqeYpvrnk&index=12&list=PL4h6ypqTi3RR_bhBk6PtLfD83YkaJXXxw    */
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
@@ -21,9 +24,7 @@ import java.io.IOException;
 
 import static java.lang.Math.*;
 
-/**  https://github.com/AlmasB/FXTutorials/blob/master/src/com/almasb/parametric/DrawingApp.java
- https://www.youtube.com/watch?v=KvtqeYpvrnk&index=12&list=PL4h6ypqTi3RR_bhBk6PtLfD83YkaJXXxw
- */
+
 public class AnimParamEquat_Main extends Application {
 
     private GraphicsContext g;
@@ -83,7 +84,7 @@ public class AnimParamEquat_Main extends Application {
         double y5 = 30/cos(t) * sin(t);
 
 
-        return new Point2D(x4, y4).multiply(50);
+        return new Point2D(x4, y4).multiply(50);                                          //wybór jednej z powyższych figur
     }
 
     private void saveScreenshot(Scene scene) {
@@ -102,7 +103,7 @@ public class AnimParamEquat_Main extends Application {
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent());
         scene.setOnKeyReleased(e -> {
-            if (e.getCode() == KeyCode.ENTER) {                             //robi screenshot do pliku png po naciśnięciu ENTER
+            if (e.getCode() == KeyCode.ENTER) {                                             //robi screenshot do pliku png po naciśnięciu ENTER
                 saveScreenshot(scene);
             }
         });
