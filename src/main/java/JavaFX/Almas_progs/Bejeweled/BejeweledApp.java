@@ -1,4 +1,4 @@
-package JavaFX.Bejeweled;
+package JavaFX.Almas_progs.Bejeweled;
 
 /** https://github.com/AlmasB/FXTutorials/blob/master/src/com/almasb/bejeweled/BejeweledApp.java  */
 

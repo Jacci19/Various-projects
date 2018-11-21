@@ -1,4 +1,4 @@
-package JavaFX.Paint;
+package JavaFX.Almas_progs.Paint;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-//Proste menu przełączające do innych okien. Templejt do innych projektów
+//Mix różnych programów. Animacje są z: https://docs.oracle.com/javafx/2/animations/basics.htm
 
 package JavaFX.MyMix;
 

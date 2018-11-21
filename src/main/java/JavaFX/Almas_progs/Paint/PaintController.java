@@ -1,4 +1,4 @@
-package JavaFX.Paint;
+package JavaFX.Almas_progs.Paint;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;

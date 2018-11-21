@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 
 public class MyBib_Main extends Application {
 
-    //public static final String BORDER_PANE_MAIN_FXML = "../aa/BorderPaneMain.fxml";                           //ścieżka względem pliku FXMLUtils.java
     public static final String BORDER_PANE_MAIN_FXML = "/JavaFX/MojaBiblioteczka/FXML/BorderPaneMain.fxml";                           //ścieżka względem pliku FXMLUtils.java
 
     public static void main(String[] args) {

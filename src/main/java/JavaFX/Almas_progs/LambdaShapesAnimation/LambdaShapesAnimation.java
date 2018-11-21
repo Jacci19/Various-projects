@@ -1,4 +1,4 @@
-package JavaFX.LambdaShapesAnimation;
+package JavaFX.Almas_progs.LambdaShapesAnimation;
 
 /** https://www.youtube.com/watch?v=VPYskQbq7q4&index=14&list=PL4h6ypqTi3RR_bhBk6PtLfD83YkaJXXxw
  * Program animuje wciskane litery po ścieżce okręgu lub innym kształcie                                    */
@@ -6,14 +6,12 @@ package JavaFX.LambdaShapesAnimation;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;

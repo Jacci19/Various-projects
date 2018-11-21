@@ -1,5 +1,7 @@
 package Pokemon;
 
+//na podstawie filmu kakaboc:  https://www.youtube.com/watch?v=5fgyVSzCzvA&list=PL0NHOHZVAjfDo3lN3Ae13vJDd8lW_-K0B&index=23
+
 import Pokemon.model.Pokemon;
 import Pokemon.pokemons.*;
 
