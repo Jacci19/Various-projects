@@ -40,16 +40,16 @@ public class AnimParamEquat_Main extends Application {
         Canvas canvas = new Canvas(1600, 1000);
         g = canvas.getGraphicsContext2D();
 
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                t += 0.15;                                                         //reguluje szybkość rysowania poprzez gęstość punktóe (kanciatość)
-                System.out.println(t%2.0);
+                t += 0.05;                                                         //reguluje szybkość rysowania poprzez gęstość punktóe (kanciatość)
                 if (t%2 < 1) {
-                    draw(Color.RED);
+                    draw(Color.GREEN);
                 }
                 else {
-                    draw(Color.BLUE);
+                    draw(Color.RED);
                 }
 
                 //draw(Color.RED);
@@ -64,9 +64,11 @@ public class AnimParamEquat_Main extends Application {
     private void draw(Color color) {
         Point2D p = curveFunction();
 
+        //System.out.println("t: " + t + "______X = " + p.getX() + "______Y = " + p.getY());
+
         g.setStroke(color);
 
-        double newX = 800 + p.getX();                                                       //regulacja połozenia wykresu x,y
+        double newX = 800 + p.getX();                                                     //regulacja połozenia wykresu x,y
         double newY = 500 + p.getY();
 
         if (oldX != 800 && oldY != 500)
@@ -83,7 +85,7 @@ public class AnimParamEquat_Main extends Application {
         double y1 = cos(t) * (pow(E, cos(t)) - 2 * cos(4*t) - pow(sin(t/12), 5));
         double x2 = 3 * cos(t);                                                           //okrąg  (owal)
         double y2 = 3 * sin(t);
-        double x3 = 0.06 * t * sin(3 * t);                                                //spirala archimedesa
+        double x3 = 0.02 * t * sin(3 * t);                                                //spirala archimedesa
         double y3 = 0.02 * t * cos(3 * t);
         double x3a = 60/t * sin(6 * t);                                                   //spirala odwrotna
         double y3a = 40/t * cos(6 * t);
@@ -95,21 +97,28 @@ public class AnimParamEquat_Main extends Application {
         double y6 = 3 * sin(5 * t + 2);
         double x7 = 0.04 * t - 6 * sin(1 * t);                                            //cykloida
         double y7 = 0.04 - 6 * cos(1 * t);
-        double x8 = 2 * (2 * cos(0.02 * t) - cos (2 * t));                                //kardioida zmodyfikowana
-        double y8 = 2 * (2 * sin(0.02 * t) - sin (2 * t));
+        double x8 = 2 * (2 * cos(0.01 * t) - cos (2 * t));                                //kardioida zmodyfikowana
+        double y8 = 2 * (2 * sin(0.01 * t) - sin (2 * t));
         double x8a = 3 * (2 * cos(1 * t) - cos (2 * t));                                  //kardioida
         double y8a = 3 * (2 * sin(1 * t) - sin (2 * t));
         double x9 = 0.03 * t * pow(cos(t/4),5);                                           //asteroida zmodyfikowana
         double y9 = 0.03 * t * pow(sin(t/4),5);
         double x9a = 6 * pow(cos(t/4),5);                                                 //asteroida
         double y9a = 6 * pow(sin(t/4),5);
-
+        double x10 = 0.002 * t * (16 * cos(t) + 3) * 1 *  sin(t);                         //ślimak pascala zmodyfikowany
+        double y10 = 0.002 * t * (16 * cos(t) + 3) * 1 *  cos(t);
+        double x10a = (5 * cos(t) + 2) * sin(t);                                          //ślimak pascala
+        double y10a = (5 * cos(t) + 2) * cos(t);
+        double x10b = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * sin(t);              //ślimak pascala zmodyfikowany spiralny
+        double y10b = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * cos(t);
+        double x11 = 4 * (cos(t) + cos(7*t)/2 + sin(17*t)/3);                             //serwetka
+        double y11 = 4 * (sin(t) + sin(7*t)/2 + cos(17*t)/3);
 
         double x0 = 11 * tan(1/t) * 0.2 * cos(t);                                         //testy
         double y0 = 0.2 * cos(1 * t) * tan( 10 * t);
 
 
-        return new Point2D(x9, y9).multiply(50);                                          //wybór jednej z powyższych figur
+        return new Point2D(x8, y11).multiply(60);                                          //wybór jednej z powyższych figur
     }
 
     private void saveScreenshot(Scene scene) {
@@ -150,4 +159,18 @@ ptak
 donut
         double x8 = 2 * (2 * cos(0.02 * t) - cos (2 * t));                                //kardioida zmodyfikowana
         double y8 = 2 * (2 * sin(0.02 * t) - sin (2 * t));
+
+ciastko
+        double x9 = 0.03 * t * pow(cos(t/4),5);                                           //asteroida zmodyfikowana
+        double y8a = 3 * (2 * sin(1 * t) - sin (2 * t));
+
+ spirala ze ślimaka vs spirala archimedesa
+        double x3 = 0.02 * t * sin(3 * t);                                                //spirala archimedesa
+        double y3 = 0.02 * t * cos(3 * t);
+
+        double x10 = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * sin(t);               //ślimak pascala zmodyfikowany
+        double y10 = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * cos(t);
+Klepsydra
+        double x3 = 0.02 * t * sin(3 * t);                                                //spirala archimedesa
+        double y10 = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * cos(t);
  */
