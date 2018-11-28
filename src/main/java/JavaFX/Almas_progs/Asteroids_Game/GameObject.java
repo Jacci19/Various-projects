@@ -10,9 +10,9 @@ public class GameObject {
     private Node view;
     private Point2D velocity = new Point2D(0, 0);
     private double speed = 0.8;
-    private double maxSpeed = 10.0;
-    private double minSpeed = 0.4;
-    private double turnAngle = 8;
+    private final double MAX_SPEED = 10.0;
+    private final double MIN_SPEED = 0.4;
+    private final double TURN_ANGLE = 8;
 
     private boolean alive = true;
 
@@ -51,12 +51,12 @@ public class GameObject {
     }
 
     public void rotateRight() {
-        view.setRotate(view.getRotate() + turnAngle);
+        view.setRotate(view.getRotate() + TURN_ANGLE);
         setVelocity(new Point2D( Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));         //aby pojazd zieniał kierunek ruchu po obrocie
     }
 
     public void rotateLeft() {
-        view.setRotate(view.getRotate() - turnAngle);
+        view.setRotate(view.getRotate() - TURN_ANGLE);
         setVelocity(new Point2D(Math.cos(Math.toRadians(getRotate())), Math.sin(Math.toRadians(getRotate()))));         //aby pojazd zieniał kierunek ruchu po obrocie
     }
 
@@ -65,13 +65,13 @@ public class GameObject {
     }
 
     public void accelerate() {                                                                                              //MOJE
-        if (speed < maxSpeed ){
+        if (speed < MAX_SPEED){
             this.speed += 0.2;
         }
     }
 
     public void brake() {                                                                                                   //MOJE
-        if (speed > minSpeed) {
+        if (speed > MIN_SPEED) {
             this.speed -= 0.4;
         }
     }

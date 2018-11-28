@@ -26,13 +26,13 @@ public class AsteroidsMain extends Application {
     private List<GameObject> enemies = new ArrayList<>();
 
     private GameObject player;
-    private final int stageWidth = 1600;
-    private final int stageHeight = 1000;
+    private final int STAGE_WIDTH = 1600;
+    private final int STAGE_HEIGHT = 1000;
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(createContent()));
-        stage.getScene().setOnKeyPressed(e -> {
+        stage.getScene().setOnKeyPressed(e -> {                                                 //obsługa wciskania przycisków klawiatury
             if (e.getCode() == KeyCode.LEFT) {
                 player.rotateLeft();
             } else if (e.getCode() == KeyCode.RIGHT) {
@@ -58,7 +58,7 @@ public class AsteroidsMain extends Application {
 
     private Parent createContent() {
         root = new Pane();
-        root.setPrefSize(stageWidth, stageHeight);           //Wymiary obszaru gry
+        root.setPrefSize(STAGE_WIDTH, STAGE_HEIGHT);           //Wymiary obszaru gry
 
         player = new Player();
         player.setVelocity(new Point2D(1, 0));              // x = 1 oznacza, że obiekt na starcie będzie się poruszał wzdłuż osi x w prawo
@@ -87,7 +87,7 @@ public class AsteroidsMain extends Application {
             }
         }
 /*
-        for (GameObject enemy : enemies) {                                                              //MOJE
+        for (Izak enemy : enemies) {                                                              //MOJE
             if (player.isColliding(enemy)) {
                 player.setAlive(false);
                 enemy.setAlive(false);
@@ -99,12 +99,12 @@ public class AsteroidsMain extends Application {
 
 
         bullets.removeIf(GameObject::isDead);                                                           //   ::  !!!
-        enemies.removeIf(GameObject::isDead);                                                 //aby bullety nie znikały w miejscu gdzie zniknął enemy
+        enemies.removeIf(GameObject::isDead);                                                 //aby bullety nie znikały w miejscu gdzie zniknął enemy nawet po jego zniknięciu
 
         bullets.forEach(GameObject::update);
         enemies.forEach(GameObject::update);
 
-        player.update();
+        player.update();                                                                    //ruch gracza
 
         if (Math.random() < 0.04) {                                                         //im większa liczba tym więcej wrogów
             addEnemy(new Enemy(), Math.random() * root.getPrefWidth(), Math.random() * root.getPrefHeight());
@@ -114,11 +114,11 @@ public class AsteroidsMain extends Application {
     }
 
     private void blockStageBorders() {
-        if (player.getView().getTranslateX() > stageWidth - 40){
-            player.getView().setTranslateX(stageWidth-45);
+        if (player.getView().getTranslateX() > STAGE_WIDTH - 40){
+            player.getView().setTranslateX(STAGE_WIDTH -45);
         }
-        if (player.getView().getTranslateY() > stageHeight-20){
-            player.getView().setTranslateY(stageHeight-25);
+        if (player.getView().getTranslateY() > STAGE_HEIGHT -20){
+            player.getView().setTranslateY(STAGE_HEIGHT -25);
         }
         if (player.getView().getTranslateX() < 0){
             player.getView().setTranslateX(0 + 5);

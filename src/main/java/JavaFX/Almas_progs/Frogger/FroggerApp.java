@@ -117,16 +117,16 @@ public class FroggerApp extends Application {
         stage.getScene().setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case W:
-                    frog.setTranslateY(frog.getTranslateY() - 40);
+                    frog.setTranslateY(frog.getTranslateY() - 10);
                     break;
                 case S:
-                    frog.setTranslateY(frog.getTranslateY() + 40);
+                    frog.setTranslateY(frog.getTranslateY() + 10);
                     break;
                 case A:
-                    frog.setTranslateX(frog.getTranslateX() - 40);
+                    frog.setTranslateX(frog.getTranslateX() - 10);
                     break;
                 case D:
-                    frog.setTranslateX(frog.getTranslateX() + 40);
+                    frog.setTranslateX(frog.getTranslateX() + 10);
                     break;
                 default:
                     break;
