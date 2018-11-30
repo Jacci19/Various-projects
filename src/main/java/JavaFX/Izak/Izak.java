@@ -4,19 +4,30 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
+
 public class Izak extends Pane {
 
-    private int speed = 12;
+    private int speed = 6;
     private ImageView imageView = new ImageView();
     private ImageView bodyImageView, headImageView;
+    private ArrayList<String> BodyFrontList = new ArrayList<>();
+    private ArrayList<String> BodyBackList = new ArrayList<>();
+    private ArrayList<String> BodyLeftList = new ArrayList<>();
+    private ArrayList<String> BodyRightList = new ArrayList<>();
+
+
 
     public Izak() {
-        this.setTranslateX(700);
-        this.setTranslateY(400);
         LoadIzakImages("BodyFront01", "HeadFront");
+        fillFrameList(BodyFrontList, 10, "BodyFront");
+        fillFrameList(BodyBackList, 10, "BodyBack");
+        fillFrameList(BodyLeftList, 10, "BodyLeft");
+        fillFrameList(BodyRightList, 10, "BodyRight");
     }
 
-    private void LoadIzakImages(String bodyImgName, String headImgName) {
+    public void LoadIzakImages(String bodyImgName, String headImgName) {
         this.getChildren().clear();
         bodyImageView = new ImageView();
         bodyImageView.setImage(new Image("JavaFx/Izak/png/" + bodyImgName +".png"));
@@ -29,32 +40,37 @@ public class Izak extends Pane {
         this.getChildren().add(headImageView);
     }
 
+    private void fillFrameList(ArrayList arrayList, int listLength, String fileName){
+        for (int i=1; i<= listLength; i++){
+            if (i<10){
+                arrayList.add(fileName + "0" + i);
+            }
+            else{
+                arrayList.add(fileName + i);
+            }
+        }
+    }
+
     public int getSpeed() {
         return speed;
     }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public void goUp() {
-        LoadIzakImages("BodyFront01", "HeadBack");
-        this.setTranslateY(this.getTranslateY() - speed);
+    public ArrayList<String> getBodyFrontList() {
+        return BodyFrontList;
     }
 
-    public void goDown() {
-        LoadIzakImages("BodyFront01", "HeadFront");
-        this.setTranslateY(this.getTranslateY() + speed);
+    public ArrayList<String> getBodyBackList() {
+        return BodyBackList;
     }
 
-    public void goLeft() {
-        LoadIzakImages("BodyLeft01", "HeadLeft");
-        this.setTranslateX(this.getTranslateX() - speed);
+    public ArrayList<String> getBodyLeftList() {
+        return BodyLeftList;
     }
 
-    public void goRight() {
-        LoadIzakImages("BodyRight01", "HeadRight");
-        this.setTranslateX(this.getTranslateX() + speed);
-
+    public ArrayList<String> getBodyRightList() {
+        return BodyRightList;
     }
 }
