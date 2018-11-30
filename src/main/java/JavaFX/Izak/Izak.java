@@ -16,7 +16,9 @@ public class Izak extends Pane {
     private ArrayList<String> BodyBackList = new ArrayList<>();
     private ArrayList<String> BodyLeftList = new ArrayList<>();
     private ArrayList<String> BodyRightList = new ArrayList<>();
-
+    private Position position;
+    private Boolean isMoving = false;
+    private Boolean isShooting = false;
 
 
     public Izak() {
@@ -25,6 +27,7 @@ public class Izak extends Pane {
         fillFrameList(BodyBackList, 10, "BodyBack");
         fillFrameList(BodyLeftList, 10, "BodyLeft");
         fillFrameList(BodyRightList, 10, "BodyRight");
+        this.setPosition(Position.FRONT);
     }
 
     public void LoadIzakImages(String bodyImgName, String headImgName) {
@@ -51,25 +54,40 @@ public class Izak extends Pane {
         }
     }
 
+                                                                                                    //gettery i settery
     public int getSpeed() {
         return speed;
     }
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
+    public Position getPosition() {
+        return position;
+    }
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+    public Boolean getMoving() {
+        return isMoving;
+    }
+    public void setMoving(Boolean moving) {
+        isMoving = moving;
+    }
+    public Boolean getShooting() {
+        return isShooting;
+    }
+    public void setShooting(Boolean shoting) {
+        isShooting = shoting;
+    }
     public ArrayList<String> getBodyFrontList() {
         return BodyFrontList;
     }
-
     public ArrayList<String> getBodyBackList() {
         return BodyBackList;
     }
-
     public ArrayList<String> getBodyLeftList() {
         return BodyLeftList;
     }
-
     public ArrayList<String> getBodyRightList() {
         return BodyRightList;
     }
