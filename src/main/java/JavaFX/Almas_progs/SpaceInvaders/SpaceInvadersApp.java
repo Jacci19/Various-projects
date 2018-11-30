@@ -13,40 +13,32 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**    https://www.youtube.com/watch?v=FVo1fm52hz0&index=1&list=PL4h6ypqTi3RTIoPa_Qz3haEo3OXJQqOwc                      RUCH A-D_Spacja
+/**    https://www.youtube.com/watch?v=FVo1fm52hz0&index=1&list=PL4h6ypqTi3RTIoPa_Qz3haEo3OXJQqOwc                      RUCH: A-D_Spacja
  https://github.com/AlmasB/FXTutorials/blob/master/src/com/almasb/invaders/SpaceInvadersApp.java           */
 
 public class SpaceInvadersApp extends Application {
 
     private Pane root = new Pane();
-
     private double t = 0;
-
     private Sprite player = new Sprite(300, 750, 40, 40, "player", Color.BLUE);
 
     private Parent createContent() {
         root.setPrefSize(600, 800);
-
         root.getChildren().add(player);
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 update();
             }
         };
-
         timer.start();
-
         nextLevel();
-
         return root;
     }
 
     private void nextLevel() {
         for (int i = 0; i < 5; i++) {
             Sprite s = new Sprite(90 + i*100, 150, 30, 30, "enemy", Color.RED);
-
             root.getChildren().add(s);
         }
     }
@@ -60,36 +52,28 @@ public class SpaceInvadersApp extends Application {
 
         sprites().forEach(s -> {
             switch (s.type) {
-
                 case "enemybullet":
                     s.moveDown();
-
                     if (s.getBoundsInParent().intersects(player.getBoundsInParent())) {
                         player.dead = true;
                         s.dead = true;
                     }
                     break;
-
                 case "playerbullet":
                     s.moveUp();
-
                     sprites().stream().filter(e -> e.type.equals("enemy")).forEach(enemy -> {
                         if (s.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
                             enemy.dead = true;
                             s.dead = true;
                         }
                     });
-
                     break;
-
                 case "enemy":
-
                     if (t > 2) {
                         if (Math.random() < 0.3) {
                             shoot(s);
                         }
                     }
-
                     break;
             }
         });
@@ -98,7 +82,6 @@ public class SpaceInvadersApp extends Application {
             Sprite s = (Sprite) n;
             return s.dead;
         });
-
         if (t > 2) {
             t = 0;
         }
@@ -106,14 +89,12 @@ public class SpaceInvadersApp extends Application {
 
     private void shoot(Sprite who) {
         Sprite s = new Sprite((int) who.getTranslateX() + 20, (int) who.getTranslateY(), 5, 20, who.type + "bullet", Color.BLACK);
-
         root.getChildren().add(s);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent());
-
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case A:
@@ -127,7 +108,6 @@ public class SpaceInvadersApp extends Application {
                     break;
             }
         });
-
         stage.setScene(scene);
         stage.show();
     }
@@ -147,15 +127,12 @@ public class SpaceInvadersApp extends Application {
         void moveLeft() {
             setTranslateX(getTranslateX() - 5);
         }
-
         void moveRight() {
             setTranslateX(getTranslateX() + 5);
         }
-
         void moveUp() {
             setTranslateY(getTranslateY() - 5);
         }
-
         void moveDown() {
             setTranslateY(getTranslateY() + 5);
         }

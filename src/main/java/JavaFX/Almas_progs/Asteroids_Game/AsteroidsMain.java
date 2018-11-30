@@ -44,6 +44,7 @@ public class AsteroidsMain extends Application {
             } else if (e.getCode() == KeyCode.SPACE) {
                 Bullet bullet = new Bullet();
                 bullet.setVelocity(player.getVelocity().normalize().multiply(10));
+                bullet.setVelocity(player.getVelocity().multiply(10));
                 addBullet(bullet, player.getView().getTranslateX(), player.getView().getTranslateY());
             }
         });

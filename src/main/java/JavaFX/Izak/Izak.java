@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 public class Izak extends Pane {
 
-    private int speed = 6;
-    private ImageView imageView = new ImageView();
+    private int speed = 8;
+    private int shootFrequency = 1;
+
     private ImageView bodyImageView, headImageView;
     private ArrayList<String> BodyFrontList = new ArrayList<>();
     private ArrayList<String> BodyBackList = new ArrayList<>();
@@ -21,7 +22,7 @@ public class Izak extends Pane {
     private Boolean isShooting = false;
 
 
-    public Izak() {
+    public Izak() {                                                                                         //konstruktor
         LoadIzakImages("BodyFront01", "HeadFront");
         fillFrameList(BodyFrontList, 10, "BodyFront");
         fillFrameList(BodyBackList, 10, "BodyBack");
@@ -90,5 +91,11 @@ public class Izak extends Pane {
     }
     public ArrayList<String> getBodyRightList() {
         return BodyRightList;
+    }
+    public int getShootFrequency() {
+        return shootFrequency;
+    }
+    public void setShootFrequency(int shootFrequency) {
+        this.shootFrequency = shootFrequency;
     }
 }
