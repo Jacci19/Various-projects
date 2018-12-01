@@ -24,6 +24,7 @@ public class IzakMain extends Application {
     private Bullet bullet;
     private List<Bullet> bulletsList = new ArrayList<>();
 
+    double diagRatio = 0.8;
     private int shotFrequencyCounter = 0;
     private final int STAGE_WIDTH = 1600;
     private final int STAGE_HEIGHT = 1000;
@@ -102,7 +103,6 @@ public class IzakMain extends Application {
             int index = 0;
             @Override
             public void handle() {                                                                                           //wykonywane co ramke timera
-                //System.out.println("izak.getLayoutX: " + izak.getLayoutX());
                 if (up || down || left || right) {
                     izak.setMoving(true);
                 }
@@ -120,41 +120,20 @@ public class IzakMain extends Application {
                 }
 
                 int dx = 0, dy = 0;
-                double diagRatio = 0.8;
                 if (up) {                                                                                                      //gdy izak idzie
-                    if (left || right){                                                                                        //aby ruch na ukos nie był szybszy od innych
-                        dy -= izak.getSpeed() * diagRatio;
-                    }
-                    else{
-                        dy -= izak.getSpeed();
-                    }
+                    dy = calculateDy(-1);
                     loadShotOrNonShotHeadImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", index);
                 }
                 if (down) {
-                    if (left || right){
-                        dy += izak.getSpeed() * diagRatio;
-                    }
-                    else{
-                        dy += izak.getSpeed();
-                    }
+                    dy = calculateDy(1);
                     loadShotOrNonShotHeadImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", index);
                 }
                 if (left) {
-                    if (up || down){
-                        dx -= izak.getSpeed() * diagRatio;
-                    }
-                    else{
-                        dx -= izak.getSpeed();
-                    }
+                    dx = calculateDx(-1);
                     loadShotOrNonShotHeadImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", index);
                 }
                 if (right) {
-                    if (up || down){
-                        dx += izak.getSpeed() * diagRatio;
-                    }
-                    else{
-                        dx += izak.getSpeed();
-                    }
+                    dx = calculateDx(1);
                     loadShotOrNonShotHeadImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", index);
                 }
                 if (lCtrlPress) {
@@ -168,7 +147,6 @@ public class IzakMain extends Application {
                 if (izak.getShooting()){                                                                                      //izak strzela
                     izakShoot();
                 }
-
 
                 if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
                     switch (izak.getPosition()) {
@@ -193,6 +171,28 @@ public class IzakMain extends Application {
             }
         };
         timer.start();
+    }
+
+    private int calculateDx(int sign){
+        double dX = 0;
+        if (up || down){                                                                                        //aby ruch na ukos nie był szybszy od innych
+            dX += sign * izak.getSpeed() * diagRatio;
+        }
+        else{
+            dX += sign * izak.getSpeed();
+        }
+        return (int)dX;
+    }
+
+    private int calculateDy(int sign){
+        double dY = 0;
+        if (left || right){                                                                                     //aby ruch na ukos nie był szybszy od innych
+            dY += sign * izak.getSpeed() * diagRatio;
+        }
+        else{
+            dY += sign * izak.getSpeed();
+        }
+        return (int)dY;
     }
 
     private int incrementIndex(int index) {
@@ -244,25 +244,30 @@ public class IzakMain extends Application {
             switch (bullet.getDirection()) {
                 case BACK:
                     bullet.setLayoutY(bullet.getLayoutY() - izak.getShotSpeed());
+                    if (bullet.getLayoutY() < (izak.getLayoutY() - izak.getShotRange())) root.getChildren().remove(bullet);         // usunięcie pocisku po osiągnięciu jego zasięgu
                     break;
+
                 case FRONT:
                     bullet.setLayoutY(bullet.getLayoutY() + izak.getShotSpeed());
+                    if (bullet.getLayoutY() > (izak.getLayoutY() + izak.getShotRange())) root.getChildren().remove(bullet);
+
                     break;
                 case LEFT:
                     bullet.setLayoutX(bullet.getLayoutX() - izak.getShotSpeed());
+                    if (bullet.getLayoutX() < (izak.getLayoutX() - izak.getShotRange())) root.getChildren().remove(bullet);
+
                     break;
                 case RIGHT:
                     bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
+                    if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())) root.getChildren().remove(bullet);
+
                     break;
             }
-
-
 
             if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())){
                 root.getChildren().remove(bullet);
             }
             System.out.println("bulletsList.size(): " + bulletsList.size());
-
         }
     }
 
@@ -287,7 +292,6 @@ public class IzakMain extends Application {
         }
     }
 
-
     private Parent createContent() {
         //root = new Pane();
         root.setPrefSize(STAGE_WIDTH, STAGE_HEIGHT);
@@ -299,7 +303,6 @@ public class IzakMain extends Application {
 
         return root;
     }
-
 
     public static void main(String[] args) {
         launch(args);
