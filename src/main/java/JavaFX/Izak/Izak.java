@@ -9,8 +9,11 @@ import java.util.ArrayList;
 
 public class Izak extends Pane {
 
-    private int speed = 8;
-    private int shootFrequency = 1;
+    private int speed           = 10;                                                   //im większa to szybszy izak
+    private int shootFrequency  = 5;                                                    //im większa to rzadsze strzały
+    private int shotRange       = 1500;                                                 //im większa to większy zasięg pocisków
+    private int shotSpeed       = 15;                                                  //im większa to większa szybkość pocisków
+
 
     private ImageView bodyImageView, headImageView;
     private ArrayList<String> BodyFrontList = new ArrayList<>();
@@ -97,5 +100,17 @@ public class Izak extends Pane {
     }
     public void setShootFrequency(int shootFrequency) {
         this.shootFrequency = shootFrequency;
+    }
+    public int getShotRange() {
+        return shotRange;
+    }
+    public void setShotRange(int shotRange) {
+        this.shotRange = shotRange;
+    }
+    public int getShotSpeed() {
+        return shotSpeed;
+    }
+    public void setShotSpeed(int shotSpeed) {
+        this.shotSpeed = shotSpeed;
     }
 }

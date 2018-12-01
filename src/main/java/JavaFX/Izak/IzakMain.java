@@ -22,12 +22,13 @@ public class IzakMain extends Application {
     private Pane root = new Pane();
     private Izak izak;
     private Bullet bullet;
+    private List<Bullet> bulletsList = new ArrayList<>();
+
     private int shotFrequencyCounter = 0;
     private final int STAGE_WIDTH = 1600;
     private final int STAGE_HEIGHT = 1000;
     public boolean up = false, down = false, left = false, right = false, shot = false, shotUp = false, shotDown = false, shotLeft = false, shotRight = false, lCtrlPress = false;
 
-    private List<Bullet> bulletsList = new ArrayList<>();
 
     Boolean half = true;
 
@@ -62,9 +63,7 @@ public class IzakMain extends Application {
                         shotRight = true;
                         izak.setPosition(Position.RIGHT);   break;
                     case CONTROL:
-                        lCtrlPress = true;
-                        break;
-
+                        lCtrlPress = true;                  break;
                 }
             }
         });
@@ -115,23 +114,47 @@ public class IzakMain extends Application {
                 }
                 else{
                     izak.setShooting(false);
+                    if (!root.getChildren().contains(bullet)) {                                                               //jeśli na plansze nie ma pocisków to wyzerój tablice pocisków
+                        bulletsList.clear();
+                    }
                 }
 
                 int dx = 0, dy = 0;
+                double diagRatio = 0.8;
                 if (up) {                                                                                                      //gdy izak idzie
-                    dy -= izak.getSpeed();
+                    if (left || right){                                                                                        //aby ruch na ukos nie był szybszy od innych
+                        dy -= izak.getSpeed() * diagRatio;
+                    }
+                    else{
+                        dy -= izak.getSpeed();
+                    }
                     loadShotOrNonshotImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", index);
                 }
                 if (down) {
-                    dy += izak.getSpeed();
+                    if (left || right){
+                        dy += izak.getSpeed() * diagRatio;
+                    }
+                    else{
+                        dy += izak.getSpeed();
+                    }
                     loadShotOrNonshotImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", index);
                 }
                 if (left) {
-                    dx -= izak.getSpeed();
+                    if (up || down){
+                        dx -= izak.getSpeed() * diagRatio;
+                    }
+                    else{
+                        dx -= izak.getSpeed();
+                    }
                     loadShotOrNonshotImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", index);
                 }
                 if (right) {
-                    dx += izak.getSpeed();
+                    if (up || down){
+                        dx += izak.getSpeed() * diagRatio;
+                    }
+                    else{
+                        dx += izak.getSpeed();
+                    }
                     loadShotOrNonshotImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", index);
                 }
                 if (lCtrlPress) {
@@ -141,6 +164,11 @@ public class IzakMain extends Application {
                     bulletsList.clear();
 
                 }
+
+                if (izak.getShooting()){                                                                                      //izak strzela
+                    izakShoot();
+                }
+
 
                 if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
                     switch (izak.getPosition()) {
@@ -160,6 +188,7 @@ public class IzakMain extends Application {
 
                 }
                 moveHeroBy(dx, dy);
+                bulletMoving();
                 index = incrementIndex(index);
             }
         };
@@ -180,7 +209,6 @@ public class IzakMain extends Application {
     private void loadShotOrNonshotImage(ArrayList<String> bodyList, String nonShotImg, String shotImg, int idx){
         if (izak.getShooting()){                                                                                         //gdy izak strzela
             izak.LoadIzakImages(bodyList.get(idx), shotImg);
-            izakShoot();
         }
         else{                                                                                                           //gdy izak nie strzela
             izak.LoadIzakImages(bodyList.get(idx), nonShotImg);
@@ -190,22 +218,51 @@ public class IzakMain extends Application {
     private void izakShoot() {
         if (shotFrequencyCounter == 0) {
             bullet = new Bullet();
-            bullet.setLayoutX(izak.getLayoutX());
-            bullet.setLayoutY(izak.getLayoutY());
+
+            if (shotUp) setBulletInitialConditions(14, -16, Position.BACK);
+            else if (shotDown) setBulletInitialConditions(14, 10, Position.FRONT);
+            else if (shotRight) setBulletInitialConditions(16, 12, Position.RIGHT);
+            else if (shotLeft) setBulletInitialConditions(15, 12, Position.LEFT);
+
             root.getChildren().add(bullet);
-
-
-            bulletMoving(bullet);//-----------------------------------------------------------------------------
-
-
             bulletsList.add(bullet);
             shotFrequencyCounter = izak.getShootFrequency();
         }
         shotFrequencyCounter--;
     }
 
-    private void bulletMoving(Bullet bullet) {
-       // bullet.setLayoutX(bullet.getLayoutX() + 10);
+    private void setBulletInitialConditions(int X, int Y, Position position){
+        bullet.setLayoutX(izak.getLayoutX() + X);
+        bullet.setLayoutY(izak.getLayoutY() + Y);
+        bullet.setDirection(position);
+    }
+
+    private void bulletMoving() {
+        for (Bullet bullet: bulletsList){
+
+            switch (bullet.getDirection()) {
+                case BACK:
+                    bullet.setLayoutY(bullet.getLayoutY() - izak.getShotSpeed());
+                    break;
+                case FRONT:
+                    bullet.setLayoutY(bullet.getLayoutY() + izak.getShotSpeed());
+                    break;
+                case LEFT:
+                    bullet.setLayoutX(bullet.getLayoutX() - izak.getShotSpeed());
+                    break;
+                case RIGHT:
+                    bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
+                    break;
+            }
+
+
+
+            if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())){
+                root.getChildren().remove(bullet);
+            }
+            System.out.println("bulletsList.size(): " + bulletsList.size());
+
+        }
     }
 
     private void moveHeroBy(int dx, int dy) {
