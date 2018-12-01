@@ -15,7 +15,7 @@ public class Izak extends Pane {
     private int shotSpeed       = 15;                                                  //im większa to większa szybkość pocisków
 
 
-    private ImageView bodyImageView, headImageView;
+    private ImageView bodyImageView = new ImageView(), headImageView = new ImageView();
     private ArrayList<String> BodyFrontList = new ArrayList<>();
     private ArrayList<String> BodyBackList = new ArrayList<>();
     private ArrayList<String> BodyLeftList = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Izak extends Pane {
 
 
     public Izak() {                                                                                         //konstruktor
-        LoadIzakImages("BodyFront01", "HeadFront");
+        createIzakImage("BodyFront01", "HeadFront");
         fillFrameList(BodyFrontList, 10, "BodyFront");
         fillFrameList(BodyBackList, 10, "BodyBack");
         fillFrameList(BodyLeftList, 10, "BodyLeft");
@@ -34,20 +34,29 @@ public class Izak extends Pane {
         this.setPosition(Position.FRONT);
     }
 
-    public void LoadIzakImages(String bodyImgName, String headImgName) {
-        this.getChildren().clear();
-        bodyImageView = new ImageView();
-        bodyImageView.setImage(new Image("JavaFx/Izak/png/" + bodyImgName +".png"));
-        bodyImageView.setX(16);
+    public void createIzakImage(String bodyImgName, String headImgName) {
+        loadIzakBodyImage(bodyImgName);
+        bodyImageView.setX(16);                                                                             //pozycja ciała względem głowy
         bodyImageView.setY(64);
         this.getChildren().add(bodyImageView);
-
-        headImageView = new ImageView();
-        headImageView.setImage(new Image("JavaFx/Izak/png/" + headImgName + ".png"));
+        loadIzakHeadImage(headImgName);
         this.getChildren().add(headImageView);
     }
 
-    private void fillFrameList(ArrayList arrayList, int listLength, String fileName){
+    public void loadIzakImages(String bodyImgName, String headImgName) {
+        loadIzakBodyImage(bodyImgName);
+        loadIzakHeadImage(headImgName);
+    }
+
+    public void loadIzakBodyImage(String bodyImgName) {
+        bodyImageView.setImage(new Image("JavaFx/Izak/png/" + bodyImgName +".png"));
+    }
+
+    public void loadIzakHeadImage(String headImgName) {
+        headImageView.setImage(new Image("JavaFx/Izak/png/" + headImgName + ".png"));
+    }
+
+        private void fillFrameList(ArrayList arrayList, int listLength, String fileName){
         for (int i=1; i<= listLength; i++){
             if (i<10){
                 arrayList.add(fileName + "0" + i);
@@ -82,6 +91,12 @@ public class Izak extends Pane {
     }
     public void setShooting(Boolean shoting) {
         isShooting = shoting;
+    }
+    public ImageView getBodyImageView() {
+        return bodyImageView;
+    }
+    public void setBodyImageView(ImageView bodyImageView) {
+        this.bodyImageView = bodyImageView;
     }
     public ArrayList<String> getBodyFrontList() {
         return BodyFrontList;

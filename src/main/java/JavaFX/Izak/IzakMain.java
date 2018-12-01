@@ -128,7 +128,7 @@ public class IzakMain extends Application {
                     else{
                         dy -= izak.getSpeed();
                     }
-                    loadShotOrNonshotImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", index);
+                    loadShotOrNonShotHeadImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", index);
                 }
                 if (down) {
                     if (left || right){
@@ -137,7 +137,7 @@ public class IzakMain extends Application {
                     else{
                         dy += izak.getSpeed();
                     }
-                    loadShotOrNonshotImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", index);
+                    loadShotOrNonShotHeadImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", index);
                 }
                 if (left) {
                     if (up || down){
@@ -146,7 +146,7 @@ public class IzakMain extends Application {
                     else{
                         dx -= izak.getSpeed();
                     }
-                    loadShotOrNonshotImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", index);
+                    loadShotOrNonShotHeadImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", index);
                 }
                 if (right) {
                     if (up || down){
@@ -155,7 +155,7 @@ public class IzakMain extends Application {
                     else{
                         dx += izak.getSpeed();
                     }
-                    loadShotOrNonshotImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", index);
+                    loadShotOrNonShotHeadImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", index);
                 }
                 if (lCtrlPress) {
                     for (Bullet bullet: bulletsList){
@@ -173,16 +173,16 @@ public class IzakMain extends Application {
                 if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
                     switch (izak.getPosition()) {
                         case BACK:
-                            loadShotOrNonshotImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", 0);
+                            loadShotOrNonShotHeadImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", 0);
                             break;
                         case FRONT:
-                            loadShotOrNonshotImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", 0);
+                            loadShotOrNonShotHeadImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", 0);
                             break;
                         case LEFT:
-                            loadShotOrNonshotImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", 0);
+                            loadShotOrNonShotHeadImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", 0);
                             break;
                         case RIGHT:
-                            loadShotOrNonshotImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", 0);
+                            loadShotOrNonShotHeadImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", 0);
                             break;
                     }
 
@@ -206,12 +206,12 @@ public class IzakMain extends Application {
         return index;
     }
 
-    private void loadShotOrNonshotImage(ArrayList<String> bodyList, String nonShotImg, String shotImg, int idx){
+    private void loadShotOrNonShotHeadImage(ArrayList<String> bodyList, String nonShotImg, String shotImg, int idx){
         if (izak.getShooting()){                                                                                         //gdy izak strzela
-            izak.LoadIzakImages(bodyList.get(idx), shotImg);
+            izak.loadIzakImages(bodyList.get(idx), shotImg);
         }
         else{                                                                                                           //gdy izak nie strzela
-            izak.LoadIzakImages(bodyList.get(idx), nonShotImg);
+            izak.loadIzakImages(bodyList.get(idx), nonShotImg);
         }
     }
 
@@ -219,10 +219,10 @@ public class IzakMain extends Application {
         if (shotFrequencyCounter == 0) {
             bullet = new Bullet();
 
-            if (shotUp) setBulletInitialConditions(14, -16, Position.BACK);
-            else if (shotDown) setBulletInitialConditions(14, 10, Position.FRONT);
-            else if (shotRight) setBulletInitialConditions(16, 12, Position.RIGHT);
-            else if (shotLeft) setBulletInitialConditions(15, 12, Position.LEFT);
+            if (shotUp) setBulletInitialConditions(14, -16, Position.BACK, "HeadBack");
+            else if (shotDown) setBulletInitialConditions(14, 10, Position.FRONT, "HeadFront");
+            else if (shotRight) setBulletInitialConditions(16, 12, Position.RIGHT, "HeadRight");
+            else if (shotLeft) setBulletInitialConditions(15, 12, Position.LEFT, "HeadLeft");
 
             root.getChildren().add(bullet);
             bulletsList.add(bullet);
@@ -231,10 +231,11 @@ public class IzakMain extends Application {
         shotFrequencyCounter--;
     }
 
-    private void setBulletInitialConditions(int X, int Y, Position position){
+    private void setBulletInitialConditions(int X, int Y, Position position, String headImageName){
         bullet.setLayoutX(izak.getLayoutX() + X);
         bullet.setLayoutY(izak.getLayoutY() + Y);
         bullet.setDirection(position);
+        izak.loadIzakHeadImage(headImageName);
     }
 
     private void bulletMoving() {
@@ -325,19 +326,19 @@ public class IzakMain extends Application {
                 if (now - lastUpdate >= (200000000 / izak.getSpeed())) {
                     if (up) {
                         dy -= izak.getSpeed();
-                        izak.LoadIzakImages(izak.getBodyBackList().get(index), "HeadBack");
+                        izak.loadIzakImages(izak.getBodyBackList().get(index), "HeadBack");
                     }
                     if (down) {
                         dy += izak.getSpeed();
-                        izak.LoadIzakImages(izak.getBodyFrontList().get(index), "HeadFront");
+                        izak.loadIzakImages(izak.getBodyFrontList().get(index), "HeadFront");
                     }
                     if (left) {
                         dx -= izak.getSpeed();
-                        izak.LoadIzakImages(izak.getBodyLeftList().get(index), "HeadLeft");
+                        izak.loadIzakImages(izak.getBodyLeftList().get(index), "HeadLeft");
                     }
                     if (right) {
                         dx += izak.getSpeed();
-                        izak.LoadIzakImages(izak.getBodyRightList().get(index), "HeadRight");
+                        izak.loadIzakImages(izak.getBodyRightList().get(index), "HeadRight");
                     }
 
                     moveHeroBy(dx, dy);
