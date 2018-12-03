@@ -23,6 +23,8 @@ public class Izak extends Pane {
     private Position position;
     private Boolean isMoving = false;
     private Boolean isShooting = false;
+    private Boolean isColliding = false;
+
 
 
     public Izak() {                                                                                         //konstruktor
@@ -91,6 +93,12 @@ public class Izak extends Pane {
     }
     public void setShooting(Boolean shoting) {
         isShooting = shoting;
+    }
+    public Boolean getColliding() {
+        return isColliding;
+    }
+    public void setColliding(Boolean colliding) {
+        isColliding = colliding;
     }
     public ImageView getBodyImageView() {
         return bodyImageView;

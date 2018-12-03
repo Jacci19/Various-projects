@@ -21,6 +21,7 @@ public class IzakMain extends Application {
 
     private Pane root = new Pane();
     private Izak izak;
+    private Wall wall;
     private Bullet bullet;
     private List<Bullet> bulletsList = new ArrayList<>();
 
@@ -30,16 +31,16 @@ public class IzakMain extends Application {
     private final int STAGE_HEIGHT = 1000;
     public boolean up = false, down = false, left = false, right = false, shot = false, shotUp = false, shotDown = false, shotLeft = false, shotRight = false, lCtrlPress = false;
 
-
     Boolean half = true;
 
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent());
+                                                                                                //BOOLEANY NA KEY_PRESSED
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case W:                                                                                          //ruch
+                    case W:                                                                                             //ruch
                         up = true;
                         izak.setPosition(Position.BACK);    break;
                     case S:
@@ -51,7 +52,7 @@ public class IzakMain extends Application {
                     case D:
                         right = true;
                         izak.setPosition(Position.RIGHT);   break;
-                    case UP:                                                                                                    //strzelanie
+                    case UP:                                                                                            //strzelanie
                         shotUp = true;
                         izak.setPosition(Position.BACK);    break;
                     case DOWN:
@@ -68,7 +69,7 @@ public class IzakMain extends Application {
                 }
             }
         });
-
+                                                                                                //BOOLEANY NA KEY_RELEASED
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -99,25 +100,14 @@ public class IzakMain extends Application {
         stage.setScene(scene);
         stage.show();
 
+
+
         AnimationTimerExt timer = new AnimationTimerExt((int)(100 / (0.6 * izak.getSpeed()))) {
             int index = 0;
             @Override
             public void handle() {                                                                                           //wykonywane co ramke timera
-                if (up || down || left || right) {
-                    izak.setMoving(true);
-                }
-                else{
-                    izak.setMoving(false);
-                }
-                if (shotUp || shotDown || shotLeft || shotRight) {
-                    izak.setShooting(true);
-                }
-                else{
-                    izak.setShooting(false);
-                    if (!root.getChildren().contains(bullet)) {                                                               //jeśli na plansze nie ma pocisków to wyzerój tablice pocisków
-                        bulletsList.clear();
-                    }
-                }
+
+                setKeysForMovingAndShooting();
 
                 int dx = 0, dy = 0;
                 if (up) {                                                                                                      //gdy izak idzie
@@ -141,10 +131,9 @@ public class IzakMain extends Application {
                         root.getChildren().remove(bullet);
                     }
                     bulletsList.clear();
-
                 }
 
-                if (izak.getShooting()){                                                                                      //izak strzela
+                if (izak.getShooting()){                                                                                      //gdy izak strzela
                     izakShoot();
                 }
 
@@ -163,15 +152,41 @@ public class IzakMain extends Application {
                             loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", 0);
                             break;
                     }
-
                 }
-                moveHeroBy(dx, dy);
+                checkCollisions();
+                //if (!izak.getColliding()){
+                    moveHeroBy(dx, dy);
+                //}
                 bulletMoving();
                 index = incrementIndex(index);
             }
         };
         timer.start();
     }
+
+    private void setKeysForMovingAndShooting(){
+
+        if (up || down || left || right) {
+            izak.setMoving(true);
+        }
+        else{
+            izak.setMoving(false);
+        }
+        if (shotUp || shotDown || shotLeft || shotRight) {
+            izak.setShooting(true);
+        }
+        else{
+            izak.setShooting(false);
+            clearBulletList();
+        }
+    }
+
+    private void clearBulletList() {
+        if (!root.getChildren().contains(bullet)) {                                                               //jeśli na plansze nie ma pocisków to wyzerój tablice pocisków
+            bulletsList.clear();
+        }
+    }
+
 
     private int calculateDx(int sign){
         double dX = 0;
@@ -274,6 +289,15 @@ public class IzakMain extends Application {
         }
     }
 
+    private void checkCollisions(){
+        if (izak.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+            System.out.println("___________KOLIZJA___________" + izak.getColliding());
+            izak.setColliding(true);
+        }
+        else{
+            izak.setColliding(false);
+        }
+    }
 
 
 
@@ -285,7 +309,6 @@ public class IzakMain extends Application {
 
 
 
-    //kod nie do zmian
 
     private void moveHeroBy(int dx, int dy) {
         if (dx == 0 && dy == 0) return;
@@ -309,15 +332,25 @@ public class IzakMain extends Application {
     }
 
     private Parent createContent() {
-        //root = new Pane();
         root.setPrefSize(STAGE_WIDTH, STAGE_HEIGHT);
         root.setStyle("-fx-background-color: #222;");
         izak = new Izak();
-        izak.setLayoutX(750);                                                                   //aby stał na środku
-        izak.setLayoutY(450);
+        izak.setLayoutX(STAGE_WIDTH/2 - 50);                                                                   //aby stał na środku
+        izak.setLayoutY(STAGE_HEIGHT/2 - 50);
         root.getChildren().add(izak);
+        makeWalls();
+
 
         return root;
+    }
+
+    private void makeWalls() {
+        wall = new Wall();
+        wall.setLayoutX(1200);
+        wall.setLayoutY(800);
+        root.getChildren().add(wall);
+
+
     }
 
     public static void main(String[] args) {
