@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Izak extends Pane {
 
     private double speed        = 10.0;                                                   //im większa to szybszy izak
-    private int shootFrequency  = 5;                                                    //im większa to rzadsze strzały
+    private int shootFrequency  = 15;                                                    //im większa to rzadsze strzały
     private int shotRange       = 500;                                                 //im większa to większy zasięg pocisków
     private int shotSpeed       = 15;                                                  //im większa to większa szybkość pocisków
 

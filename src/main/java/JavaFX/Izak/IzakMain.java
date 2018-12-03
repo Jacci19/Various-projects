@@ -122,19 +122,19 @@ public class IzakMain extends Application {
                 int dx = 0, dy = 0;
                 if (up) {                                                                                                      //gdy izak idzie
                     dy = calculateDy(-1);
-                    loadShotOrNonShotHeadImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", index);
+                    loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", index);
                 }
                 if (down) {
                     dy = calculateDy(1);
-                    loadShotOrNonShotHeadImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", index);
+                    loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront", index);
                 }
                 if (left) {
                     dx = calculateDx(-1);
-                    loadShotOrNonShotHeadImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", index);
+                    loadIzakBodyOrHeadImage(izak.getBodyLeftList(), "HeadLeft", index);
                 }
                 if (right) {
                     dx = calculateDx(1);
-                    loadShotOrNonShotHeadImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", index);
+                    loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", index);
                 }
                 if (lCtrlPress) {
                     for (Bullet bullet: bulletsList){
@@ -151,16 +151,16 @@ public class IzakMain extends Application {
                 if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
                     switch (izak.getPosition()) {
                         case BACK:
-                            loadShotOrNonShotHeadImage(izak.getBodyBackList(), "HeadBack", "HeadBackShot", 0);
+                            loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", 0);
                             break;
                         case FRONT:
-                            loadShotOrNonShotHeadImage(izak.getBodyFrontList(), "HeadFront", "HeadFrontShot", 0);
+                            loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront",  0);
                             break;
                         case LEFT:
-                            loadShotOrNonShotHeadImage(izak.getBodyLeftList(), "HeadLeft", "HeadLeftShot", 0);
+                            loadIzakBodyOrHeadImage(izak.getBodyLeftList(), "HeadLeft", 0);
                             break;
                         case RIGHT:
-                            loadShotOrNonShotHeadImage(izak.getBodyRightList(), "HeadRight", "HeadRightShot", 0);
+                            loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", 0);
                             break;
                     }
 
@@ -206,12 +206,15 @@ public class IzakMain extends Application {
         return index;
     }
 
-    private void loadShotOrNonShotHeadImage(ArrayList<String> bodyList, String nonShotImg, String shotImg, int idx){
+    private void loadIzakBodyOrHeadImage(ArrayList<String> bodyList, String nonShotImg, int idx){
+        if (izak.getMoving())                                                                                            //gdy izak chodzi
+            izak.loadIzakBodyImage(bodyList.get(idx));
+
         if (izak.getShooting()){                                                                                         //gdy izak strzela
-            izak.loadIzakImages(bodyList.get(idx), shotImg);
+           izakShoot();
         }
-        else{                                                                                                           //gdy izak nie strzela
-            izak.loadIzakImages(bodyList.get(idx), nonShotImg);
+        else{                                                                                                            // gdy izak chodzi i nie strzela
+            izak.loadIzakHeadImage(nonShotImg);
         }
     }
 
@@ -270,6 +273,19 @@ public class IzakMain extends Application {
             System.out.println("bulletsList.size(): " + bulletsList.size());
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    //kod nie do zmian
 
     private void moveHeroBy(int dx, int dy) {
         if (dx == 0 && dy == 0) return;
