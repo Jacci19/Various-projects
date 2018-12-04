@@ -12,7 +12,7 @@ public class Wall extends Pane {
     private int height;
 
     public Wall() {
-        Rectangle rect = new Rectangle(100, 100, Color.BROWN);
+        Rectangle rect = new Rectangle(150, 150, Color.BROWN);
         this.getChildren().add(rect);
     }
 }

@@ -25,6 +25,7 @@ public class IzakMain extends Application {
     private Bullet bullet;
     private List<Bullet> bulletsList = new ArrayList<>();
 
+    private String collisionSide = "";
     double diagRatio = 0.8;
     private int shotFrequencyCounter = 0;
     private final int STAGE_WIDTH = 1600;
@@ -107,9 +108,9 @@ public class IzakMain extends Application {
             @Override
             public void handle() {                                                                                           //wykonywane co ramke timera
 
-                setKeysForMovingAndShooting();
+                setMovingAndShootingStates();
 
-                int dx = 0, dy = 0;
+                int dx = 0, dy = 0, prevDx = 0, prevDy = 0;
                 if (up) {                                                                                                      //gdy izak idzie
                     dy = calculateDy(-1);
                     loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", index);
@@ -155,8 +156,14 @@ public class IzakMain extends Application {
                 }
                 checkCollisions();
                 //if (!izak.getColliding()){
+                   // prevDx = dx;
+                   // prevDy = dy;
                     moveHeroBy(dx, dy);
                 //}
+                //else{
+
+                    //moveHeroBy(prevDx, prevDy);
+               // }
                 bulletMoving();
                 index = incrementIndex(index);
             }
@@ -164,7 +171,7 @@ public class IzakMain extends Application {
         timer.start();
     }
 
-    private void setKeysForMovingAndShooting(){
+    private void setMovingAndShootingStates(){
 
         if (up || down || left || right) {
             izak.setMoving(true);
@@ -285,13 +292,18 @@ public class IzakMain extends Application {
             if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())){
                 root.getChildren().remove(bullet);
             }
-            System.out.println("bulletsList.size(): " + bulletsList.size());
+            //System.out.println("bulletsList.size(): " + bulletsList.size());
         }
     }
 
     private void checkCollisions(){
         if (izak.getBoundsInParent().intersects(wall.getBoundsInParent())) {
-            System.out.println("___________KOLIZJA___________" + izak.getColliding());
+            if ((izak.getLayoutX() < wall.getLayoutX()) && (izak.getPosition() == Position.RIGHT)) collisionSide = "LEFT";
+            if ((izak.getLayoutY() < wall.getLayoutY()) && (izak.getPosition() == Position.FRONT)) collisionSide = "UP";
+            if ((izak.getLayoutX() > wall.getLayoutX()) && (izak.getPosition() == Position.LEFT)) collisionSide = "RIGHT";
+            if ((izak.getLayoutY() > wall.getLayoutY()) && (izak.getPosition() == Position.BACK)) collisionSide = "DOWN";
+
+            System.out.println("____KOLIZJA___" + izak.getColliding() + "__" + collisionSide);
             izak.setColliding(true);
         }
         else{
@@ -316,8 +328,27 @@ public class IzakMain extends Application {
         final double cx = izak.getBoundsInLocal().getWidth() / 2;
         final double cy = izak.getBoundsInLocal().getHeight() / 2;
 
-        double x = cx + izak.getLayoutX() + dx;
-        double y = cy + izak.getLayoutY() + dy;
+        //double x = cx + izak.getLayoutX() + dx;
+        //double y = cy + izak.getLayoutY() + dy;
+
+
+        double x = 0;
+        double y = 0;
+
+        if (!izak.getColliding()){
+            x = cx + izak.getLayoutX() + dx;
+            y = cy + izak.getLayoutY() + dy;
+        }
+        else{
+            if (collisionSide.equals("LEFT") || collisionSide.equals("RIGHT")){
+                x = cx + izak.getLayoutX();
+                y = cy + izak.getLayoutY() + dy;
+            }
+            if (collisionSide.equals("UP") || collisionSide.equals("DOWN")){
+                x = cx + izak.getLayoutX() + dx;
+                y = cy + izak.getLayoutY();
+            }
+        }
 
         moveHeroTo(x, y);
     }
@@ -346,8 +377,8 @@ public class IzakMain extends Application {
 
     private void makeWalls() {
         wall = new Wall();
-        wall.setLayoutX(1200);
-        wall.setLayoutY(800);
+        wall.setLayoutX(200);
+        wall.setLayoutY(600);
         root.getChildren().add(wall);
 
 
