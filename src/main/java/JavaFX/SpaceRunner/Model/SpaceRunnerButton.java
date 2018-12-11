@@ -18,15 +18,14 @@ public class SpaceRunnerButton extends Button {
     private final String BUTTON_FREE_STYLE =    "-fx-background-color: transparent;" +
             "                                    -fx-background-image: url('JavaFX/SpaceRunner/yellow_button.png');";
 
-    public SpaceRunnerButton(String text) {
+    public SpaceRunnerButton(String text) {             //konstruktor
 
-        setText(text);
+        setText(text);                      //metoda dziedziczona z klasy nadrzędnej
         setButtonFont();
         setPrefWidth(190);
         setPrefHeight(49);
         setStyle(BUTTON_FREE_STYLE);
         initializeButtonListeners();
-        System.out.println("SpaceRunnerButton dziala");
 
     }
 
@@ -53,7 +52,7 @@ public class SpaceRunnerButton extends Button {
     }
 
     private void initializeButtonListeners() {
-        setOnMousePressed(new EventHandler<MouseEvent>() {
+        setOnMousePressed(new EventHandler<MouseEvent>() {                  //Wciśnięcie przycisku
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -61,7 +60,7 @@ public class SpaceRunnerButton extends Button {
                 }
             }
         });
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
+        setOnMouseReleased(new EventHandler<MouseEvent>() {                 //Puszczenie  przycisku
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -70,13 +69,13 @@ public class SpaceRunnerButton extends Button {
             }
         });
 
-        setOnMouseEntered(new EventHandler<MouseEvent>() {
+        setOnMouseEntered(new EventHandler<MouseEvent>() {                  //Najechanie na przycisk
             @Override
             public void handle(MouseEvent event) {
                 setEffect(new DropShadow());
             }
         });
-        setOnMouseExited(new EventHandler<MouseEvent>() {
+        setOnMouseExited(new EventHandler<MouseEvent>() {                   //Zjechanie z przycisku
             @Override
             public void handle(MouseEvent event) {
                 setEffect(null);
