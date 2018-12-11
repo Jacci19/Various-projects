@@ -1,7 +1,7 @@
 package JavaFX.SpaceRunner;
 
 /*** https://www.youtube.com/watch?v=6BKI26gxK2Q&index=2&list=PL4wcbt63yAbdtY-GOeuRjIePfUsukSJZ9
- * https://github.com/Bitclef/spaceRunner                                                      */
+ * https://github.com/Bitclef/spaceRunner              //to nie jest repo autora kursu tylko kursanta!                                        */
 
 import JavaFX.SpaceRunner.View.ViewManager;
 import javafx.application.Application;
