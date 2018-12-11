@@ -1,0 +1,59 @@
+<!doctype html> 
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <title>Prosty serwer WWW napisany w Javie</title>
+    <style>
+      body {
+        background-image: url(baby.png);
+        background-repeat: repeat;
+      }
+    </style>
+  </head>
+<body>
+  <h1>Bardzo prosty serwer WWW napisany w Javie</h1>
+  <p>
+    Napisał go Ian Darwin, <a href="http://www.darwinsys.com/">http://www.darwinsys.com/</a>
+    jako przykład do książki "Java Cookbook" (wydanej przez wydawnictwo Helion pod nazwą
+    "Java. Receptury"). Serwer jest mały i prosty, ale potrafi 
+    korzystać z pamięci podręcznej. Daje także ogromne możliwości rozbudowy 
+    i usprawniania.
+  </p>
+  <p>
+    SERWER NIE DYSPONUJE ŻADNYMI ZABEZPIECZENIAMI (oprócz sprawdzania ../) w nazwach
+    plików). UŻYWASZ GO NA WŁASNE RYZYKO.
+  </p>
+  <p>
+    SERWER NIE OBSŁUGUJE CGI. W ogóle. NIE OBSŁUGUJE TEŻ SERWLETÓW... na razie.
+  </p>
+  <p>
+    Nie dysponuje także żadnymi mechanizmami poprawiania wydajności działania.
+  </p>
+  <p>
+    Ma bardzo ograniczone możliwości konfiguracji. Nie rejestruje ruchu w żadnych 
+    dziennikach, a jedynie wyświetla pewne informacje w oknie konsoli.
+  </p>
+  <p>
+    SERWER NIE MA ŻADNEJ DOKUMENTACJI (dlatego, żeby zdobyć jakieś informacje na 
+    jego temat trzeba sięgnąć po książkę "Java. Receptury").
+  </p>
+  <p>
+    Dostępny jest kod źródłowy serwera.
+  </p>
+  <ul>
+    <li><a href="#">Proszę przeczytać te warunki użytkowania.</a></li>
+    <li><a href="#">Httpd - klasa główna serwera.</a></li>
+    <li><a href="#">Handler - obsługa żądań, każde w osobnym wątku.</a></li>
+    <li><a href="#">Główny plik konfiguracyjny.</a></li>
+    <li><a href="#">Plik konfiguracyjny typów MIME.</a></li>
+    <li><a href="#">Komunikaty o błędach (wielojęzyczne?)</a></li>
+    <li>Skrypt <a href="#">ant</a> do budowania serwera - <a href="#">build.xml</a></li>
+    <li>Skrypty do uruchamiania - w systemie <a href="#">DOS</a> oraz <a href="#">UNIX</a></li>
+  </ul>
+  <hr/>
+  <p>
+    Jeśli podoba Ci się ten program, to wiele innych interesujących przykładów znajdziesz
+    w książce <a href="http://helion.pl/ksiazki/java-receptury-ian-f-darwin,jarecp.htm">Java. Receptury</a>. 
+  </p>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<people>
+<person>
+    <name>Ian Darwin</name>
+    <email>http://www.darwinsys.com/</email>
+    <country>Kanada</country>
+</person>
+<person>
+    <name>Inny Darwin</name>
+    <email type="intranet">afd@node1.com</email>
+    <country>Kanada</country>
+</person>
+</people>

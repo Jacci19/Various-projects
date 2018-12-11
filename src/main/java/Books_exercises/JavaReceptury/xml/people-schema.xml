@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<people xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="urn:darwinsys:people" 
+    xsi:schemaLocation="urn:darwinsys:people ./people.xsd" >
+    <person>
+        <name>Ian Darwin</name>
+        <email>http://www.darwinsys.com/</email>
+        <country>Kanada</country>
+    </person>
+    <person>
+        <name>Inny Darwin</name>
+        <email type="intranet">afd@node1</email>
+        <country>Kanada</country>
+    </person>
+</people>

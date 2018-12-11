@@ -44,7 +44,7 @@ public class AnimParamEquat_Main extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                t += 0.05;                                                         //reguluje szybkość rysowania poprzez gęstość punktóe (kanciatość)
+                t += 0.01;                                                         //reguluje szybkość rysowania poprzez gęstość punktóe (kanciatość)
                 if (t%2 < 1) {
                     draw(Color.GREEN);
                 }
@@ -118,7 +118,7 @@ public class AnimParamEquat_Main extends Application {
         double y0 = 0.2 * cos(1 * t) * tan( 10 * t);
 
 
-        return new Point2D(x8, y11).multiply(60);                                          //wybór jednej z powyższych figur
+        return new Point2D(x2, y4).multiply(60);                                          //wybór jednej z powyższych figur
     }
 
     private void saveScreenshot(Scene scene) {
@@ -173,4 +173,9 @@ ciastko
 Klepsydra
         double x3 = 0.02 * t * sin(3 * t);                                                //spirala archimedesa
         double y10 = 0.001 * t * (0.01 * cos(t) + 0.6) * 0.06 * t * cos(t);
+
+Faforek (trójkąt)
+        double x7 = 0.04 * t - 6 * sin(1 * t);                                            //cykloida
+        double y3 = 0.02 * t * cos(3 * t);
+
  */

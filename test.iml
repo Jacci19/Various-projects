@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/database" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/di" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/email" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/javacomm" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/jaxwsclient" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/jdb" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/json" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/lang" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/logging" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/numbers" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/printjdk12printerjob" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/testing" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/webproxy" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/Books_exercises/JavaReceptury/xmlform" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/JavaFX/SpaceRunner_Full" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-jdbc:5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-core:5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:1.4.193" level="project" />
+    <orderEntry type="library" name="RecepturyLibs" level="project" />
+  </component>
+</module>

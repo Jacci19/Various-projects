@@ -1,0 +1,7 @@
+Implementacja ScriptEngine składa się z zamieszczonych tu plików 
+źródłowych ORAZ pliku
+META-INF/services/javax.script.ScriptEngineFactory
+(który, w razie używania programu Maven, jest umieszczony w katalogu 
+src/main/resources).
+Ten plik składa się z tylko jednego wiersza, zawierającego nazwę wszystkich 
+implementacji ScriptEngineFactory.

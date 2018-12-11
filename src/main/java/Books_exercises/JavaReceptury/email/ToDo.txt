@@ -1,0 +1,28 @@
+Kilka rzeczy które można by poprawić w programie MailClient:
+  MailComposeBean
+    * Wysyłanie może być realizowane w nowym wątku, żeby nie blokowało wątku GUI.
+    * Usunąć z klasy MailComposeBean kod związany z graficznym interfejsem użytkownika,
+      przenieść go do odrębnej klasy i używać w kodzie MailComposeBean zamiast 
+      tych wszystkich wywołań TextArea.append();
+  MailReaderBean
+    * Przenieść kod wczytujący MailReaderBean do metody, tak by można 
+      było automatycznie wczytywać zawartość nowej skrzynki pocztowej.
+    * MailReaderBean potrzebuje przycisku Odpowiedz (trzeba zaimplementwać
+      metode addActionListener).
+    * MailReaderBean musi obsługiwać wiadomości zapisywane w formie kodu HTML
+      (należy użyć DataHandler).
+    * Należy przechwytywać wyjątek AuthenticationFailedException i ponownie prosić
+      użytkownika o podanie nazwy i hasła.
+  Sprawy ogólne:
+    * Menu!!
+    * Opcje:
+        - Nazwy zastępcze w wysyłanych wiadomościach (Alias, AliasBean).
+        - Różne opcje odpowiadania (Odpowiedz nadawcy, Odpowiedz wszystkim, itd.)
+        - Szablony wiadomości i odpowiedzi?
+    * Graficzny interfejs użytkownika do określania takich ustawień jak: protokół, 
+      nazwa komputera, itd. 
+    * Poprawa spójności kodu, obsługa błędów, przechwytywanie wszystkich wyjątków!
+    * Zamykanie programu: sprawdzać czy nie jest redagowana jakaś wiadomość.
+  Typy MIME!
+  Obsługa emotikon.
+

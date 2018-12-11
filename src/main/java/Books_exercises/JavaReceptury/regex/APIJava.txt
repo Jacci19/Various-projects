@@ -1,0 +1,62 @@
+// BEGIN main
+/** Główny, publiczny API klasy org.apache.regexp.RE.
+ * Przygotowany w formie czytelnej przez javap i Iana Darwina.
+ */
+
+package java.util.regex;
+
+public final class Pattern {
+    // Wartości flag (można je łączyć operatorem 'or').
+    public static final int 
+        UNIX_LINES, CASE_INSENSITIVE, COMMENTS, MULTILINE,
+        DOTALL, UNICODE_CASE, CANON_EQ;
+    // Brak publicznych konstruktorów; należy korzystać 
+    // z metod wytwórczych.
+    public static Pattern compile(String patt);
+    public static Pattern compile(String patt, int flags);
+    // Metoda pobierająca obiekt Matcher dla danego obiektu Pattern
+    public Matcher matcher(CharSequence input);
+    // Metody informacyjne.
+    public String pattern();
+    public int flags();
+    // Metody pomocnicze.
+    public static boolean matches(String pattern, CharSequence input);
+    public String[] split(CharSequence input);
+    public String[] split(CharSequence input, int max);
+}
+
+public final class Matcher {
+    // Operacje: metody odnajdujące lub dopasowujące.
+    public boolean matches();
+    public boolean find();
+    public boolean find(int start);
+    public boolean lookingAt();
+    // Metody zwracające "informacje o poprzednim dopasowaniu".
+    public int start();
+    public int start(int whichGroup);
+    public int end();
+    public int end(int whichGroup);
+    public int groupCount();
+    public String group();
+    public String group(int whichGroup);
+    // Metody przywracające stan początkowy.
+    public Matcher reset();
+    public Matcher reset(CharSequence newInput);
+    // Metody zastępujące.
+    public Matcher appendReplacement(StringBuffer where, String newText);
+    public StringBuffer appendTail(StringBuffer where);
+    public String replaceAll(String newText);
+    public String replaceFirst(String newText);
+    // Metody informacyjne.
+    public Pattern pattern();
+}
+
+/* Klasa String, metody związane z wyrażeniami regularnymi */
+public final class String {
+    public boolean matches(String regex);
+    public String replaceFirst(String regex, String newStr);
+    public String replaceAll(String regex, String newStr);
+    public String[] split(String regex);
+    public String[] split(String regex, int max);
+}
+// END main

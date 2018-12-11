@@ -1,0 +1,11 @@
+{
+  "name": "robinparse",
+  "version": "1.2.3",
+  "description": "Kolejny analizator formatu JSON",
+  "className": "RobinParse",
+  "contributors": [
+        "Robin Smythe",
+        "Jon Jenz",
+        "Jan Ardann"
+    ]
+}

@@ -1,0 +1,307 @@
+package Books_exercises.JavaReceptury.redemo;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+
+import com.darwinsys.swingui.FontChooser;
+import com.darwinsys.swingui.UtilGUI;
+
+/** Niezależna aplikacja o graficznym interfejsie użytkownika, 
+ * służąca do demonstrowania działania wyrażeń regularnych.
+ * @author  Ian Darwin, http://www.darwinsys.com/
+ */
+public class REDemo extends JPanel {
+
+    private static final long serialVersionUID = 3257563988576317490L;
+    protected Pattern pattern;
+    protected Matcher matcher;
+    protected JLabel pattLabel, stringLabel;
+    protected JTextField patternTF, stringTF;
+    protected JCheckBox compiledOK;
+    protected JRadioButton match, findButton, findAll;
+    protected JTextField matchesTF;
+    protected JTextArea logTextArea;
+    /** Komponenty interfejsu użytkownika aktualizowane podczas 
+     * zmiany czcionki */
+    protected Component[] fontChangers;
+    private static final Color[] Colors = {
+        Color.RED, Color.GREEN, Color.BLUE, Color.CYAN, Color.LIGHT_GRAY,
+        Color.MAGENTA, Color.ORANGE, Color.PINK, Color.WHITE
+    };
+    /** "znacznik" używany do podświetlania */
+    Object onlyHighlight;
+    Highlighter highlighter;
+
+    /** Główna metoda programu - tworzy interfejs użytkownika i wyświetla go.
+     * @throws BadLocationException */
+    public static void main(String[] av) throws BadLocationException {
+        JFrame f = new JFrame("REDemo");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        REDemo comp = new REDemo(f);
+        f.setContentPane(comp);
+        f.pack();
+        f.setLocation(200, 200);
+        f.setVisible(true);
+    }
+
+    /** Konstruktor klasy REDemo, tworzy obiekt włącznie z graficznym 
+     * interfejsem użytkownika.
+     * @throws BadLocationException */
+    public REDemo(final JFrame parent) throws BadLocationException {
+        super();
+
+        JMenuBar bar = new JMenuBar();
+        JMenu file = new JMenu("Plik");
+        bar.add(file);
+        JMenuItem quitItem = new JMenuItem("Koniec");
+        file.add(quitItem);
+        quitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+
+        JMenu options = new JMenu("Opcje");
+        bar.add(options);
+        JMenuItem fontItem = new JMenuItem("Font");
+        options.add(fontItem);
+        final FontChooser fontChooser = new FontChooser(parent);
+        fontItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                fontChooser.setVisible(true);
+                Font font = fontChooser.getSelectedFont();
+                if (font == null) {
+                    System.out.println("Nie nie wybrano");
+                    return;
+                }
+                System.out.println(font);
+                for (Component c : fontChangers) {
+                    if (c != null) {
+                        c.setFont(font);
+                    }
+                }
+                parent.pack();
+            }
+        });
+        parent.setJMenuBar(bar);
+
+        JPanel top = new JPanel();
+        pattLabel = new JLabel("Wzorzec:", JLabel.RIGHT);
+        top.add(pattLabel);
+        patternTF = new JTextField(40);
+        patternTF.getDocument().addDocumentListener(new PatternListener());
+        top.add(patternTF);
+        top.add(new JLabel("Składnia OK?"));
+        compiledOK = new JCheckBox();
+        top.add(compiledOK);
+
+        ChangeListener cl = new ChangeListener() {
+            public void stateChanged(ChangeEvent ce) {
+                tryMatch();
+            }
+        };
+        JPanel switchPane = new JPanel();
+        ButtonGroup buttonGroup = new ButtonGroup();
+        match = new JRadioButton("Dopasuj");
+        match.setSelected(true);
+        match.addChangeListener(cl);
+        buttonGroup.add(match);
+        switchPane.add(match);
+        findButton = new JRadioButton("Znajdź");
+        findButton.addChangeListener(cl);
+        buttonGroup.add(findButton);
+        switchPane.add(findButton);
+        findAll = new JRadioButton("Znajdź wszystkie");
+        findAll.addChangeListener(cl);
+        buttonGroup.add(findAll);
+        switchPane.add(findAll);
+        buttonGroup.setSelected(findButton.getModel(), true);
+
+        JPanel strPane = new JPanel();
+        stringLabel = new JLabel("Łańcuch:", JLabel.RIGHT);
+        strPane.add(stringLabel);
+        stringTF = new JTextField(40);
+        stringTF.getDocument().addDocumentListener(new StringListener());
+        highlighter = stringTF.getHighlighter();
+        onlyHighlight = highlighter.addHighlight(0, 0, DefaultHighlighter.DefaultPainter);
+        strPane.add(stringTF);
+        strPane.add(new JLabel("Dopasowania:"));
+        matchesTF = new JTextField(3);
+        strPane.add(matchesTF);
+        
+        setLayout(new GridLayout(0, 1, 5, 5));
+        add(top);
+        add(strPane);
+        add(switchPane);
+        //add(logTextArea = new JTextArea(5,40));
+        //logTextArea = new JTextArea(5,40);
+        
+        // Skoro koponenty są już utworzone, dodajemy je do listy elementów,
+        // w których zmienimy czcionkę.
+        fontChangers = new Component[]{
+            pattLabel, patternTF, stringLabel, stringTF, 
+            match, findButton, findAll,
+            matchesTF, logTextArea
+        };
+    }
+
+    boolean matches;
+
+    protected void setMatches(boolean b) {
+        matches = b;
+        if (b) {
+            matchesTF.setText("Tak");
+        } else {
+            matchesTF.setText("Nie");
+        }
+    }
+
+    boolean isMatch() {
+        return matches;
+    }
+
+    protected void setMatches(int n) {
+        matchesTF.setText(Integer.toString(n));
+    }
+
+    protected void tryAll() {
+        tryCompile();
+        String data = stringTF.getText();
+        if (data != null && data.length() > 0) {
+            tryMatch();
+        }
+    }
+
+    protected void tryCompile() {
+        pattern = null;
+        try {
+            pattern = Pattern.compile(patternTF.getText());
+            matcher = pattern.matcher("");
+            compiledOK.setSelected(true);
+        } catch (PatternSyntaxException ex) {
+            compiledOK.setSelected(false);
+        }
+    }
+
+    
+    protected boolean tryMatch() {
+        if (pattern == null) {
+            return false;
+        }
+        //logTextArea.setText("");
+
+        setMatches(false);
+        setHighlightFromMatcher(null);
+
+        matcher.reset(stringTF.getText());
+        if (match.isSelected() && matcher.matches()) {
+            setMatches(true);
+            if (1 <= matcher.groupCount()) {
+                setMatches(matcher.groupCount());
+            }
+            setHighlightFromMatcher(matcher);
+            /*
+            logTextArea.setText("");
+            for (int i = 0; i <= matcher.groupCount(); i++) {
+                logTextArea.append(i + " " + matcher.group(i) + "\n");
+            }
+            */
+        } else if (findButton.isSelected() && matcher.find()) {
+            setMatches(true);
+            setHighlightFromMatcher(matcher);
+            //logTextArea.setText(matcher.group());
+        } else if (findAll.isSelected()) {
+            int i = 0;
+            while (matcher.find()) {
+                i++;
+                //logTextArea.append(i++ + ": " + matcher.group() + "\n");
+            }
+            if (i > 0) {
+                setMatches(i);
+                return true;
+            }
+        }
+
+        return isMatch();
+    }
+
+    protected void setHighlightFromMatcher(Matcher matcher) {
+        int start, end;
+        if (matcher == null) {
+            start = end = 0;
+        } else {
+            start = matcher.start();
+            end = matcher.end();
+        }
+        try {
+            // System.out.printf("setHighlightFromMatcher(): %d...%d%n", start, end);
+            highlighter.changeHighlight(onlyHighlight, start, end);
+        } catch (BadLocationException e) {
+            System.err.println(e);
+        }
+    }
+
+    /** Każda zmiana wyrażenia regularnego powoduje próbę jego skompilowania. */
+    class PatternListener implements DocumentListener {
+
+        public void changedUpdate(DocumentEvent ev) {
+            tryAll();
+        }
+
+        public void insertUpdate(DocumentEvent ev) {
+            tryAll();
+        }
+
+        public void removeUpdate(DocumentEvent ev) {
+            tryAll();
+        }
+    }
+
+    /** Każda zmiana wejściowego łańcucha znaków powoduje próbę ponownego 
+     * dopasowania wyrażenia regularnego. */
+    class StringListener implements DocumentListener {
+
+        public void changedUpdate(DocumentEvent ev) {
+            tryMatch();
+        }
+
+        public void insertUpdate(DocumentEvent ev) {
+            tryMatch();
+        }
+
+        public void removeUpdate(DocumentEvent ev) {
+            tryMatch();
+        }
+    }
+
+    public Color getColor(int n) {
+        return Colors[n%Colors.length];
+    }
+}

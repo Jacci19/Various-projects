@@ -1,0 +1,19 @@
+<html><head><title>Administracja zgłoszeniami</title></head>
+<body>
+<h1>Okno wyników</h1>
+<p>
+<b>Zwycięzcą jest:
+<form method="post" action="servlet/BuzzInServlet">
+    <input type="hidden" name="command" value="show">
+    <input type="hidden" name="password" value="syzzy">
+    <input type="submit" name="Show" value="Poka� zwyci�zc�">
+</form>
+<h1>Przywróć początkowy stan aplikacji</h1>
+<p>
+<b>Pamiętaj, aby przywracać początkowy stan aplikacji przed 
+zadaniem każdego pytania!</b>
+<form method="post" action="servlet/BuzzInServlet">
+    <input type="hidden" name="command" value="reset">
+    <input type="hidden" name="password" value="syzzy">
+    <input type="submit" name="Reset" value="Przywróć stan początkowy!">
+</form>
