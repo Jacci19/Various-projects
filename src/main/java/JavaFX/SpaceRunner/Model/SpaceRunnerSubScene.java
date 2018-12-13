@@ -35,12 +35,12 @@ public class SpaceRunnerSubScene extends SubScene {
         transition.setDuration(Duration.seconds(0.3));
         transition.setNode(this);
         if(isHidden){
-            transition.setToX(-676);
-            isHidden = false;
+            transition.setToX(-676);                                            // jeśli jest ukryta to ma wjechać na scenę
+            isHidden = false;                                                   // i przestać być ukryta
         }
         else{
-            transition.setToX(0);
-            isHidden = true;
+            transition.setToX(0);                                               // jeśli nie jest ukryta to ma wyjechać ze sceny. Zero to położenie początkowe a nie PUW
+            isHidden = true;                                                    // i się ukryć.
         }
 
         transition.play();
