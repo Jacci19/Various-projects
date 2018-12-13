@@ -2,6 +2,7 @@ package JavaFX.SpaceRunner.View;
 
 import JavaFX.SpaceRunner.Model.SpaceRunnerButton;
 import JavaFX.SpaceRunner.Model.SpaceRunnerSubScene;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -24,6 +25,8 @@ public class ViewManager {
     private Scene mainScene;
     private Stage mainStage;
 
+    private  SpaceRunnerSubScene creditsSubScene;
+
     List<SpaceRunnerButton> menuButtons;
 
     public ViewManager(){
@@ -32,15 +35,15 @@ public class ViewManager {
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
         mainStage = new Stage();
         mainStage.setScene(mainScene);
+        createSubScenes();
         createButtons();
         createBackground();
         createLogo();                                                                               //tytuł gry
+    }
 
-        SpaceRunnerSubScene subScene = new SpaceRunnerSubScene();                                   //żółte pole
-        subScene.setLayoutX(200);
-        subScene.setLayoutY(100);
-        mainPane.getChildren().add(subScene);
-
+    private void createSubScenes(){
+        creditsSubScene = new SpaceRunnerSubScene();                                                 //żółte wjeżdżające pole
+        mainPane.getChildren().add(creditsSubScene);
     }
 
     public Stage getMainStage() {
@@ -77,6 +80,13 @@ public class ViewManager {
     private void createCreditsButton(){
         SpaceRunnerButton creditsButton = new SpaceRunnerButton("CREDITS");
         addMenuButton(creditsButton);
+
+        creditsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                creditsSubScene.moveSubScene();
+            }
+        });
     }
     private void createExitButton(){
         SpaceRunnerButton exitButton = new SpaceRunnerButton("EXIT");
