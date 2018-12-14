@@ -1,7 +1,6 @@
 package JavaFX.SpaceRunner.View;
 
-import JavaFX.SpaceRunner.Model.SpaceRunnerButton;
-import JavaFX.SpaceRunner.Model.SpaceRunnerSubScene;
+import JavaFX.SpaceRunner.Model.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -32,17 +31,19 @@ public class ViewManager {
 
     private SpaceRunnerSubScene sceneToHide;
 
-    List<SpaceRunnerButton> menuButtons;
+    List<SpaceRunnerButton> menuButtons;                                                            //lista przycisków menu
+    List<ShipPicker> shipsList;                                                                     //lista vboxów do wyboru z menu (vbox zawiera: kształtka + statek)
+    private SHIP chosenShip;
 
     public ViewManager(){
-        menuButtons = new ArrayList<>();
         mainPane = new AnchorPane();
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
         mainStage = new Stage();
         mainStage.setScene(mainScene);
-        createSubScenes();
-        createButtons();
-        createBackground();
+        menuButtons = new ArrayList<>();                                                            //play, score, help, credits, exit
+        createSubScenes();                                                                          //wjeżdżające plansze menu
+        createButtons();                                                                            //przyciski menu
+        createBackground();                                                                         //tło nmenu
         createLogo();                                                                               //tytuł gry
     }
 
@@ -64,20 +65,62 @@ public class ViewManager {
         scoreSubScene = new SpaceRunnerSubScene();                                                 //żółte wjeżdżające pole
         mainPane.getChildren().add(scoreSubScene);
 
+/*
         shipChooserSubScene = new SpaceRunnerSubScene();                                           //żółte wjeżdżające pole
         mainPane.getChildren().add(shipChooserSubScene);
+*/
 
+        createShipChooserSubScene();
+    }
+
+    private void createShipChooserSubScene() {                                                      //wybór pojazdu
+        shipChooserSubScene = new SpaceRunnerSubScene();
+        mainPane.getChildren().add(shipChooserSubScene);
+
+        InfoLabel chooseShipLabel = new InfoLabel("CHOOSE YOUR SHIP: ");
+        chooseShipLabel.setLayoutX(110);
+        chooseShipLabel.setLayoutY(25);
+        shipChooserSubScene.getPane().getChildren().add(chooseShipLabel);                           // wstawienie labela:   CHOOSE YOUR SHIP
+        shipChooserSubScene.getPane().getChildren().add(createShipsToChoose());                     // wstawienie statków do wyboru
+        shipChooserSubScene.getPane().getChildren().add(createButtonToStart());                     // wstawienie przycisku start
 
     }
 
-    public Stage getMainStage() {
-        return mainStage;
+    private HBox createShipsToChoose(){
+        HBox box = new HBox();
+        box.setSpacing(33);                                                                         //odstęp pomiędzy statkami
+        shipsList = new ArrayList<>();
+        for(SHIP ship: SHIP.values()){                                                              //rób to dla każdego statku możliwego do wyboru
+            ShipPicker shipToPick = new ShipPicker(ship);                                           //jeden vbox (kształtka + statek)
+            shipsList.add(shipToPick);
+            box.getChildren().add(shipToPick);                                                      //wstawia vboxa do hboxa (vboxy ułożą się więc w poziomie)
+            shipToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    for (ShipPicker ship : shipsList){
+                        ship.setIsCircleChosen(false);                                              //Każdą kształtkę ustaw na niewybraną...
+                    }
+                    shipToPick.setIsCircleChosen(true);                                             //...a tą akurat klikniętą na wybraną
+                    chosenShip = shipToPick.getShip();
+                }
+            });
+        }
+        box.setLayoutX(50);
+        box.setLayoutY(100);
+        return box;
+    }
+
+    private SpaceRunnerButton createButtonToStart(){                                                // przycisk Start pod wyborem statków
+        SpaceRunnerButton startButton = new SpaceRunnerButton("START");
+        startButton.setLayoutX(350);
+        startButton.setLayoutY(300);
+        return startButton;
     }
 
     private void addMenuButton(SpaceRunnerButton button){
         button.setLayoutX(MENU_BUTTONS_START_X);
         button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100);
-        menuButtons.add(button);
+        menuButtons.add(button);                                                                   //dodanie buttona do listy
         mainPane.getChildren().add(button);
     }
 
@@ -170,6 +213,11 @@ public class ViewManager {
         });
         mainPane.getChildren().add(logo);
     }
+
+    public Stage getMainStage() {
+        return mainStage;
+    }
+
 }
 
 

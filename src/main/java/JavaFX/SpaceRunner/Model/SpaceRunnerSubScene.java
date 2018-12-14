@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class SpaceRunnerSubScene extends SubScene {
 
-    private final static String FONT_PATH = "JavaFX/SpaceRunner/fonts/font.ttf";
+    private final static String FONT_PATH = "JavaFX/SpaceRunner/fonts/kenvector_future.ttf";
     private final static String BACKGROUND_IMAGE = "JavaFX/SpaceRunner/yellow_panel.png";
 
     private boolean isHidden;
@@ -44,4 +44,10 @@ public class SpaceRunnerSubScene extends SubScene {
 
         transition.play();
     }
+
+    public AnchorPane getPane()  {
+        return (AnchorPane) this.getRoot();
+    }
 }
+
+
