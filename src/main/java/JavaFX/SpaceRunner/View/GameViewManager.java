@@ -1,6 +1,7 @@
 package JavaFX.SpaceRunner.View;
 
 import JavaFX.SpaceRunner.Model.SHIP;
+import JavaFX.SpaceRunner.Model.SmallInfoLabel;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -38,6 +39,15 @@ public class GameViewManager {
     private ImageView[] brownMeteors;
     private ImageView[] greyMeteors;
     Random randomPositionGenerator;
+
+    private ImageView star;
+    private SmallInfoLabel pointsLabel;
+    private ImageView[] playerLifes;
+    private int playerLife;
+    private int points;
+
+    private final static String GOLD_STAR_IMAGE = "JavaFX/SpaceRunner/gold_star.png";
+
 
     public GameViewManager() {                                  //konstruktor
         initializeStage();
@@ -80,12 +90,32 @@ public class GameViewManager {
         this.menuStage.hide();
         createBackground();
         createShip(chosenShip);
-        createGameElements();                                                       //tworzy meteoryty
+        createGameElements(chosenShip);                                                       //tworzy meteoryty
         createGameLoop();
         gameStage.show();
     }
 
-    private void createGameElements(){
+    private void createGameElements(SHIP chosenShip){
+
+        star = new ImageView(GOLD_STAR_IMAGE);
+        setNewElementPosition(star);
+        gamePane.getChildren().add(star);
+
+        pointsLabel = new SmallInfoLabel("POINTS: 00");
+        pointsLabel.setLayoutX(460);
+        pointsLabel.setLayoutY(20);
+        gamePane.getChildren().add(pointsLabel);
+
+        playerLife = 2;
+        playerLifes = new ImageView[3];
+
+        for (int i = 0; i<playerLifes.length; i++){
+            playerLifes[i] = new ImageView(chosenShip.getShipLifeUrl());
+            playerLifes[i].setLayoutX(455 + (i * 50));
+            playerLifes[i].setLayoutY(80);
+            gamePane.getChildren().add(playerLifes[i]);
+        }
+
         brownMeteors = new ImageView[3];
         for (int i = 0; i < brownMeteors.length; i++){
             brownMeteors[i] = new ImageView(METEOR_BROWN_IMAGE);
@@ -101,6 +131,8 @@ public class GameViewManager {
     }
 
     private void moveGameElements(){
+        star.setLayoutY(star.getLayoutY() + 5);
+
         for (int i = 0; i < brownMeteors.length; i++){
             brownMeteors[i].setLayoutY(brownMeteors[i].getLayoutY()+7);
             brownMeteors[i].setRotate(brownMeteors[i].getRotate()+4);
@@ -112,6 +144,10 @@ public class GameViewManager {
     }
 
     private void checkIfElementsAreBehindTheShipAndRelocate(){
+        if(star.getLayoutY() > 1200){
+            setNewElementPosition(star);
+        }
+
         for (int i = 0; i < brownMeteors.length; i++){
             if (brownMeteors[i].getLayoutY() > 900){
                 setNewElementPosition(brownMeteors[i]);
