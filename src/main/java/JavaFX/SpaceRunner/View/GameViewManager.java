@@ -48,6 +48,11 @@ public class GameViewManager {
 
     private final static String GOLD_STAR_IMAGE = "JavaFX/SpaceRunner/gold_star.png";
 
+    private final static int STAR_RADIUS = 12;
+    private final static int SHIP_RADIUS = 27;
+    private final static int METEOR_RADIUS = 20;
+
+
 
     public GameViewManager() {                                  //konstruktor
         initializeStage();
@@ -178,9 +183,11 @@ public class GameViewManager {
             @Override
             public void handle(long now) {
                 moveBackGround();
-                moveShip();
                 moveGameElements();
                 checkIfElementsAreBehindTheShipAndRelocate();
+                checkIfElementsCollide();
+                moveShip();
+
             }
         };
         gameTimer.start();
@@ -251,5 +258,44 @@ public class GameViewManager {
         if (gridPane2.getLayoutY() >= 1024){
             gridPane2.setLayoutY(-1024);
         }
+    }
+
+    private void checkIfElementsCollide(){
+        if(SHIP_RADIUS + STAR_RADIUS > calculateDistance(ship.getLayoutX()+49, star.getLayoutX()+15, ship.getLayoutY()+37, star.getLayoutY()+15)){
+            setNewElementPosition(star);
+            points++;
+            String textToSet = "POINTS: ";
+            if (points < 10){
+                textToSet = textToSet + "0";
+            }
+            pointsLabel.setText(textToSet + points);
+        }
+
+        for (int i = 0; i < brownMeteors.length; i++){
+            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX()+49, brownMeteors[i].getLayoutX()+20, ship.getLayoutY()+37, brownMeteors[i].getLayoutY()+20)){
+                removeLife();
+                setNewElementPosition(brownMeteors[i]);
+            }
+        }
+        for (int i = 0; i < greyMeteors.length; i++){
+            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX()+49, greyMeteors[i].getLayoutX()+20, ship.getLayoutY()+37, greyMeteors[i].getLayoutY()+20)){
+                removeLife();
+                setNewElementPosition(greyMeteors[i]);
+            }
+        }
+    }
+
+    private void removeLife(){
+        gamePane.getChildren().remove(playerLifes[playerLife]);
+        playerLife--;
+        if (playerLife < 0){
+            gameStage.close();
+            gameTimer.stop();
+            menuStage.show();
+        }
+    }
+
+    private double calculateDistance(double x1, double x2, double y1, double y2){
+        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
     }
 }
