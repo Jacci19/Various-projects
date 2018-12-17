@@ -4,6 +4,8 @@ import JavaFX.SpaceRunner_Full.View.ViewManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/* Projekt ściągnięty z gita kogoś kto robił na podstawie kursu, nie działa...*/
+
 public class Main extends Application {
 
 
