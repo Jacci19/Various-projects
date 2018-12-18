@@ -22,12 +22,11 @@ public class GameViewManager {
     private static final int GAME_WIDTH = 1600;
     private static final int GAME_HEIGHT = 1060;
 
-    private static final int METEOR_FREQ = 12;
+    private static final int METEOR_FREQ = 15;
     private static final int METEOR_SPEED = 6;
     private static final int STAR_SPEED = 5;
 
     private static final double BACKGROUND_SPEED = 2.0;
-    private static final double SHIP_SPEED = 6.0;
 
 
 
@@ -35,7 +34,8 @@ public class GameViewManager {
     private Scene gameScene;
     private Stage gameStage;
     private Stage menuStage;
-    private ImageView ship;
+    private ImageView shipIV;
+    private SHIP myShip;
 
     private boolean isLeftKeyPressed, isRightKeyPressed, isUpKeyPressed, isDownKeyPressed, isSpaceKeyPressed;
     private int angle;
@@ -205,10 +205,11 @@ public class GameViewManager {
     }
 
     private void createShip(SHIP chosenShip){
-        ship = new ImageView(chosenShip.getShipUrl());
-        ship.setLayoutX(GAME_WIDTH / 2);
-        ship.setLayoutY(GAME_HEIGHT - 90);
-        gamePane.getChildren().add(ship);
+        shipIV = new ImageView(chosenShip.getShipUrl());
+        shipIV.setLayoutX(GAME_WIDTH / 2);
+        shipIV.setLayoutY(GAME_HEIGHT - 90);
+        myShip = chosenShip;
+        gamePane.getChildren().add(shipIV);
     }
 
     private void createGameLoop(){
@@ -229,31 +230,31 @@ public class GameViewManager {
 
     private void moveShip(){
         if (isUpKeyPressed && !isDownKeyPressed){                                // UP on - DOWN off
-            if(ship.getLayoutY() > 0){
-                ship.setLayoutY(ship.getLayoutY() - SHIP_SPEED);
+            if(shipIV.getLayoutY() > 0){
+                shipIV.setLayoutY(shipIV.getLayoutY() - myShip.getShipSpeed());
             }
         }
         if (!isUpKeyPressed && isDownKeyPressed){                                // UP off - DOWN on
-            if(ship.getLayoutY() < GAME_HEIGHT - 74){
-                ship.setLayoutY(ship.getLayoutY() + SHIP_SPEED);
+            if(shipIV.getLayoutY() < GAME_HEIGHT - 74){
+                shipIV.setLayoutY(shipIV.getLayoutY() + myShip.getShipSpeed());
             }
         }
         if (isLeftKeyPressed && !isRightKeyPressed){                                // LEFT on - RIGHT off
             if(angle > -30){
                 angle -= 5;
             }
-            ship.setRotate(angle);
-            if(ship.getLayoutX() > -20){
-                ship.setLayoutX(ship.getLayoutX() - SHIP_SPEED);
+            shipIV.setRotate(angle);
+            if(shipIV.getLayoutX() > -20){
+                shipIV.setLayoutX(shipIV.getLayoutX() - myShip.getShipSpeed());
             }
         }
         if (!isLeftKeyPressed && isRightKeyPressed){                                // LEFT off - RIGHT on
             if(angle < 30){
                 angle += 5;
             }
-            ship.setRotate(angle);
-            if(ship.getLayoutX() < GAME_WIDTH - 60){
-                ship.setLayoutX(ship.getLayoutX() + SHIP_SPEED);
+            shipIV.setRotate(angle);
+            if(shipIV.getLayoutX() < GAME_WIDTH - 60){
+                shipIV.setLayoutX(shipIV.getLayoutX() + myShip.getShipSpeed());
             }
         }
         if ((!isLeftKeyPressed && !isRightKeyPressed) || (isLeftKeyPressed && isRightKeyPressed)){        // LEFT off - RIGHT off        // LEFT on - RIGHT on
@@ -262,39 +263,35 @@ public class GameViewManager {
             }else if (angle > 0){
                 angle -=5;
             }
-            ship.setRotate(angle);
+            shipIV.setRotate(angle);
         }
     }
 
     private void shooting(){
         if (isSpaceKeyPressed){
-            Bullet bullet = new Bullet();
+            if (shotFrequencyCounter == 0) {
+                Bullet bullet = new Bullet();
 
-            bullet.setLayoutX(ship.getLayoutX() + 48);                                  //48 aby strzelał ze środka dzioba
-            bullet.setLayoutY(ship.getLayoutY());
+                bullet.setLayoutX(shipIV.getLayoutX() + 48);                                  //48 aby strzelał ze środka dzioba
+                bullet.setLayoutY(shipIV.getLayoutY());
 
-            gamePane.getChildren().add(bullet);
-            bulletsList.add(bullet);
+                gamePane.getChildren().add(bullet);
+                bulletsList.add(bullet);
+                shotFrequencyCounter = myShip.getShootFrequency();
+            }
+            shotFrequencyCounter--;
         }
-
-
     }
 
     private void bulletMoving() {
         for (Bullet bullet: bulletsList) {
-           // bullet.setLayoutY(bullet.getLayoutY() - ship.getShotSpeed());
-            bullet.setLayoutY(bullet.getLayoutY() - 5);
+            bullet.setLayoutY(bullet.getLayoutY() - myShip.getShotSpeed());
 
-            //if (bullet.getLayoutX() > (ship.getLayoutX() + ship.getShotRange())) {
-            if (bullet.getLayoutY() < (ship.getLayoutY() - 300)) {
+            if (bullet.getLayoutY() < (shipIV.getLayoutY() - myShip.getShotRange())) {
                 gamePane.getChildren().remove(bullet);
             }
         }
-
     }
-
-
-
 
     private void createBackground(){
         gridPane1 = new GridPane();
@@ -326,7 +323,7 @@ public class GameViewManager {
     }
 
     private void checkIfElementsCollide(){
-        if(SHIP_RADIUS + STAR_RADIUS > calculateDistance(ship.getLayoutX()+49, star.getLayoutX()+15, ship.getLayoutY()+37, star.getLayoutY()+15)){
+        if(SHIP_RADIUS + STAR_RADIUS > calculateDistance(shipIV.getLayoutX()+49, star.getLayoutX()+15, shipIV.getLayoutY()+37, star.getLayoutY()+15)){
             setNewElementPosition(star);
             points++;
             String textToSet = "POINTS: ";
@@ -337,13 +334,13 @@ public class GameViewManager {
         }
 
         for (int i = 0; i < brownMeteors.length; i++){
-            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX()+49, brownMeteors[i].getLayoutX()+20, ship.getLayoutY()+37, brownMeteors[i].getLayoutY()+20)){
+            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, brownMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, brownMeteors[i].getLayoutY()+20)){
                 removeLife();
                 setNewElementPosition(brownMeteors[i]);
             }
         }
         for (int i = 0; i < greyMeteors.length; i++){
-            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX()+49, greyMeteors[i].getLayoutX()+20, ship.getLayoutY()+37, greyMeteors[i].getLayoutY()+20)){
+            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, greyMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, greyMeteors[i].getLayoutY()+20)){
                 removeLife();
                 setNewElementPosition(greyMeteors[i]);
             }
