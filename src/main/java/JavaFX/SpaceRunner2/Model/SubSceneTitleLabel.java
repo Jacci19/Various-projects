@@ -18,8 +18,8 @@ import java.io.FileNotFoundException;
 
 public class SubSceneTitleLabel extends Label {
 
-    private final static String FONT_PATH = "JavaFX/SpaceRunner/fonts/kenvector_future.ttf";
-    private final static String BACKGROUND_IMAGE = "JavaFX/SpaceRunner/ShipChooser/yellowBackground.png";
+    private final static String FONT_PATH = "JavaFX/SpaceRunner2/fonts/kenvector_future.ttf";
+    private final static String BACKGROUND_IMAGE = "JavaFX/SpaceRunner2/ShipChooser/yellowBackground.png";
 
     public SubSceneTitleLabel(String text) {
 

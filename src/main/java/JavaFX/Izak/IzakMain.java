@@ -189,7 +189,7 @@ public class IzakMain extends Application {
     }
 
     private void clearBulletList() {
-        if (!root.getChildren().contains(bullet)) {                                                               //jeśli na plansze nie ma pocisków to wyzerój tablice pocisków
+        if (!root.getChildren().contains(bullet)) {                                                               //jeśli na plansze nie ma pocisków to wyzeruj tablice pocisków
             bulletsList.clear();
         }
     }

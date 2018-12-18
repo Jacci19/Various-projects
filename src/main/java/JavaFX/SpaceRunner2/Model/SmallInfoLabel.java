@@ -22,7 +22,7 @@ public class SmallInfoLabel extends Label {
         setPrefWidth(130);
         setPrefHeight(50);
         BackgroundImage backgroundImage = new BackgroundImage(
-                new Image("JavaFX/SpaceRunner/blue_info_label.png", 130,50,false,true),
+                new Image("JavaFX/SpaceRunner2/blue_info_label.png", 130,50,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
         setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER_LEFT);

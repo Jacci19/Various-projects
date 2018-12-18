@@ -1,19 +1,23 @@
 package JavaFX.SpaceRunner2.Model;
 
-public enum SHIP {
+public enum SHIP{
 
-    BLUE("JavaFX/SpaceRunner/ShipChooser/ships/blue_ship.png", "JavaFX/SpaceRunner/life_Icons/blue_life.png"),
-    GREEN("JavaFX/SpaceRunner/ShipChooser/ships/green_ship.png", "JavaFX/SpaceRunner/life_Icons/green_life.png"),
-    ORANGE("JavaFX/SpaceRunner/ShipChooser/ships/orange_ship.png", "JavaFX/SpaceRunner/life_Icons/orange_life.png"),
-    RED("JavaFX/SpaceRunner/ShipChooser/ships/red_ship.png", "JavaFX/SpaceRunner/life_Icons/red_life.png");
+    BLUE("JavaFX/SpaceRunner2/ShipChooser/ships/blue_ship.png", "JavaFX/SpaceRunner2/life_Icons/blue_life.png", 2, 300),
+    GREEN("JavaFX/SpaceRunner2/ShipChooser/ships/green_ship.png", "JavaFX/SpaceRunner2/life_Icons/green_life.png", 5, 400),
+    ORANGE("JavaFX/SpaceRunner2/ShipChooser/ships/orange_ship.png", "JavaFX/SpaceRunner2/life_Icons/orange_life.png", 10, 600),
+    RED("JavaFX/SpaceRunner2/ShipChooser/ships/red_ship.png", "JavaFX/SpaceRunner2/life_Icons/red_life.png", 15, 800);
 
     private String shipUrl;
     private String shipLifeUrl;
+    private int shotSpeed;
+    private int shotRange;
 
 
-    private  SHIP(String shipUrl, String shipLifeUrl){
+    private  SHIP(String shipUrl, String shipLifeUrl, int shotSpeed, int shotRange){
         this.shipUrl = shipUrl;
         this.shipLifeUrl = shipLifeUrl;
+        this.shotSpeed = shotSpeed;
+        this.shotRange = shotRange;
     }
 
     public String getShipUrl() {
@@ -21,6 +25,14 @@ public enum SHIP {
     }
     public String getShipLifeUrl() {
         return shipLifeUrl;
+    }
+
+    public int getShotSpeed() {
+        return shotSpeed;
+    }
+
+    public int getShotRange() {
+        return shotRange;
     }
 }
 

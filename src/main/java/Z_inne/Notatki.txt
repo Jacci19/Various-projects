@@ -24,3 +24,11 @@ Kolory plików w Intelij + Git:
 - Niebieski - spushowany kiedyś, zmodyfikowany od czasu ostatniego pusha
 - Zielony - świeżo dodany do gita, jeszcze nie spushowany
 - Czerwony - nie dodany do gita
+
+___________________________________________________________________
+Losowanie losowych liczb z zakresu (x,y):
+
+Random rand = new Random();
+int a = rand.nextInt(y - x + 1) + x;
+https://forum.pasja-informatyki.pl/2549/generowanie-pseudo-losowych-liczb-z-zadanego-przedzialu
+__________________________________________________________________

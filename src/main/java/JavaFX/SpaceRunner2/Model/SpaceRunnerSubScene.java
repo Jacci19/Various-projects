@@ -10,8 +10,8 @@ public class SpaceRunnerSubScene extends SubScene {
 
     //Żółty panel wysuwający się dla każdego przycisku menu
 
-    private final static String FONT_PATH = "JavaFX/SpaceRunner/fonts/kenvector_future.ttf";
-    private final static String BACKGROUND_IMAGE = "JavaFX/SpaceRunner/yellow_panel.png";
+    private final static String FONT_PATH = "JavaFX/SpaceRunner2/fonts/kenvector_future.ttf";
+    private final static String BACKGROUND_IMAGE = "JavaFX/SpaceRunner2/yellow_panel.png";
 
     private boolean isHidden;
 

@@ -235,15 +235,15 @@ public class ViewManager {
     }
 
     private void createBackground(){
-        Image backgroundImage = new Image("JavaFX/SpaceRunner/blueBackground.png", 256, 256, false, true);
+        Image backgroundImage = new Image("JavaFX/SpaceRunner2/blueBackground.png", 256, 256, false, true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
 
     private void createLogo(){
-        ImageView logo = new ImageView("JavaFX/SpaceRunner/gameTitle_Logo.png");
+        ImageView logo = new ImageView("JavaFX/SpaceRunner2/gameTitle_Logo.png");
         logo.setLayoutX(300);
-        logo.setLayoutY(50);
+        logo.setLayoutY(30);
         logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

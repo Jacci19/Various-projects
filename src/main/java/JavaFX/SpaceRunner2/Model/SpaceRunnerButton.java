@@ -12,11 +12,11 @@ import java.io.FileNotFoundException;
 
 public class SpaceRunnerButton extends Button {
 
-    private final String FONT_PATH = "JavaFX/SpaceRunner/fonts/kenvector_future.ttf";                            //nie wczytuje się ??
+    private final String FONT_PATH = "JavaFX/SpaceRunner2/fonts/kenvector_future.ttf";                            //nie wczytuje się ??
     private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; " +
-                                                "-fx-background-image: url('JavaFX/SpaceRunner/yellow_button_pressed.png');";
+                                                "-fx-background-image: url('JavaFX/SpaceRunner2/yellow_button_pressed.png');";
     private final String BUTTON_FREE_STYLE =    "-fx-background-color: transparent;" +
-            "                                    -fx-background-image: url('JavaFX/SpaceRunner/yellow_button.png');";
+            "                                    -fx-background-image: url('JavaFX/SpaceRunner2/yellow_button.png');";
 
     public SpaceRunnerButton(String text) {             //konstruktor
 

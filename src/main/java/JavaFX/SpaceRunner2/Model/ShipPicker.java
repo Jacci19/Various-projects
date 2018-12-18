@@ -12,8 +12,8 @@ public class ShipPicker extends VBox {
     private ImageView circleImage;
     private ImageView shipImage;
 
-    private  String circleNotChosenPath = "JavaFX/SpaceRunner/shipChooser/shape_notChosen.png";
-    private  String circleChosenPath = "JavaFX/SpaceRunner/shipChooser/shape_Chosen.png";
+    private  String circleNotChosenPath = "JavaFX/SpaceRunner2/shipChooser/shape_notChosen.png";
+    private  String circleChosenPath = "JavaFX/SpaceRunner2/shipChooser/shape_Chosen.png";
     private SHIP ship;
     private  boolean isCircleChosen;
 
