@@ -6,6 +6,7 @@ import JavaFX.SpaceRunner2.Model.SmallInfoLabel;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,20 +14,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GameViewManager {
 
     private static final int GAME_WIDTH = 1600;
     private static final int GAME_HEIGHT = 1060;
 
-    private static final int METEOR_FREQ = 15;
+    private static final int METEOR_FREQ = 12;
     private static final int METEOR_SPEED = 6;
     private static final int STAR_SPEED = 5;
 
-    private static final double BACKGROUND_SPEED = 2.0;
+    private static final double BACKGROUND_SPEED = 3.0;
+    private static final int PLAYER_STARTING_LIFE = 5;
 
 
 
@@ -37,16 +37,18 @@ public class GameViewManager {
     private ImageView shipIV;
     private SHIP myShip;
 
-    private boolean isLeftKeyPressed, isRightKeyPressed, isUpKeyPressed, isDownKeyPressed, isSpaceKeyPressed;
+    private boolean isLeftKeyPressed, isRightKeyPressed, isUpKeyPressed, isDownKeyPressed, isSpaceKeyPressed, isNKeyPressed;
     private int angle;
     private AnimationTimer gameTimer;
 
     private GridPane gridPane1;                                 //umieścimy w nim tło gry
     private GridPane gridPane2;
-    private static final String BACKGROUND_IMAGE = "JavaFX/SpaceRunner2/blueBackground.png";
+    private static final String BACKGROUND_IMAGE = "JavaFX/SpaceRunner2/blackBackground.png";
 
     private static final String METEOR_BROWN_IMAGE = "JavaFX/SpaceRunner2/meteor_brown.png";
     private static final String METEOR_GREY_IMAGE = "JavaFX/SpaceRunner2/meteor_gray.png";
+    private static final String DESTROY_SHIP_IMAGE = "JavaFX/SpaceRunner2/destroying_fire.gif";
+
     private ImageView[] brownMeteors;
     private ImageView[] greyMeteors;
     private Random randomPositionGenerator;
@@ -59,6 +61,7 @@ public class GameViewManager {
     private int shotFrequencyCounter = 0;
     private List<Bullet> bulletsList = new ArrayList<>();
 
+    private boolean shipIsDestroyed = false;
 
     private final static String GOLD_STAR_IMAGE = "JavaFX/SpaceRunner2/gold_star.png";
 
@@ -94,10 +97,12 @@ public class GameViewManager {
                     isRightKeyPressed = true;
                 } else if (event.getCode() == KeyCode.UP){                                      //UP press
                     isUpKeyPressed = true;
-                } else if (event.getCode() == KeyCode.DOWN){                                   //DOWN press
+                } else if (event.getCode() == KeyCode.DOWN){                                    //DOWN press
                     isDownKeyPressed = true;
                 } else if (event.getCode() == KeyCode.SPACE){                                   //SPACE press
                     isSpaceKeyPressed = true;
+                } else if (event.getCode() == KeyCode.N){                                       //N press
+                    isNKeyPressed = true;
                 }
             }
         });
@@ -108,12 +113,14 @@ public class GameViewManager {
                     isLeftKeyPressed = false;
                 } else if (event.getCode() == KeyCode.RIGHT){                                   //RIGHT release
                     isRightKeyPressed = false;
-                } else if (event.getCode() == KeyCode.UP){                                      //UP press
+                } else if (event.getCode() == KeyCode.UP){                                      //UP release
                     isUpKeyPressed = false;
-                } else if (event.getCode() == KeyCode.DOWN){                                   //DOWN press
+                } else if (event.getCode() == KeyCode.DOWN){                                    //DOWN release
                     isDownKeyPressed = false;
-                } else if (event.getCode() == KeyCode.SPACE) {                                   //DOWN press
+                } else if (event.getCode() == KeyCode.SPACE) {                                  //DOWN release
                     isSpaceKeyPressed = false;
+                } else if (event.getCode() == KeyCode.N) {                                      //N release
+                    isNKeyPressed = false;
                 }
             }
         });
@@ -140,12 +147,12 @@ public class GameViewManager {
         pointsLabel.setLayoutY(20);
         gamePane.getChildren().add(pointsLabel);
 
-        playerLife = 2;
-        playerLifes = new ImageView[3];
+        playerLife = PLAYER_STARTING_LIFE;
+        playerLifes = new ImageView[playerLife+1];
 
         for (int i = 0; i<playerLifes.length; i++){
             playerLifes[i] = new ImageView(chosenShip.getShipLifeUrl());
-            playerLifes[i].setLayoutX(GAME_WIDTH - 150 + (i * 50));
+            playerLifes[i].setLayoutX(GAME_WIDTH - 50 - (i * 50));
             playerLifes[i].setLayoutY(80);
             gamePane.getChildren().add(playerLifes[i]);                                         //life icons made
         }
@@ -169,14 +176,14 @@ public class GameViewManager {
     }
 
     private void moveGameElements(){
-        star.setLayoutY(star.getLayoutY() + STAR_SPEED);
+        star.setLayoutY(star.getLayoutY() + (STAR_SPEED * nitro()));
 
         for (int i = 0; i < brownMeteors.length; i++){                                          //brown meteors move
-            brownMeteors[i].setLayoutY(brownMeteors[i].getLayoutY() + METEOR_SPEED + (i/2));    //i/2 zapewnia zmienną prędkość meteorów
+            brownMeteors[i].setLayoutY(brownMeteors[i].getLayoutY() + (METEOR_SPEED + (i/2)) * nitro());    //i/2 zapewnia zmienną prędkość meteorów
             brownMeteors[i].setRotate(brownMeteors[i].getRotate()+4);
         }
         for (int i = 0; i < greyMeteors.length; i++){                                           //grey meteors move
-            greyMeteors[i].setLayoutY(greyMeteors[i].getLayoutY() + METEOR_SPEED + (i/2));
+            greyMeteors[i].setLayoutY(greyMeteors[i].getLayoutY() + (METEOR_SPEED + (i/2)) * nitro());
             greyMeteors[i].setRotate(greyMeteors[i].getRotate()+4);
         }
     }
@@ -311,8 +318,8 @@ public class GameViewManager {
     }
 
     private void moveBackGround(){
-        gridPane1.setLayoutY(gridPane1.getLayoutY() + BACKGROUND_SPEED);                             //tło przesuwa się w każdej klatce timera
-        gridPane2.setLayoutY(gridPane2.getLayoutY() + BACKGROUND_SPEED);
+        gridPane1.setLayoutY(gridPane1.getLayoutY() + (BACKGROUND_SPEED * nitro()));                             //tło przesuwa się w każdej klatce timera
+        gridPane2.setLayoutY(gridPane2.getLayoutY() + (BACKGROUND_SPEED * nitro()));
 
         if (gridPane1.getLayoutY() >= GAME_HEIGHT){                                            //gdy tło dołem wyjdzie poza stage to ustawia się na górze
             gridPane1.setLayoutY(-GAME_HEIGHT);
@@ -336,12 +343,14 @@ public class GameViewManager {
         for (int i = 0; i < brownMeteors.length; i++){
             if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, brownMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, brownMeteors[i].getLayoutY()+20)){
                 removeLife();
+                setBrightnessOnShip();
                 setNewElementPosition(brownMeteors[i]);
             }
         }
         for (int i = 0; i < greyMeteors.length; i++){
             if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, greyMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, greyMeteors[i].getLayoutY()+20)){
                 removeLife();
+                setBrightnessOnShip();
                 setNewElementPosition(greyMeteors[i]);
             }
         }
@@ -351,11 +360,51 @@ public class GameViewManager {
         gamePane.getChildren().remove(playerLifes[playerLife]);
         playerLife--;
         if (playerLife < 0){
+            destroyShip();
             gameStage.close();
             gameTimer.stop();
             menuStage.show();
         }
+
     }
+
+    private void setBrightnessOnShip(){                                                                                 //T I M E R
+        ColorAdjust ca = new ColorAdjust();
+        ca.brightnessProperty().setValue(0.85);
+        shipIV.setEffect(ca);
+
+        Timer effectTimer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                shipIV.setEffect(null);                         // usuwa brightness po upływie czasu: 500ms
+               // effectTimer.cancel();                                 // aby task wykonał się tylko raz;
+            }
+        };
+        effectTimer.schedule(task, 400);
+    }
+
+    private void destroyShip() {
+        ImageView destroyingFireIV = new ImageView(DESTROY_SHIP_IMAGE);                         //tych ogniów nie widać bo timer tu mi nie działa poprawnie
+        destroyingFireIV.setLayoutX(shipIV.getLayoutX());
+        destroyingFireIV.setLayoutY(shipIV.getLayoutY());
+        gamePane.getChildren().add(destroyingFireIV);
+
+//        Timer destroyTimer = new Timer();
+//        TimerTask destroyTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                gamePane.getChildren().remove(destroyingFireIV);
+//                gamePane.getChildren().remove(shipIV);
+//                destroyTimer.cancel();                                 // aby task wykonał się tylko raz;
+//                gameStage.close();
+//                gameTimer.stop();
+//                menuStage.show();
+//            }
+//        };
+//        destroyTimer.schedule(destroyTask, 1000);
+    }
+
 
     private double calculateDistance(double x1, double x2, double y1, double y2){
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
@@ -376,5 +425,10 @@ public class GameViewManager {
         Random rand = new Random();
 
         return rand.nextDouble() * (max - min) + min;
+    }
+
+    private int nitro(){
+        if (isNKeyPressed) return 2;
+        else return 1;
     }
 }

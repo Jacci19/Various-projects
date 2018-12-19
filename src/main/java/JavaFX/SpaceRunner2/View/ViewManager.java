@@ -82,7 +82,7 @@ public class ViewManager {
         mainPane.getChildren().add(helpSubScene);
         SubSceneTitleLabel helpTitleLabel = new SubSceneTitleLabel("HELP ");
         helpSubScene.getPane().getChildren().add(helpTitleLabel);
-        String contentText = "1. Wybierz statek.\n2. Sterujesz statkiem strzalkami na klawiaturze.\n3. Zbieraj gwiazdki.\n4. Unikaj meteorow. ";
+        String contentText = "1. Wybierz statek.\n2. Sterowanie:\n       Ruch: Strzalki.\n       Strzelanie: Spacja\n       Nitro: N\n3. Zbieraj gwiazdki.\n4. Unikaj meteorow. ";
         helpSubScene.getPane().getChildren().add(textLabel(contentText));
     }
 
