@@ -26,7 +26,7 @@ public class GameViewManager {
     private static final int STAR_SPEED = 5;
 
     private static final double BACKGROUND_SPEED = 3.0;
-    private static final int PLAYER_STARTING_LIFE = 5;
+    private static final int PLAYER_STARTING_LIFE = 1;
 
 
 
@@ -236,46 +236,48 @@ public class GameViewManager {
     }
 
     private void moveShip(){
-        if (isUpKeyPressed && !isDownKeyPressed){                                // UP on - DOWN off
-            if(shipIV.getLayoutY() > 0){
-                shipIV.setLayoutY(shipIV.getLayoutY() - myShip.getShipSpeed());
+        if (!shipIsDestroyed) {
+            if (isUpKeyPressed && !isDownKeyPressed) {                                // UP on - DOWN off
+                if (shipIV.getLayoutY() > 0) {
+                    shipIV.setLayoutY(shipIV.getLayoutY() - myShip.getShipSpeed());
+                }
             }
-        }
-        if (!isUpKeyPressed && isDownKeyPressed){                                // UP off - DOWN on
-            if(shipIV.getLayoutY() < GAME_HEIGHT - 74){
-                shipIV.setLayoutY(shipIV.getLayoutY() + myShip.getShipSpeed());
+            if (!isUpKeyPressed && isDownKeyPressed) {                                // UP off - DOWN on
+                if (shipIV.getLayoutY() < GAME_HEIGHT - 74) {
+                    shipIV.setLayoutY(shipIV.getLayoutY() + myShip.getShipSpeed());
+                }
             }
-        }
-        if (isLeftKeyPressed && !isRightKeyPressed){                                // LEFT on - RIGHT off
-            if(angle > -30){
-                angle -= 5;
+            if (isLeftKeyPressed && !isRightKeyPressed) {                                // LEFT on - RIGHT off
+                if (angle > -30) {
+                    angle -= 5;
+                }
+                shipIV.setRotate(angle);
+                if (shipIV.getLayoutX() > -20) {
+                    shipIV.setLayoutX(shipIV.getLayoutX() - myShip.getShipSpeed());
+                }
             }
-            shipIV.setRotate(angle);
-            if(shipIV.getLayoutX() > -20){
-                shipIV.setLayoutX(shipIV.getLayoutX() - myShip.getShipSpeed());
+            if (!isLeftKeyPressed && isRightKeyPressed) {                                // LEFT off - RIGHT on
+                if (angle < 30) {
+                    angle += 5;
+                }
+                shipIV.setRotate(angle);
+                if (shipIV.getLayoutX() < GAME_WIDTH - 60) {
+                    shipIV.setLayoutX(shipIV.getLayoutX() + myShip.getShipSpeed());
+                }
             }
-        }
-        if (!isLeftKeyPressed && isRightKeyPressed){                                // LEFT off - RIGHT on
-            if(angle < 30){
-                angle += 5;
+            if ((!isLeftKeyPressed && !isRightKeyPressed) || (isLeftKeyPressed && isRightKeyPressed)) {        // LEFT off - RIGHT off        // LEFT on - RIGHT on
+                if (angle < 0) {
+                    angle += 5;
+                } else if (angle > 0) {
+                    angle -= 5;
+                }
+                shipIV.setRotate(angle);
             }
-            shipIV.setRotate(angle);
-            if(shipIV.getLayoutX() < GAME_WIDTH - 60){
-                shipIV.setLayoutX(shipIV.getLayoutX() + myShip.getShipSpeed());
-            }
-        }
-        if ((!isLeftKeyPressed && !isRightKeyPressed) || (isLeftKeyPressed && isRightKeyPressed)){        // LEFT off - RIGHT off        // LEFT on - RIGHT on
-            if(angle < 0){
-                angle += 5;
-            }else if (angle > 0){
-                angle -=5;
-            }
-            shipIV.setRotate(angle);
         }
     }
 
     private void shooting(){
-        if (isSpaceKeyPressed){
+        if (isSpaceKeyPressed && !shipIsDestroyed){
             if (shotFrequencyCounter == 0) {
                 Bullet bullet = new Bullet();
 
@@ -330,28 +332,30 @@ public class GameViewManager {
     }
 
     private void checkIfElementsCollide(){
-        if(SHIP_RADIUS + STAR_RADIUS > calculateDistance(shipIV.getLayoutX()+49, star.getLayoutX()+15, shipIV.getLayoutY()+37, star.getLayoutY()+15)){
-            setNewElementPosition(star);
-            points++;
-            String textToSet = "POINTS: ";
-            if (points < 10){
-                textToSet = textToSet + "0";
+        if (!shipIsDestroyed) {
+            if (SHIP_RADIUS + STAR_RADIUS > calculateDistance(shipIV.getLayoutX() + 49, star.getLayoutX() + 15, shipIV.getLayoutY() + 37, star.getLayoutY() + 15)) {
+                setNewElementPosition(star);
+                points++;
+                String textToSet = "POINTS: ";
+                if (points < 10) {
+                    textToSet = textToSet + "0";
+                }
+                pointsLabel.setText(textToSet + points);
             }
-            pointsLabel.setText(textToSet + points);
-        }
 
-        for (int i = 0; i < brownMeteors.length; i++){
-            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, brownMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, brownMeteors[i].getLayoutY()+20)){
-                removeLife();
-                setBrightnessOnShip();
-                setNewElementPosition(brownMeteors[i]);
+            for (int i = 0; i < brownMeteors.length; i++) {
+                if (METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX() + 49, brownMeteors[i].getLayoutX() + 20, shipIV.getLayoutY() + 37, brownMeteors[i].getLayoutY() + 20)) {
+                    removeLife();
+                    setBrightnessOnShip();
+                    setNewElementPosition(brownMeteors[i]);
+                }
             }
-        }
-        for (int i = 0; i < greyMeteors.length; i++){
-            if(METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX()+49, greyMeteors[i].getLayoutX()+20, shipIV.getLayoutY()+37, greyMeteors[i].getLayoutY()+20)){
-                removeLife();
-                setBrightnessOnShip();
-                setNewElementPosition(greyMeteors[i]);
+            for (int i = 0; i < greyMeteors.length; i++) {
+                if (METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX() + 49, greyMeteors[i].getLayoutX() + 20, shipIV.getLayoutY() + 37, greyMeteors[i].getLayoutY() + 20)) {
+                    removeLife();
+                    setBrightnessOnShip();
+                    setNewElementPosition(greyMeteors[i]);
+                }
             }
         }
     }
@@ -385,24 +389,26 @@ public class GameViewManager {
     }
 
     private void destroyShip() {
+        shipIsDestroyed = true;
         ImageView destroyingFireIV = new ImageView(DESTROY_SHIP_IMAGE);                         //tych ogniów nie widać bo timer tu mi nie działa poprawnie
         destroyingFireIV.setLayoutX(shipIV.getLayoutX());
         destroyingFireIV.setLayoutY(shipIV.getLayoutY());
         gamePane.getChildren().add(destroyingFireIV);
+        Timer destroyTimer = new Timer();
+        TimerTask destroyTask = new TimerTask() {
 
-//        Timer destroyTimer = new Timer();
-//        TimerTask destroyTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                gamePane.getChildren().remove(destroyingFireIV);
-//                gamePane.getChildren().remove(shipIV);
-//                destroyTimer.cancel();                                 // aby task wykonał się tylko raz;
-//                gameStage.close();
-//                gameTimer.stop();
-//                menuStage.show();
-//            }
-//        };
-//        destroyTimer.schedule(destroyTask, 1000);
+            @Override
+            public void run() {
+                //gamePane.getChildren().remove(destroyingFireIV);
+                //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+                //gamePane.getChildren().remove(shipIV);
+                //destroyTimer.cancel();                                 // aby task wykonał się tylko raz;
+                //gameStage.close();
+                gameTimer.stop();
+                //menuStage.show();
+            }
+        };
+        destroyTimer.schedule(destroyTask, 2000);
     }
 
 
