@@ -1,0 +1,4 @@
+INFO.txt
+Biblioteki są także zamieszczone w przykładach ściągniętych z repozytorium autora
+w pliku repo_do_ksiazki--javasrc-634927546789bb8c0d2b11e9e21e992f713b08d5.zip,
+w katalogu lib.
