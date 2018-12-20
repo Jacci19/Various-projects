@@ -8,6 +8,8 @@ public class Bullet extends Pane {
 
     private int speed = 6;
     private ImageView imageView = new ImageView();
+    private double bLength;
+    private double bHeight;
     private double radius = 10;
 
     public Bullet() {                                                                                              //konstruktor
@@ -16,11 +18,22 @@ public class Bullet extends Pane {
         imageView.setScaleY(2.5);
         this.getChildren().add(imageView);
 
+        bLength = imageView.getImage().getWidth() * imageView.getScaleX();
+        bHeight = imageView.getImage().getHeight() * imageView.getScaleY();
+//        radius = ((bLength/2) + (bHeight/2))/2;                                                 //promień jako średnia z połowy długości boków
 
     }
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public double getbLength() {
+        return bLength;
+    }
+
+    public double getbHeight() {
+        return bHeight;
     }
 
     public double getRadius() {

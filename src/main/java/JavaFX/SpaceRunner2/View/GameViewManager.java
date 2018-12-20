@@ -1,8 +1,6 @@
 package JavaFX.SpaceRunner2.View;
 
-import JavaFX.SpaceRunner2.Model.Bullet;
-import JavaFX.SpaceRunner2.Model.SHIP;
-import JavaFX.SpaceRunner2.Model.SmallInfoLabel;
+import JavaFX.SpaceRunner2.Model.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -21,7 +20,7 @@ public class GameViewManager {
     private static final int GAME_WIDTH = 1600;
     private static final int GAME_HEIGHT = 1024;
 
-    private static final int METEOR_FREQ = 12;
+    private static final int METEOR_FREQ = 20;
     private static final int METEOR_SPEED = 6;
     private static final int STAR_SPEED = 5;
 
@@ -48,17 +47,18 @@ public class GameViewManager {
     private static final String METEOR_GREY_IMAGE = "JavaFX/SpaceRunner2/meteor_gray.png";
     private static final String DESTROY_SHIP_IMAGE = "JavaFX/SpaceRunner2/destroying_fire.gif";
 
-    private ImageView[] brownMeteors;
-    private ImageView[] greyMeteors;
+    private Meteor[] meteors;
+    //private ImageView[] greyMeteors;
     private Random randomPositionGenerator;
 
-    private ImageView star;
+    private Star star;
     private SmallInfoLabel pointsLabel;
     private ImageView[] playerLifes;
     private int playerLife;
     private int points;
     private int shotFrequencyCounter = 0;
     private List<Bullet> bulletsList = new ArrayList<>();
+    //private Bullet[] bulletsList = new Bullet[];
 
     private boolean shipIsDestroyed = false;
 
@@ -136,7 +136,7 @@ public class GameViewManager {
 
     private void createGameElements(SHIP chosenShip) {
 
-        star = new ImageView(GOLD_STAR_IMAGE);                                                  //star made
+        star = new Star();                                                  //star made
         setNewElementPosition(star);
         gamePane.getChildren().add(star);
 
@@ -152,37 +152,24 @@ public class GameViewManager {
             playerLifes[i] = new ImageView(chosenShip.getShipLifeUrl());
             playerLifes[i].setLayoutX(GAME_WIDTH - 50 - (i * 50));
             playerLifes[i].setLayoutY(80);
-            gamePane.getChildren().add(playerLifes[i]);                                         //life icons made
+            gamePane.getChildren().add(playerLifes[i]);                                             //life icons made
         }
 
-        brownMeteors = new ImageView[METEOR_FREQ];
-        for (int i = 0; i < brownMeteors.length; i++) {
-            brownMeteors[i] = new ImageView(METEOR_BROWN_IMAGE);
-            setNewElementPosition(brownMeteors[i]);
-            brownMeteors[i].setScaleX(random(2.0, 1));
-            brownMeteors[i].setScaleY(random(2.0, 1));
-            gamePane.getChildren().add(brownMeteors[i]);                                        //brown meteors made
-        }
-        greyMeteors = new ImageView[METEOR_FREQ];
-        for (int i = 0; i < greyMeteors.length; i++) {
-            greyMeteors[i] = new ImageView(METEOR_GREY_IMAGE);
-            setNewElementPosition(greyMeteors[i]);
-            greyMeteors[i].setScaleX(random(2.0, 1));
-            greyMeteors[i].setScaleY(random(2.0, 1));
-            gamePane.getChildren().add(greyMeteors[i]);                                         //grey meteors made
+        meteors = new Meteor[METEOR_FREQ];
+        for (int i = 0; i < meteors.length; i++) {
+            Meteor meteor = new Meteor();
+            meteors[i] = meteor;
+            setNewElementPosition(meteors[i]);
+            gamePane.getChildren().add(meteors[i]);                                                 //meteors made
         }
     }
 
     private void moveGameElements() {
         star.setLayoutY(star.getLayoutY() + (STAR_SPEED * nitro()));
 
-        for (int i = 0; i < brownMeteors.length; i++) {                                          //brown meteors move
-            brownMeteors[i].setLayoutY(brownMeteors[i].getLayoutY() + (METEOR_SPEED + (i / 2)) * nitro());    //i/2 zapewnia zmienną prędkość meteorów
-            brownMeteors[i].setRotate(brownMeteors[i].getRotate() + 4);
-        }
-        for (int i = 0; i < greyMeteors.length; i++) {                                           //grey meteors move
-            greyMeteors[i].setLayoutY(greyMeteors[i].getLayoutY() + (METEOR_SPEED + (i / 2)) * nitro());
-            greyMeteors[i].setRotate(greyMeteors[i].getRotate() + 4);
+        for (int i = 0; i < meteors.length; i++) {                                                  //meteors move
+            meteors[i].setLayoutY(meteors[i].getLayoutY() + (METEOR_SPEED + (i / 2)) * nitro());    //i/2 zapewnia zmienną prędkość meteorów
+            meteors[i].setRotate(meteors[i].getRotate() + 4);
         }
     }
 
@@ -191,21 +178,17 @@ public class GameViewManager {
             setNewElementPosition(star);
         }
 
-        for (int i = 0; i < brownMeteors.length; i++) {
-            if (brownMeteors[i].getLayoutY() > GAME_HEIGHT + 100) {
-                setNewElementPosition(brownMeteors[i]);
-            }
-        }
-        for (int i = 0; i < greyMeteors.length; i++) {
-            if (greyMeteors[i].getLayoutY() > GAME_HEIGHT + 100) {
-                setNewElementPosition(greyMeteors[i]);
+        for (int i = 0; i < meteors.length; i++) {
+            if (meteors[i].getLayoutY() > GAME_HEIGHT + 100) {
+                setNewElementPosition(meteors[i]);
             }
         }
     }
 
-    private void setNewElementPosition(ImageView imageView) {
-        imageView.setLayoutX(randomPositionGenerator.nextInt(GAME_WIDTH - 40));
-        imageView.setLayoutY(-(randomPositionGenerator.nextInt(GAME_HEIGHT * 3)));
+    private void setNewElementPosition(Pane pane) {
+
+        pane.setLayoutX(randomPositionGenerator.nextInt(GAME_WIDTH - 40));
+        pane.setLayoutY(-(randomPositionGenerator.nextInt(GAME_HEIGHT * 2)));
 
     }
 
@@ -284,6 +267,7 @@ public class GameViewManager {
 
                 gamePane.getChildren().add(bullet);
                 bulletsList.add(bullet);
+
                 shotFrequencyCounter = myShip.getShootFrequency();
             }
             shotFrequencyCounter--;
@@ -291,11 +275,13 @@ public class GameViewManager {
     }
 
     private void bulletMoving() {
-        for (Bullet bullet : bulletsList) {
-            bullet.setLayoutY(bullet.getLayoutY() - myShip.getShotSpeed());
+        for (Bullet bull : bulletsList) {
+            bull.setLayoutY(bull.getLayoutY() - myShip.getShotSpeed());
+            //System.out.println("bullet.getLayoutY()  " + bullet.getLayoutY() + "  shipY:  " + shipIV.getLayoutY());
+            if ((bull.getLayoutY() < -30) || (bull.getLayoutY() < (shipIV.getLayoutY() - myShip.getShotRange()))) {
+                gamePane.getChildren().remove(bull);                  //______________________________________________________??????????????????????
+                //if (bulletsList.contains(bull)) bulletsList.remove(bull);
 
-            if (bullet.getLayoutY() < (shipIV.getLayoutY() - myShip.getShotRange())) {
-                gamePane.getChildren().remove(bullet);
             }
         }
     }
@@ -332,9 +318,9 @@ public class GameViewManager {
     private void checkIfElementsCollide() {
         double shipCenterX = shipIV.getLayoutX() + shipIV.getImage().getWidth() * 0.5;
         double shipCenterY = shipIV.getLayoutY() + shipIV.getImage().getHeight() * 0.5;
-        double starCenterX = star.getLayoutX() + star.getImage().getWidth() * 0.5;
-        double starCenterY = star.getLayoutY() + star.getImage().getHeight() * 0.5;
-
+        double starCenterX = star.getLayoutX() + star.getsLength() * 0.5;
+        double starCenterY = star.getLayoutY() + star.getsHeight() * 0.5;
+                                                                                                                        //KOLIZJA SHIP - STAR
         if (SHIP_RADIUS + STAR_RADIUS > calculateDistance(shipCenterX, starCenterX, shipCenterY, starCenterY)) {
             setNewElementPosition(star);
             points++;
@@ -345,38 +331,36 @@ public class GameViewManager {
             pointsLabel.setText(textToSet + points);
         }
 
-        for (int i = 0; i < brownMeteors.length; i++) {
-            double brownMeteorRadius = calcObjectRadius(brownMeteors[i]);
-            double brownMeteorCenterX = brownMeteors[i].getLayoutX() + brownMeteors[i].getImage().getWidth() * brownMeteors[i].getScaleX() * 0.5;
-            double brownMeteorCenterY = brownMeteors[i].getLayoutY() + brownMeteors[i].getImage().getHeight() * brownMeteors[i].getScaleY() * 0.5;
-
-            if (brownMeteorRadius + SHIP_RADIUS > calculateDistance(shipCenterX, brownMeteorCenterX, shipCenterY, brownMeteorCenterY)) {
+        for (int i = 0; i < meteors.length; i++) {
+       // for (Meteor meteor : meteors)
+            double meteorRadius = meteors[i].getRadius();
+            double meteorCenterX = meteors[i].getLayoutX() + meteors[i].getmLength() * 0.5;
+            double meteorCenterY = meteors[i].getLayoutY() + meteors[i].getmHeight() * 0.5;
+                                                                                                                        //KOLIZJA SHIP - METEOR
+            if (meteorRadius + SHIP_RADIUS > calculateDistance(shipCenterX, meteorCenterX, shipCenterY, meteorCenterY)) {
                 removeLife();
                 setBrightnessOnObject(shipIV);
-                setNewElementPosition(brownMeteors[i]);
+                setNewElementPosition(meteors[i]);
             }
-            for (Bullet bullet : bulletsList) {
-                double bulletCenterX = bullet.getLayoutX() + bullet.getImageView().getImage().getWidth() * bullet.getImageView().getScaleX() * 0.5;
-                double bulletCenterY = bullet.getLayoutY() + bullet.getImageView().getImage().getHeight() * bullet.getImageView().getScaleY() * 0.5;
+        }
 
-                if (brownMeteorRadius + bullet.getRadius() > calculateDistance(bulletCenterX, brownMeteorCenterX, bulletCenterY, brownMeteorCenterY)) {
-                    System.out.println("bullet hit meteor");
-                    gamePane.getChildren().remove(bullet);
-                    setBrightnessOnObject(brownMeteors[i]);
+        for (Bullet bullet : bulletsList) {                                                                             //KOLIZJA BULLET - METEOR
+            for (Meteor meteor : meteors) {
+                double bulletCenterX = bullet.getLayoutX() + bullet.getbLength() * 0.5;
+                double bulletCenterY = bullet.getLayoutY() + bullet.getbHeight() * 0.5;
+                double meteorRadius = meteor.getRadius();
+                double meteorCenterX = meteor.getLayoutX() + meteor.getmLength() * 0.5;
+                double meteorCenterY = meteor.getLayoutY() + meteor.getmHeight() * 0.5;
+                                                                                            //--------------------------------------------????????
+                if (meteorRadius + bullet.getRadius() > calculateDistance(bulletCenterX, meteorCenterX, bulletCenterY, meteorCenterY)) {
+                    //System.out.println("bullet hit meteor");
+                    //gamePane.getChildren().remove(bullet);
+                    //setBrightnessOnObject(meteor.getImageView());
                 }
             }
+        }
 
-        }
-        for (int i = 0; i < greyMeteors.length; i++) {
-            if (METEOR_RADIUS + SHIP_RADIUS > calculateDistance(shipIV.getLayoutX() + 49, greyMeteors[i].getLayoutX() + 20, shipIV.getLayoutY() + 37, greyMeteors[i].getLayoutY() + 20)) {
-                removeLife();
-                setBrightnessOnObject(shipIV);
-                setNewElementPosition(greyMeteors[i]);
-            }
-        }
     }
-
-    //private void checkCollisionsMetor
 
     private double calcObjectRadius(ImageView imageView) {                                  //promień jako średnia z połowy długości boków
         double objectRadiusX = imageView.getImage().getWidth() * imageView.getScaleX() * 0.5;
@@ -440,6 +424,7 @@ public class GameViewManager {
     private double calculateDistance(double x1, double x2, double y1, double y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
+/*
 
     private int random(int data, int range) {                                       //losowanie liczb z zakresu (data +- range)
 
@@ -458,9 +443,14 @@ public class GameViewManager {
 
         return rand.nextDouble() * (max - min) + min;
     }
+*/
 
     private int nitro() {
-        if (isNKeyPressed) return 2;
-        else return 1;
+        if (isNKeyPressed) {
+            return 2;
+        }
+        else {
+            return 1;
+        }
     }
 }
