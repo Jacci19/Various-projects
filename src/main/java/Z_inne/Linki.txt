@@ -32,6 +32,9 @@ http://devfoundry.pl/wyrazenia-lambda-i-interfejsy-funkcyjne/
 
 Inne:
 
+https://youtu.be/7LxWQIDOzyE?list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG&t=463                  - switching scenes
+
+
 http://javadevmatt.pl/wp-content/uploads/2017/11/lista.jpg                                  - propozycje zadań
 https://pl.wikipedia.org/wiki/ASCII                                                         - tabela ASCII
 
