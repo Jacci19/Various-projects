@@ -1,11 +1,11 @@
-package Sales_Manager.Strateg;
+package Design_Patterns.Strateg.Sales_Manager.Strateg;
 
-import Sales_Manager.Common.CartItems;
-import Sales_Manager.Common.Client;
-import Sales_Manager.Strateg.strategie.BooksPromoShippingCostStrategy;
-import Sales_Manager.Strateg.strategie.InternationalShippingCostStrategy;
-import Sales_Manager.Strateg.strategie.ShippingCostStrategy;
-import Sales_Manager.Strateg.strategie.StandardShippingCostStrategy;
+import Design_Patterns.Strateg.Sales_Manager.Common.CartItems;
+import Design_Patterns.Strateg.Sales_Manager.Common.Client;
+import Design_Patterns.Strateg.Sales_Manager.Strateg.strategie.BooksPromoShippingCostStrategy;
+import Design_Patterns.Strateg.Sales_Manager.Strateg.strategie.InternationalShippingCostStrategy;
+import Design_Patterns.Strateg.Sales_Manager.Strateg.strategie.ShippingCostStrategy;
+import Design_Patterns.Strateg.Sales_Manager.Strateg.strategie.StandardShippingCostStrategy;
 import com.darwinsys.geo.Country;
 
 public class SalesOrder {

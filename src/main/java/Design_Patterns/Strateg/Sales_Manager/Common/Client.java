@@ -1,4 +1,4 @@
-package Sales_Manager.Common;
+package Design_Patterns.Strateg.Sales_Manager.Common;
 
 import com.darwinsys.geo.Country;
 

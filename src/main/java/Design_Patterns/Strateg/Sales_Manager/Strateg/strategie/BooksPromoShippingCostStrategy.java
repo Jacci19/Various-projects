@@ -1,6 +1,6 @@
-package Sales_Manager.Strateg.strategie;
+package Design_Patterns.Strateg.Sales_Manager.Strateg.strategie;
 
-import Sales_Manager.Strateg.SalesOrder;
+import Design_Patterns.Strateg.Sales_Manager.Strateg.SalesOrder;
 
 public class BooksPromoShippingCostStrategy extends ShippingCostStrategy {
 

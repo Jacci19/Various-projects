@@ -1,10 +1,10 @@
-package Sales_Manager.non_Strateg;
+package Design_Patterns.Strateg.Sales_Manager.non_Strateg;
 
 //https://www.youtube.com/watch?v=RADOhncoohY
 
 import com.darwinsys.geo.Country;
-import Sales_Manager.Common.CartItems;
-import Sales_Manager.Common.Client;
+import Design_Patterns.Strateg.Sales_Manager.Common.CartItems;
+import Design_Patterns.Strateg.Sales_Manager.Common.Client;
 
 
 public class SalesOrder {

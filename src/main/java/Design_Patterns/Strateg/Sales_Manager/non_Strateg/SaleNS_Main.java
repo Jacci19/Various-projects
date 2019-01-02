@@ -1,4 +1,4 @@
-package Sales_Manager.non_Strateg;
+package Design_Patterns.Strateg.Sales_Manager.non_Strateg;
 
 //https://www.youtube.com/watch?v=RADOhncoohY
 
