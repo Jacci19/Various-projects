@@ -1,7 +1,8 @@
 package Design_Patterns.Factory.ShipFactory;
 
-import Design_Patterns.Factory.ShipFactory.EnemyShips.EnemyShip;
+/** http://www.newthinktank.com/2012/09/factory-design-pattern-tutorial/ */
 
+import Design_Patterns.Factory.ShipFactory.EnemyShips.EnemyShip;
 import java.util.Scanner;
 
 public class Ship_Main {
