@@ -15,13 +15,17 @@ public class BJ_bonusControl {
 
     private BJ_mainControl mainControl;
 
+    private int idx;
+    private int offset = 0;
+    private Deck deck;
+
+
     @FXML
     private AnchorPane bonusAnchorPane;
     @FXML
     private Button bonusReturnButton;
 
-
-        @FXML
+    @FXML
     void bonusReturnButtonOnAction(ActionEvent event)   throws IOException {
 
         mainControl.loadMenuScreen();
@@ -64,20 +68,51 @@ public class BJ_bonusControl {
         placeCard(new Card(Suit.Spade, Value.Ace), 80, 600, 20);
 */
 
-        for (int i=0; i<50; i++){
-            placeCard(new Card(Suit.Heart, Value.King),  80+(18*i), 50+(2*i), i * 8);
-        }
+        idx = 0;
+        deck = new Deck();
 
 
-        Deck deck = new Deck();
-        int j = 0;
-        for (Card card: deck.getCards()){
-            placeCard(card,  10+(15*j), 400+(2*j), j * 9);
-            j++;
-        }
+        AnimationTimerExt timer = new AnimationTimerExt(200) {
+
+            @Override
+            public void handle() {
+                int x = 100 + (15 * idx);
+                int y = 80 + (0 * idx) + offset;
+                if (y < 500) {
+                    placeCard(takeCard(), x, y, idx * 8);
+                }
+            }
+
+
+        };
+
+
+        timer.start();
+
+
+//        for (int i=0; i<50; i++){
+//            placeCard(new Card(Suit.Heart, Value.King),  80+(18*i), 50+(2*i), i * 8);
+//        }
+
+
+//        Deck deck = new Deck();
+//        int j = 0;
+//        for (Card card: deck.getCards()){
+//            placeCard(card,  10+(15*j), 400+(2*j), j * 9);
+//            j++;
+//        }
     }
 
-
+    private Card takeCard(){
+        Card card = deck.getCards().get(idx);
+        idx++;
+        if (idx > 51){
+            idx = 0;
+            offset += 80;
+            deck = new Deck();
+        }
+        return card;
+    }
 
 
     public void setMainControl(BJ_mainControl mainCtrl) {
