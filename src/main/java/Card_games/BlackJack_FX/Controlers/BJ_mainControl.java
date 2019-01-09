@@ -27,7 +27,7 @@ public class BJ_mainControl {
     }
 
 
-    public void setScreen(AnchorPane myAnchPane) {
+    void setScreen(AnchorPane myAnchPane) {
         mainAnchorPane.getChildren().clear();
         mainAnchorPane.getChildren().add(myAnchPane);                                //ładuje AnchorPane z menuScreen
     }

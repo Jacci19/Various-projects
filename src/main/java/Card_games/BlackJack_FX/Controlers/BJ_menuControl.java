@@ -12,27 +12,30 @@ import java.io.IOException;
 public class BJ_menuControl {
 
     private BJ_mainControl mainControl;                                         //deklaracja obiektu głównego kontrolera
+    private boolean isNewBlackJackGame;
+
 
     @FXML
     private Button gameButton;
+    @FXML
+    private Button loadGameButton;
     @FXML
     private Button bonusButton;
     @FXML
     private Button exitButton;
 
-
     @FXML
     public void gameButtonOnAction(ActionEvent event) throws IOException {
-        System.out.println("Wcisnieto gameButton");
-        FXMLLoader gameLoader = new FXMLLoader(this.getClass().getResource("/Card_games/BlackJack_FX/FXML/BJ_gameScreen.fxml"));      //wczytuje loader fxml planszy game
+        System.out.println("Wcisnieto New game Button");
+        isNewBlackJackGame = true;
+        goToTheGame();
+    }
 
-        //Pane gamePane = gameLoader.load();
-        AnchorPane gamePane = gameLoader.load();                                //ładuje fxml do głównego kontenera planszy game
-        BJ_gameControl gameContr = gameLoader.getController();                  //wczytuje kontroler planszy game
-        gameContr.setMainControl(mainControl);
-        mainControl.setScreen(gamePane);                                        //ustawia w mainAnchorPane planszę game
-
-
+    @FXML
+    public void loadGameButtonOnAction(ActionEvent actionEvent) throws IOException  {
+        System.out.println("Wcisnieto Load game Button");
+        isNewBlackJackGame = false;
+        goToTheGame();
     }
 
     @FXML
@@ -52,9 +55,22 @@ public class BJ_menuControl {
         Platform.exit();
     }
 
+    private void goToTheGame () throws IOException{
+
+        System.out.println("AAAA  " + this.isNewBlackJackGame);
+        FXMLLoader gameLoader = new FXMLLoader(this.getClass().getResource("/Card_games/BlackJack_FX/FXML/BJ_gameScreen.fxml"));      //wczytuje loader fxml planszy game
+        AnchorPane gamePane = gameLoader.load();                                //ładuje fxml do głównego kontenera planszy game
+        BJ_gameControl gameContr = gameLoader.getController();                  //wczytuje kontroler planszy game
+        gameContr.setMainControl(mainControl);
+        mainControl.setScreen(gamePane);                                        //ustawia w mainAnchorPane planszę game
+    }
+
+
     public void setMainControl(BJ_mainControl mainContr) {
         this.mainControl = mainContr;
     }
 
-
+    public Boolean isNewBlackJackGame() {
+        return isNewBlackJackGame;
+    }
 }

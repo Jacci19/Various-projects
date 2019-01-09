@@ -10,15 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
-import Card_games.BlackJack_FX.BJ.Deck.*;
 
-
-public class BJ_gameControl {
+public class BJ_gameControl{
 
     public static final double REVERSE_CARD_X = 40.0;
     public static final double REVERSE_CARD_Y = 76.0;
@@ -33,6 +31,8 @@ public class BJ_gameControl {
     private final static int overloadValue = 31;
     private static int gameNumber = 0;
 
+//    private BJ_menuControl menuControl;
+//    private Boolean bb;
 
     private static String gameStatus = "inGame";    //inGame, playerWin, enemyWin, checkResult
 
@@ -67,6 +67,8 @@ public class BJ_gameControl {
         takeEnoughVBox.setVisible(false);
         cardsInDeck.setText(String.valueOf(croupierDeck.getCards().size()));
         croupierLabel.setText("Welcome. I'm the croupier of this game. Can we start?");
+        //System.out.println("MC.isNewBlackJackGame ____" + MC.isNewBlackJackGame());
+        //bb = menuControl.isNewBlackJackGame();
     }
 
 
@@ -77,8 +79,6 @@ public class BJ_gameControl {
         croupierDeck.giveCards(gameAnchorPane, 2, enemyHand, "up");
         yesVBox.setVisible(true);
         gamePart = 4;
-
-
     }
 
     @FXML
@@ -155,7 +155,7 @@ public class BJ_gameControl {
         }
     }
 
-    public void startGame() {
+    private void startGame() {
         gameNumber++;
         yesVBox.setVisible(false);
         resetGame();
@@ -176,7 +176,7 @@ public class BJ_gameControl {
 
     }
 
-    public void setMainControl(BJ_mainControl mainCtrl) {
+    void setMainControl(BJ_mainControl mainCtrl) {
         this.mainControl = mainCtrl;
     }
 
@@ -210,16 +210,22 @@ public class BJ_gameControl {
                 gamePart = 2;
                 break;
         }
+        try {
+            writeScoresToFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("___Pliku nie znaleziono!!!___");
+        }
     }
 
-    void resetGame() {
+    private void resetGame() {
         myHand.getHandCards().clear();
         enemyHand.getHandCards().clear();
         overload = false;
         addReversCard();
     }
 
-    void addReversCard() {
+    private void addReversCard() {
         ImageView imgView = new ImageView();
         imgView.setX(REVERSE_CARD_X);
         imgView.setY(REVERSE_CARD_Y);
@@ -228,8 +234,26 @@ public class BJ_gameControl {
         gameAnchorPane.getChildren().add(imgView);
     }
 
+    private void writeScoresToFile() throws IOException {
+        System.out.println("writeScoresToFile");
+        String filePath = "src/main/resources/Card_games/BlackJack_FX/BlackJackFX.txt";
+
+        FileWriter fw = new FileWriter(filePath);
+        //FileWriter fw = new FileWriter(filePath, true);                      //jeśli nie chcemy aby nadpisywało stare
+        System.out.println("Scores: " + myHand.getScore() + " : " + enemyHand.getScore());
+        fw.write(Integer.toString(myHand.getScore()) + "\n");
+        fw.write(Integer.toString(enemyHand.getScore()));
+        //fw.write(Integer.toString(tablica[i][j])+" ");                    //po zastosowaniu tego zamiast (char) w pliku wyświetla się dobrze
+        //fw.write("\r\n");                                               //przejście do następnej linii (r - aby działało w notatniku), zakomentuj aby w 3. konsoli były tylko 0 i 1
+        fw.close();
+        //System.out.println("MC.isNewBlackJackGame: " + MC.isNewBlackJackGame);
+}
+
+
     public boolean isAnimationCheckboxChecked() {
         return animationCheckBox.isSelected();
     }
+
+
 
 }

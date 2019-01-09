@@ -115,16 +115,16 @@ public class BJ_bonusControl {
     }
 
 
-    public void setMainControl(BJ_mainControl mainCtrl) {
+    void setMainControl(BJ_mainControl mainCtrl) {
         this.mainControl = mainCtrl;
     }
 
-    void setImg(ImageView imageView, Card card){
+    private void setImg(ImageView imageView, Card card){
        Image img = new Image("Card_games/BlackJack_FX/Img/"+ card.getImgFileName() +".png");
        imageView.setImage(img);
     }
 
-    public void placeCard(Card card, int x, int y, int angle){
+    private void placeCard(Card card, int x, int y, int angle){
         ImageView imgView = new ImageView();
         imgView.setX((double)(x));
         imgView.setY((double)(y));

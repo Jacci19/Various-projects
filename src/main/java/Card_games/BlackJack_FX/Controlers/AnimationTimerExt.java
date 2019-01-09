@@ -5,9 +5,9 @@ import javafx.animation.AnimationTimer;
 public abstract class AnimationTimerExt extends AnimationTimer {
 
     private long sleepNs = 0;
-    long prevTime = 0;
+    private long prevTime = 0;
 
-    public AnimationTimerExt(long sleepMs) {
+    AnimationTimerExt(long sleepMs) {                       //constructor
         this.sleepNs = sleepMs * 1_000_000;
     }
 

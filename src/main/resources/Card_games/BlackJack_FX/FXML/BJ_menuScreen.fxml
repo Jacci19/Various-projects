@@ -5,27 +5,40 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menuAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_menuControl">
+<AnchorPane fx:id="menuAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_menuControl">
     <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/Card_games/BlackJack_FX/img/Blackjack_tlo.jpg" />
          </image>
       </ImageView>
-        <Button fx:id="gameButton" layoutX="114.0" layoutY="253.0" mnemonicParsing="false" onAction="#gameButtonOnAction" prefHeight="77.0" prefWidth="171.0" text="START GAME" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="253.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Button>
-        <Button fx:id="bonusButton" layoutX="114.0" layoutY="352.0" mnemonicParsing="false" onAction="#bonusButtonOnAction" prefHeight="77.0" prefWidth="171.0" text="BONUS" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="352.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Button>
-        <Button fx:id="exitButton" layoutX="114.0" layoutY="455.0" mnemonicParsing="false" onAction="#exitButtonOnAction" prefHeight="77.0" prefWidth="171.0" text="EXIT" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="452.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Button>
       <Label layoutX="1000.0" layoutY="771.0" text="Created by Jacek Popiołek (IX 2018)" textFill="#494949" />
+      <VBox layoutX="106.0" layoutY="250.0" prefHeight="274.0" prefWidth="189.0" spacing="10.0" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="250.0">
+         <children>
+              <Button fx:id="gameButton" mnemonicParsing="false" onAction="#gameButtonOnAction" prefHeight="60.0" prefWidth="171.0" text="START GAME">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="loadGameButton" mnemonicParsing="false" onAction="#loadGameButtonOnAction" prefHeight="60.0" prefWidth="171.0" text="LOAD GAME">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+              <Button fx:id="bonusButton" mnemonicParsing="false" onAction="#bonusButtonOnAction" prefHeight="60.0" prefWidth="171.0" text="BONUS">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonOnAction" prefHeight="60.0" prefWidth="171.0" text="EXIT">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

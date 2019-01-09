@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
+<AnchorPane fx:id="gameAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Card_games.BlackJack_FX.Controlers.BJ_gameControl">
     <children>
       <HBox layoutX="40.0" layoutY="35.0" prefHeight="27.0" prefWidth="143.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="35.0">
          <children>
@@ -74,7 +74,7 @@
         </Label>
       <HBox layoutX="1122.0" layoutY="14.0" spacing="4.0">
          <children>
-            <Label graphicTextGap="2.0" text="Animacja" textAlignment="RIGHT" />
+            <Label graphicTextGap="2.0" text="Animation" textAlignment="RIGHT" />
             <CheckBox fx:id="animationCheckBox" contentDisplay="GRAPHIC_ONLY" graphicTextGap="1.0" mnemonicParsing="false" onAction="#onAnimationCheckBoxAction" prefWidth="1.0" selected="true" text="Animacja" textAlignment="RIGHT" />
          </children>
       </HBox>
