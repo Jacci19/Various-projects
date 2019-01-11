@@ -3,10 +3,13 @@ package JavaFX.Sim;
 import JavaFX.Sim.ui.javaFX.JavaFxApplication;
 
 /**
+ * *  Nic w tej grze ("Sim") nie modyfikowałem, tylko ściągnąłem z gita, nie warto analizować   - Jacek
+ *
  * Entry point for this project. Here, the used UI framework is chosen. The application is started in a new thread. * @author Steven Schwenke
  * https://github.com/stevenschwenke/SimFX			- stąd ściągnąłem
  * https://stevenschwenke.de/javaFXSeriesThreadingIssues    - tu autor coś o niej pisze
  *  Nie wiem o co chodzi w tej grze.....
+
  */
 public class Start {
 

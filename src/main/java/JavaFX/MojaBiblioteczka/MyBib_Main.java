@@ -2,6 +2,12 @@
 
 package JavaFX.MojaBiblioteczka;
 
+/**
+ *  Zrobione według kursu youTube: https://www.youtube.com/watch?v=q_HiOFLmj7Q&list=PLpzwMkmxJDUwQuQR7Rezut5UE_8UGDxkU&index=23
+ *  https://github.com/ZacznijProgramowac/MojaBiblioteczka
+ *  Prawie nie modyfikowane przeze mnie (Jacek)
+ */
+
 import JavaFX.MojaBiblioteczka.Database.dbutils.DbManager;
 import JavaFX.MojaBiblioteczka.Utils.FillDatabase;
 import JavaFX.MojaBiblioteczka.Utils.FxmlUtils;

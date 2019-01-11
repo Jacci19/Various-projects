@@ -1,8 +1,10 @@
 package JavaFX.Izak;
 
-/**  Cwiczenie na podstawie gry The binding of Isaac. Sterowanie: WSAD, strzałki.
+/**
+ * Cwiczenie na podstawie gry The binding of Isaac. Sterowanie: WSAD, strzałki.
  * https://stackoverflow.com/questions/29962395/how-to-write-a-keylistener-for-javafx
  * https://stackoverflow.com/questions/30146560/how-to-change-animationtimer-speed
+ * https://stackoverflow.com/questions/28242260/rectangle-wall-collision-in-java
  */
 
 import javafx.application.Application;
@@ -30,69 +32,92 @@ public class IzakMain extends Application {
     private int shotFrequencyCounter = 0;
     private final int STAGE_WIDTH = 1600;
     private final int STAGE_HEIGHT = 1000;
+    private double izakCenterX;
+    private double izakCenterY;
+    private double izakPosX, izakPosY, prevIzakPosX, prevIzakPosY;
+
+
     public boolean up = false, down = false, left = false, right = false, shot = false, shotUp = false, shotDown = false, shotLeft = false, shotRight = false, lCtrlPress = false;
 
     Boolean half = true;
 
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent());
-                                                                                                //BOOLEANY NA KEY_PRESSED
+        //BOOLEANY NA KEY_PRESSED
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case W:                                                                                             //ruch
                         up = true;
-                        izak.setPosition(Position.BACK);    break;
+                        izak.setPosition(Position.BACK);
+                        break;
                     case S:
                         down = true;
-                        izak.setPosition(Position.FRONT);   break;
+                        izak.setPosition(Position.FRONT);
+                        break;
                     case A:
                         left = true;
-                        izak.setPosition(Position.LEFT);    break;
+                        izak.setPosition(Position.LEFT);
+                        break;
                     case D:
                         right = true;
-                        izak.setPosition(Position.RIGHT);   break;
+                        izak.setPosition(Position.RIGHT);
+                        break;
                     case UP:                                                                                            //strzelanie
                         shotUp = true;
-                        izak.setPosition(Position.BACK);    break;
+                        izak.setPosition(Position.BACK);
+                        break;
                     case DOWN:
                         shotDown = true;
-                        izak.setPosition(Position.FRONT);   break;
+                        izak.setPosition(Position.FRONT);
+                        break;
                     case LEFT:
                         shotLeft = true;
-                        izak.setPosition(Position.LEFT);    break;
+                        izak.setPosition(Position.LEFT);
+                        break;
                     case RIGHT:
                         shotRight = true;
-                        izak.setPosition(Position.RIGHT);   break;
+                        izak.setPosition(Position.RIGHT);
+                        break;
                     case CONTROL:
-                        lCtrlPress = true;                  break;
+                        lCtrlPress = true;
+                        break;
                 }
             }
         });
-                                                                                                //BOOLEANY NA KEY_RELEASED
+        //BOOLEANY NA KEY_RELEASED
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case W:
-                        up = false;          break;
+                        up = false;
+                        break;
                     case S:
-                        down = false;        break;
+                        down = false;
+                        break;
                     case A:
-                        left = false;        break;
+                        left = false;
+                        break;
                     case D:
-                        right = false;       break;
+                        right = false;
+                        break;
                     case UP:
-                        shotUp = false;      break;
+                        shotUp = false;
+                        break;
                     case DOWN:
-                        shotDown = false;    break;
+                        shotDown = false;
+                        break;
                     case LEFT:
-                        shotLeft = false;    break;
+                        shotLeft = false;
+                        break;
                     case RIGHT:
-                        shotRight = false;   break;
+                        shotRight = false;
+                        break;
                     case CONTROL:
-                        lCtrlPress = false;  break;
+                        lCtrlPress = false;
+                        break;
                 }
             }
         });
@@ -102,9 +127,9 @@ public class IzakMain extends Application {
         stage.show();
 
 
-
-        AnimationTimerExt timer = new AnimationTimerExt((int)(100 / (0.6 * izak.getSpeed()))) {
+        AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.6 * izak.getSpeed()))) {
             int index = 0;
+
             @Override
             public void handle() {                                                                                           //wykonywane co ramke timera
 
@@ -127,24 +152,22 @@ public class IzakMain extends Application {
                     dx = calculateDx(1);
                     loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", index);
                 }
-                if (lCtrlPress) {
-                    for (Bullet bullet: bulletsList){
+                if (lCtrlPress) {                                                                                           //usunięcie widocznych pocisków
+                    for (Bullet bullet : bulletsList) {
                         root.getChildren().remove(bullet);
                     }
                     bulletsList.clear();
                 }
-
-                if (izak.getShooting()){                                                                                      //gdy izak strzela
+                if (izak.getShooting()) {                                                                                      //gdy izak strzela
                     izakShoot();
                 }
-
                 if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
                     switch (izak.getPosition()) {
                         case BACK:
                             loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", 0);
                             break;
                         case FRONT:
-                            loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront",  0);
+                            loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront", 0);
                             break;
                         case LEFT:
                             loadIzakBodyOrHeadImage(izak.getBodyLeftList(), "HeadLeft", 0);
@@ -154,16 +177,17 @@ public class IzakMain extends Application {
                             break;
                     }
                 }
-                checkCollisions();
-                //if (!izak.getColliding()){
-                   // prevDx = dx;
-                   // prevDy = dy;
+                checkCollisionsIzakVsWall();
+                if (!izak.getColliding()) {
+                    prevIzakPosX = izak.getLayoutX();
+                    prevIzakPosY = izak.getLayoutY();
+                    //System.out.println("dx,dy: " + dx + "__" + dy + "      prevIzakPosX, prevIzakPosY: " + prevIzakPosX + "__" + prevIzakPosY);
                     moveHeroBy(dx, dy);
-                //}
-                //else{
 
-                    //moveHeroBy(prevDx, prevDy);
-               // }
+                } else {
+                    System.out.println("K_dx,dy: " + dx + "__" + dy);
+                    izak.relocate(prevIzakPosX, prevIzakPosY);
+                }
                 bulletMoving();
                 index = incrementIndex(index);
             }
@@ -171,18 +195,16 @@ public class IzakMain extends Application {
         timer.start();
     }
 
-    private void setMovingAndShootingStates(){
+    private void setMovingAndShootingStates() {
 
         if (up || down || left || right) {
             izak.setMoving(true);
-        }
-        else{
+        } else {
             izak.setMoving(false);
         }
         if (shotUp || shotDown || shotLeft || shotRight) {
             izak.setShooting(true);
-        }
-        else{
+        } else {
             izak.setShooting(false);
             clearBulletList();
         }
@@ -195,47 +217,45 @@ public class IzakMain extends Application {
     }
 
 
-    private int calculateDx(int sign){
+    private int calculateDx(int sign) {
         double dX = 0;
-        if (up || down){                                                                                        //aby ruch na ukos nie był szybszy od innych
+        if (up || down) {                                                                                        //aby ruch na ukos nie był szybszy od innych
             dX += sign * izak.getSpeed() * diagRatio;
-        }
-        else{
+        } else {
             dX += sign * izak.getSpeed();
         }
-        return (int)dX;
+        return (int) dX;
     }
 
-    private int calculateDy(int sign){
+    private int calculateDy(int sign) {
         double dY = 0;
-        if (left || right){                                                                                     //aby ruch na ukos nie był szybszy od innych
+        if (left || right) {                                                                                     //aby ruch na ukos nie był szybszy od innych
             dY += sign * izak.getSpeed() * diagRatio;
-        }
-        else{
+        } else {
             dY += sign * izak.getSpeed();
         }
-        return (int)dY;
+        return (int) dY;
     }
 
     private int incrementIndex(int index) {
 
         if (index < 9 && half) {
             index++;
-        }if (index >= 9){
+        }
+        if (index >= 9) {
             index = 0;
         }
         half = !half;                                   //aby animacja działała 2x wolniej
         return index;
     }
 
-    private void loadIzakBodyOrHeadImage(ArrayList<String> bodyList, String nonShotImg, int idx){
+    private void loadIzakBodyOrHeadImage(ArrayList<String> bodyList, String nonShotImg, int idx) {
         if (izak.getMoving())                                                                                            //gdy izak chodzi
             izak.loadIzakBodyImage(bodyList.get(idx));
 
-        if (izak.getShooting()){                                                                                         //gdy izak strzela
-           izakShoot();
-        }
-        else{                                                                                                            // gdy izak chodzi i nie strzela
+        if (izak.getShooting()) {                                                                                         //gdy izak strzela
+            izakShoot();
+        } else {                                                                                                            // gdy izak chodzi i nie strzela
             izak.loadIzakHeadImage(nonShotImg);
         }
     }
@@ -256,7 +276,7 @@ public class IzakMain extends Application {
         shotFrequencyCounter--;
     }
 
-    private void setBulletInitialConditions(int X, int Y, Position position, String headImageName){
+    private void setBulletInitialConditions(int X, int Y, Position position, String headImageName) {
         bullet.setLayoutX(izak.getLayoutX() + X);
         bullet.setLayoutY(izak.getLayoutY() + Y);
         bullet.setDirection(position);
@@ -264,101 +284,69 @@ public class IzakMain extends Application {
     }
 
     private void bulletMoving() {
-        for (Bullet bullet: bulletsList){
+        for (Bullet bullet : bulletsList) {
 
             switch (bullet.getDirection()) {
                 case BACK:
                     bullet.setLayoutY(bullet.getLayoutY() - izak.getShotSpeed());
-                    if (bullet.getLayoutY() < (izak.getLayoutY() - izak.getShotRange())) root.getChildren().remove(bullet);         // usunięcie pocisku po osiągnięciu jego zasięgu
+                    if (bullet.getLayoutY() < (izak.getLayoutY() - izak.getShotRange()))
+                        root.getChildren().remove(bullet);         // usunięcie pocisku po osiągnięciu jego zasięgu
                     break;
 
                 case FRONT:
                     bullet.setLayoutY(bullet.getLayoutY() + izak.getShotSpeed());
-                    if (bullet.getLayoutY() > (izak.getLayoutY() + izak.getShotRange())) root.getChildren().remove(bullet);
+                    if (bullet.getLayoutY() > (izak.getLayoutY() + izak.getShotRange()))
+                        root.getChildren().remove(bullet);
 
                     break;
                 case LEFT:
                     bullet.setLayoutX(bullet.getLayoutX() - izak.getShotSpeed());
-                    if (bullet.getLayoutX() < (izak.getLayoutX() - izak.getShotRange())) root.getChildren().remove(bullet);
+                    if (bullet.getLayoutX() < (izak.getLayoutX() - izak.getShotRange()))
+                        root.getChildren().remove(bullet);
 
                     break;
                 case RIGHT:
                     bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
-                    if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())) root.getChildren().remove(bullet);
+                    if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange()))
+                        root.getChildren().remove(bullet);
 
                     break;
             }
 
-            if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())){
+            if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange())) {
                 root.getChildren().remove(bullet);
             }
             //System.out.println("bulletsList.size(): " + bulletsList.size());
         }
     }
 
-    private void checkCollisions(){
+    private void checkCollisionsIzakVsWall() {
         if (izak.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+/*
             if ((izak.getLayoutX() < wall.getLayoutX()) && (izak.getPosition() == Position.RIGHT)) collisionSide = "LEFT";
             if ((izak.getLayoutY() < wall.getLayoutY()) && (izak.getPosition() == Position.FRONT)) collisionSide = "UP";
             if ((izak.getLayoutX() > wall.getLayoutX()) && (izak.getPosition() == Position.LEFT)) collisionSide = "RIGHT";
             if ((izak.getLayoutY() > wall.getLayoutY()) && (izak.getPosition() == Position.BACK)) collisionSide = "DOWN";
-
+*/
             System.out.println("____KOLIZJA___" + izak.getColliding() + "__" + collisionSide);
             izak.setColliding(true);
-        }
-        else{
+
+        } else {
             izak.setColliding(false);
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
     private void moveHeroBy(int dx, int dy) {
         if (dx == 0 && dy == 0) return;
-
-        final double cx = izak.getBoundsInLocal().getWidth() / 2;
-        final double cy = izak.getBoundsInLocal().getHeight() / 2;
-
-        //double x = cx + izak.getLayoutX() + dx;
-        //double y = cy + izak.getLayoutY() + dy;
-
-
-        double x = 0;
-        double y = 0;
-
-        if (!izak.getColliding()){
-            x = cx + izak.getLayoutX() + dx;
-            y = cy + izak.getLayoutY() + dy;
-        }
-        else{
-            if (collisionSide.equals("LEFT") || collisionSide.equals("RIGHT")){
-                x = cx + izak.getLayoutX();
-                y = cy + izak.getLayoutY() + dy;
-            }
-            if (collisionSide.equals("UP") || collisionSide.equals("DOWN")){
-                x = cx + izak.getLayoutX() + dx;
-                y = cy + izak.getLayoutY();
-            }
-        }
-
+        double x = izakCenterX + izak.getLayoutX() + dx;
+        double y = izakCenterY + izak.getLayoutY() + dy;
         moveHeroTo(x, y);
     }
 
     private void moveHeroTo(double x, double y) {
-        final double cx = izak.getBoundsInLocal().getWidth() / 2;
-        final double cy = izak.getBoundsInLocal().getHeight() / 2;
-
-        if ((x - cx >= 0) && (x + cx <= STAGE_WIDTH) && (y - cy >= 0) && (y + cy <= STAGE_HEIGHT)) {
-            izak.relocate(x - cx, y - cy);
+        if ((x - izakCenterX >= 0) && (x + izakCenterX <= STAGE_WIDTH) && (y - izakCenterY >= 0) && (y + izakCenterY <= STAGE_HEIGHT)) {
+            izak.relocate(x - izakCenterX, y - izakCenterY);
         }
     }
 
@@ -366,9 +354,11 @@ public class IzakMain extends Application {
         root.setPrefSize(STAGE_WIDTH, STAGE_HEIGHT);
         root.setStyle("-fx-background-color: #222;");
         izak = new Izak();
-        izak.setLayoutX(STAGE_WIDTH/2 - 50);                                                                   //aby stał na środku
-        izak.setLayoutY(STAGE_HEIGHT/2 - 50);
+        izak.setLayoutX(STAGE_WIDTH / 2 - 50);                                                                   //aby stał na środku
+        izak.setLayoutY(STAGE_HEIGHT / 2 - 50);
         root.getChildren().add(izak);
+        izakCenterX = izak.getBoundsInLocal().getWidth() / 2;
+        izakCenterY = izak.getBoundsInLocal().getHeight() / 2;
         makeWalls();
 
 

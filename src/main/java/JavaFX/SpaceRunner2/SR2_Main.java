@@ -3,7 +3,7 @@ package JavaFX.SpaceRunner2;
 /*** https://www.youtube.com/watch?v=6BKI26gxK2Q&index=2&list=PL4wcbt63yAbdtY-GOeuRjIePfUsukSJZ9
  * https://github.com/Bitclef/spaceRunner              //to nie jest repo autora kursu tylko kursanta!
 
- * w tym package (SpaceRunner2) jest gra wzbogacona o moje modyfikacje                       * */
+ * w tym package (SpaceRunner2) jest gra wzbogacona o moje modyfikacje            (Jacek)            * */
 
 import JavaFX.SpaceRunner2.View.ViewManager;
 import javafx.application.Application;

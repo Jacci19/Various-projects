@@ -25,8 +25,6 @@ public class Izak extends Pane {
     private Boolean isShooting = false;
     private Boolean isColliding = false;
 
-
-
     public Izak() {                                                                                         //konstruktor
         createIzakImage("BodyFront01", "HeadFront");
         fillFrameList(BodyFrontList, 10, "BodyFront");

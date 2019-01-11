@@ -44,6 +44,7 @@ https://kenney.nl/assets                                                        
 http://uczymysiekodowac.pl/wp-content/uploads/2016/05/lekcja_6_wyswietlanie-danych-na-ekranie1.004.jpeg         - znaki specjalne
 
 
+http://zetcode.com/tutorials/javagamestutorial/
 
 
 https://code.makery.ch/blog/javafx-dialogs-official/   - okna alert
