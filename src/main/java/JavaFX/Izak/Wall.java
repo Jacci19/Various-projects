@@ -1,9 +1,12 @@
 package JavaFX.Izak;
 
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 
 public class Wall extends Pane {
     private int X;
@@ -12,7 +15,8 @@ public class Wall extends Pane {
     private int height;
 
     public Wall() {
-        Rectangle rect = new Rectangle(150, 150, Color.BROWN);
-        this.getChildren().add(rect);
+        Image img = new Image("JavaFx/Izak/png/area/brick_wall_80.png");
+        ImageView wallIV = new ImageView(img);
+        this.getChildren().add(wallIV);
     }
 }

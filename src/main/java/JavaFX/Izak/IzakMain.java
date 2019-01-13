@@ -27,6 +27,7 @@ public class IzakMain extends Application {
     private Wall wall;
     private Bullet bullet;
     private List<Bullet> bulletsList = new ArrayList<>();
+    private List<Wall> wallsList = new ArrayList<>();
 
     //private String collisionSide = "";
     private double diagRatio = 0.8;
@@ -199,10 +200,12 @@ public class IzakMain extends Application {
 
     private void moveIzakAndCheckCollisionsVsWalls(int dx, int dy){
         izakRectangle = new Rectangle(izak.getLayoutX() + dx, izak.getLayoutY() + dy, izak.getBoundsInLocal().getWidth(), izak.getBoundsInLocal().getHeight());
-        if (izakRectangle.intersects(wall.getBoundsInParent())) {
-            izak.setColliding(true);
-        } else {
-            izak.setColliding(false);
+        for (Wall wall : wallsList){
+            if (izakRectangle.intersects(wall.getBoundsInParent())) {
+                izak.setColliding(true);
+            } else {
+                izak.setColliding(false);
+            }
         }
         if (!izak.getColliding()) {
             moveHeroBy(dx, dy);                                                                                     //zmiana położenia izaka
@@ -254,13 +257,14 @@ public class IzakMain extends Application {
 
     private int incrementIndex(int index) {
 
-        if (index < 9 && half) {
+        final int animationFramesNumber = 9;
+        if (index < animationFramesNumber && half) {
             index++;
         }
-        if (index >= 9) {
+        if (index >= animationFramesNumber) {
             index = 0;
         }
-        half = !half;                                   //aby animacja działała 2x wolniej
+        half = !half;                                                                                                   //aby animacja działała 2x wolniej
         return index;
     }
 
@@ -364,13 +368,30 @@ public class IzakMain extends Application {
     }
 
     private void makeWalls() {
-        wall = new Wall();
-        wall.setLayoutX(200);
-        wall.setLayoutY(600);
-        root.getChildren().add(wall);
-
+        placeWallHorizontal(5, 200, 100);
+        placeWallVertical(5, 1000, 100);
 
     }
+
+    private void placeWallHorizontal(int quantity, int startX, int y){
+        for(int i =0; i<quantity; i++){
+            wall = new Wall();
+            wall.setLayoutX(startX + (i * wall.getBoundsInParent().getWidth()));
+            wall.setLayoutY(y);
+            wallsList.add(wall);
+            root.getChildren().add(wall);
+        }
+    }
+    private void placeWallVertical(int quantity, int x, int startY){
+        for(int i =0; i<quantity; i++){
+            wall = new Wall();
+            wall.setLayoutX(x);
+            wall.setLayoutY(startY + (i * wall.getBoundsInParent().getHeight()));
+            wallsList.add(wall);
+            root.getChildren().add(wall);
+        }
+    }
+
 
     public static void main(String[] args) {
         launch(args);
