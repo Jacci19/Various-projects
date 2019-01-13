@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -27,14 +28,16 @@ public class IzakMain extends Application {
     private Bullet bullet;
     private List<Bullet> bulletsList = new ArrayList<>();
 
-    private String collisionSide = "";
-    double diagRatio = 0.8;
+    //private String collisionSide = "";
+    private double diagRatio = 0.8;
     private int shotFrequencyCounter = 0;
     private final int STAGE_WIDTH = 1600;
     private final int STAGE_HEIGHT = 1000;
     private double izakCenterX;
     private double izakCenterY;
-    private double izakPosX, izakPosY, prevIzakPosX, prevIzakPosY;
+    private double prevIzakPosX, prevIzakPosY;
+
+    private Rectangle izakRectangle;
 
 
     public boolean up = false, down = false, left = false, right = false, shot = false, shotUp = false, shotDown = false, shotLeft = false, shotRight = false, lCtrlPress = false;
@@ -43,89 +46,21 @@ public class IzakMain extends Application {
 
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(createContent());
-        //BOOLEANY NA KEY_PRESSED
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case W:                                                                                             //ruch
-                        up = true;
-                        izak.setPosition(Position.BACK);
-                        break;
-                    case S:
-                        down = true;
-                        izak.setPosition(Position.FRONT);
-                        break;
-                    case A:
-                        left = true;
-                        izak.setPosition(Position.LEFT);
-                        break;
-                    case D:
-                        right = true;
-                        izak.setPosition(Position.RIGHT);
-                        break;
-                    case UP:                                                                                            //strzelanie
-                        shotUp = true;
-                        izak.setPosition(Position.BACK);
-                        break;
-                    case DOWN:
-                        shotDown = true;
-                        izak.setPosition(Position.FRONT);
-                        break;
-                    case LEFT:
-                        shotLeft = true;
-                        izak.setPosition(Position.LEFT);
-                        break;
-                    case RIGHT:
-                        shotRight = true;
-                        izak.setPosition(Position.RIGHT);
-                        break;
-                    case CONTROL:
-                        lCtrlPress = true;
-                        break;
-                }
+                detectKeysPress(event);                                                                     //Setting booleans variables on press (up, down, ..., shotUp....)
             }
         });
-        //BOOLEANY NA KEY_RELEASED
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case W:
-                        up = false;
-                        break;
-                    case S:
-                        down = false;
-                        break;
-                    case A:
-                        left = false;
-                        break;
-                    case D:
-                        right = false;
-                        break;
-                    case UP:
-                        shotUp = false;
-                        break;
-                    case DOWN:
-                        shotDown = false;
-                        break;
-                    case LEFT:
-                        shotLeft = false;
-                        break;
-                    case RIGHT:
-                        shotRight = false;
-                        break;
-                    case CONTROL:
-                        lCtrlPress = false;
-                        break;
-                }
+                detectKeysRelease(event);                                                                   //Setting booleans variables on release (up, down, ..., shotUp....)
             }
         });
-
         stage.setTitle("Izak (by Jacek)");
         stage.setScene(scene);
         stage.show();
-
 
         AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.6 * izak.getSpeed()))) {
             int index = 0;
@@ -133,9 +68,8 @@ public class IzakMain extends Application {
             @Override
             public void handle() {                                                                                           //wykonywane co ramke timera
 
-                setMovingAndShootingStates();
-
-                int dx = 0, dy = 0, prevDx = 0, prevDy = 0;
+                setIzakMovingAndShootingStates();
+                int dx = 0, dy = 0;
                 if (up) {                                                                                                      //gdy izak idzie
                     dy = calculateDy(-1);
                     loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", index);
@@ -161,33 +95,8 @@ public class IzakMain extends Application {
                 if (izak.getShooting()) {                                                                                      //gdy izak strzela
                     izakShoot();
                 }
-                if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
-                    switch (izak.getPosition()) {
-                        case BACK:
-                            loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", 0);
-                            break;
-                        case FRONT:
-                            loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront", 0);
-                            break;
-                        case LEFT:
-                            loadIzakBodyOrHeadImage(izak.getBodyLeftList(), "HeadLeft", 0);
-                            break;
-                        case RIGHT:
-                            loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", 0);
-                            break;
-                    }
-                }
-                checkCollisionsIzakVsWall();
-                if (!izak.getColliding()) {
-                    prevIzakPosX = izak.getLayoutX();
-                    prevIzakPosY = izak.getLayoutY();
-                    //System.out.println("dx,dy: " + dx + "__" + dy + "      prevIzakPosX, prevIzakPosY: " + prevIzakPosX + "__" + prevIzakPosY);
-                    moveHeroBy(dx, dy);
-
-                } else {
-                    System.out.println("K_dx,dy: " + dx + "__" + dy);
-                    izak.relocate(prevIzakPosX, prevIzakPosY);
-                }
+                loadIzakHeadAndBodyImagesDuringStanding();
+                moveIzakAndCheckCollisionsVsWalls(dx, dy);
                 bulletMoving();
                 index = incrementIndex(index);
             }
@@ -195,7 +104,113 @@ public class IzakMain extends Application {
         timer.start();
     }
 
-    private void setMovingAndShootingStates() {
+
+
+    private void detectKeysPress(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:                                                                                             //ruch
+                up = true;
+                izak.setPosition(Position.BACK);
+                break;
+            case S:
+                down = true;
+                izak.setPosition(Position.FRONT);
+                break;
+            case A:
+                left = true;
+                izak.setPosition(Position.LEFT);
+                break;
+            case D:
+                right = true;
+                izak.setPosition(Position.RIGHT);
+                break;
+            case UP:                                                                                            //strzelanie
+                shotUp = true;
+                izak.setPosition(Position.BACK);
+                break;
+            case DOWN:
+                shotDown = true;
+                izak.setPosition(Position.FRONT);
+                break;
+            case LEFT:
+                shotLeft = true;
+                izak.setPosition(Position.LEFT);
+                break;
+            case RIGHT:
+                shotRight = true;
+                izak.setPosition(Position.RIGHT);
+                break;
+            case CONTROL:
+                lCtrlPress = true;
+                break;
+        }
+    }
+
+    private void detectKeysRelease(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:
+                up = false;
+                break;
+            case S:
+                down = false;
+                break;
+            case A:
+                left = false;
+                break;
+            case D:
+                right = false;
+                break;
+            case UP:
+                shotUp = false;
+                break;
+            case DOWN:
+                shotDown = false;
+                break;
+            case LEFT:
+                shotLeft = false;
+                break;
+            case RIGHT:
+                shotRight = false;
+                break;
+            case CONTROL:
+                lCtrlPress = false;
+                break;
+        }
+    }
+
+    private void loadIzakHeadAndBodyImagesDuringStanding() {
+        if (!izak.getMoving()) {                                                                                      //gdy izak nie idzie
+            switch (izak.getPosition()) {
+                case BACK:
+                    loadIzakBodyOrHeadImage(izak.getBodyBackList(), "HeadBack", 0);
+                    break;
+                case FRONT:
+                    loadIzakBodyOrHeadImage(izak.getBodyFrontList(), "HeadFront", 0);
+                    break;
+                case LEFT:
+                    loadIzakBodyOrHeadImage(izak.getBodyLeftList(), "HeadLeft", 0);
+                    break;
+                case RIGHT:
+                    loadIzakBodyOrHeadImage(izak.getBodyRightList(), "HeadRight", 0);
+                    break;
+            }
+        }
+    }
+
+    private void moveIzakAndCheckCollisionsVsWalls(int dx, int dy){
+        izakRectangle = new Rectangle(izak.getLayoutX() + dx, izak.getLayoutY() + dy, izak.getBoundsInLocal().getWidth(), izak.getBoundsInLocal().getHeight());
+        if (izakRectangle.intersects(wall.getBoundsInParent())) {
+            izak.setColliding(true);
+        } else {
+            izak.setColliding(false);
+        }
+        if (!izak.getColliding()) {
+            moveHeroBy(dx, dy);                                                                                     //zmiana położenia izaka
+        }
+    }
+
+
+    private void setIzakMovingAndShootingStates() {
 
         if (up || down || left || right) {
             izak.setMoving(true);
@@ -264,10 +279,10 @@ public class IzakMain extends Application {
         if (shotFrequencyCounter == 0) {
             bullet = new Bullet();
 
-            if (shotUp) setBulletInitialConditions(14, -16, Position.BACK, "HeadBack");
-            else if (shotDown) setBulletInitialConditions(14, 10, Position.FRONT, "HeadFront");
-            else if (shotRight) setBulletInitialConditions(16, 12, Position.RIGHT, "HeadRight");
-            else if (shotLeft) setBulletInitialConditions(15, 12, Position.LEFT, "HeadLeft");
+            if (shotUp) setBulletInitialConditions(14, -16, Position.BACK, "HeadBackShot");
+            else if (shotDown) setBulletInitialConditions(14, 10, Position.FRONT, "HeadFrontShot");
+            else if (shotRight) setBulletInitialConditions(16, 12, Position.RIGHT, "HeadRightShot");
+            else if (shotLeft) setBulletInitialConditions(15, 12, Position.LEFT, "HeadLeftShot");
 
             root.getChildren().add(bullet);
             bulletsList.add(bullet);
@@ -320,23 +335,6 @@ public class IzakMain extends Application {
         }
     }
 
-    private void checkCollisionsIzakVsWall() {
-        if (izak.getBoundsInParent().intersects(wall.getBoundsInParent())) {
-/*
-            if ((izak.getLayoutX() < wall.getLayoutX()) && (izak.getPosition() == Position.RIGHT)) collisionSide = "LEFT";
-            if ((izak.getLayoutY() < wall.getLayoutY()) && (izak.getPosition() == Position.FRONT)) collisionSide = "UP";
-            if ((izak.getLayoutX() > wall.getLayoutX()) && (izak.getPosition() == Position.LEFT)) collisionSide = "RIGHT";
-            if ((izak.getLayoutY() > wall.getLayoutY()) && (izak.getPosition() == Position.BACK)) collisionSide = "DOWN";
-*/
-            System.out.println("____KOLIZJA___" + izak.getColliding() + "__" + collisionSide);
-            izak.setColliding(true);
-
-        } else {
-            izak.setColliding(false);
-        }
-    }
-
-
     private void moveHeroBy(int dx, int dy) {
         if (dx == 0 && dy == 0) return;
         double x = izakCenterX + izak.getLayoutX() + dx;
@@ -354,8 +352,8 @@ public class IzakMain extends Application {
         root.setPrefSize(STAGE_WIDTH, STAGE_HEIGHT);
         root.setStyle("-fx-background-color: #222;");
         izak = new Izak();
-        izak.setLayoutX(STAGE_WIDTH / 2 - 50);                                                                   //aby stał na środku
-        izak.setLayoutY(STAGE_HEIGHT / 2 - 50);
+        izak.setLayoutX(STAGE_WIDTH / 2 - izak.getBoundsInLocal().getWidth() / 2);                                      //aby stał na środku na początku gry
+        izak.setLayoutY(STAGE_HEIGHT / 2 - izak.getBoundsInLocal().getHeight() / 2);
         root.getChildren().add(izak);
         izakCenterX = izak.getBoundsInLocal().getWidth() / 2;
         izakCenterY = izak.getBoundsInLocal().getHeight() / 2;
@@ -421,4 +419,10 @@ public class IzakMain extends Application {
             }
         };
         timer.start();
+*/
+/*
+            if ((izak.getLayoutX() < wall.getLayoutX()) && (izak.getPosition() == Position.RIGHT)) collisionSide = "LEFT";
+            if ((izak.getLayoutY() < wall.getLayoutY()) && (izak.getPosition() == Position.FRONT)) collisionSide = "UP";
+            if ((izak.getLayoutX() > wall.getLayoutX()) && (izak.getPosition() == Position.LEFT)) collisionSide = "RIGHT";
+            if ((izak.getLayoutY() > wall.getLayoutY()) && (izak.getPosition() == Position.BACK)) collisionSide = "DOWN";
 */

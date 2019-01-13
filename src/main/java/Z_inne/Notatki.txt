@@ -32,3 +32,10 @@ Random rand = new Random();
 int a = rand.nextInt(y - x + 1) + x;
 https://forum.pasja-informatyki.pl/2549/generowanie-pseudo-losowych-liczb-z-zadanego-przedzialu
 __________________________________________________________________
+Wzorce projektowe
+Strategia - https://www.youtube.com/watch?v=RADOhncoohY (od początku)
+Abstract Factory - https://youtu.be/RADOhncoohY?t=3060
+Dekorator - https://youtu.be/RADOhncoohY?t=3468
+Adapter - https://youtu.be/RADOhncoohY?t=4023
+Stan - https://youtu.be/RADOhncoohY?t=4185
+Builder - https://www.youtube.com/watch?v=2IOLUqp0VrU

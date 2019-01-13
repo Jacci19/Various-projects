@@ -67,6 +67,7 @@ public class Izak extends Pane {
         }
     }
 
+
                                                                                                     //gettery i settery
     public double getSpeed() {
         return speed;

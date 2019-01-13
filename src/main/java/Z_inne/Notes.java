@@ -21,6 +21,7 @@ public class Notes {
 //https://www.youtube.com/watch?v=IHcTGxFQSm8&list=PLED70A92187B1406A&index=30    - ENUM
 //-------------------------------------------------------------------------------------------------------------
 
+
 class Test{
     static void zwieksz(int liczba){
         liczba++;
@@ -41,3 +42,5 @@ class Main{
 //BigInteger    (filmy Coraxa)
 //      https://www.youtube.com/watch?v=Dz9JQ_p1_4c&list=PLED70A92187B1406A&index=33
 //      https://www.youtube.com/watch?v=nnROT534wVY&index=34&list=PLED70A92187B1406A
+
+
