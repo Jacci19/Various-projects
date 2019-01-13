@@ -63,7 +63,7 @@ public class IzakMain extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.6 * izak.getSpeed()))) {
+        AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.5 * izak.getSpeed()))) {
             int index = 0;
 
             @Override
@@ -203,6 +203,7 @@ public class IzakMain extends Application {
         for (Wall wall : wallsList){
             if (izakRectangle.intersects(wall.getBoundsInParent())) {
                 izak.setColliding(true);
+                break;                                                                          //jeśli koliduje choć z jednym blokiem to nie może się ruszyć w tej ramce
             } else {
                 izak.setColliding(false);
             }
@@ -316,19 +317,18 @@ public class IzakMain extends Application {
                     bullet.setLayoutY(bullet.getLayoutY() + izak.getShotSpeed());
                     if (bullet.getLayoutY() > (izak.getLayoutY() + izak.getShotRange()))
                         root.getChildren().remove(bullet);
-
                     break;
+
                 case LEFT:
                     bullet.setLayoutX(bullet.getLayoutX() - izak.getShotSpeed());
                     if (bullet.getLayoutX() < (izak.getLayoutX() - izak.getShotRange()))
                         root.getChildren().remove(bullet);
-
                     break;
+
                 case RIGHT:
                     bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
                     if (bullet.getLayoutX() > (izak.getLayoutX() + izak.getShotRange()))
                         root.getChildren().remove(bullet);
-
                     break;
             }
 
@@ -368,13 +368,19 @@ public class IzakMain extends Application {
     }
 
     private void makeWalls() {
-        placeWallHorizontal(5, 200, 100);
-        placeWallVertical(5, 1000, 100);
+        placeWallHorizontal(20, 0, -40);
+        placeWallVertical(12, 1560, 40);
+        placeWallHorizontal(20, 0, 960);
+        placeWallVertical(12, -40, 40);
+
+        placeWallVertical(4, 760, 40);
+
+
 
     }
 
     private void placeWallHorizontal(int quantity, int startX, int y){
-        for(int i =0; i<quantity; i++){
+        for(int i =0; i < quantity; i++){
             wall = new Wall();
             wall.setLayoutX(startX + (i * wall.getBoundsInParent().getWidth()));
             wall.setLayoutY(y);
@@ -383,7 +389,7 @@ public class IzakMain extends Application {
         }
     }
     private void placeWallVertical(int quantity, int x, int startY){
-        for(int i =0; i<quantity; i++){
+        for(int i =0; i < quantity; i++){
             wall = new Wall();
             wall.setLayoutX(x);
             wall.setLayoutY(startY + (i * wall.getBoundsInParent().getHeight()));
@@ -447,3 +453,15 @@ public class IzakMain extends Application {
             if ((izak.getLayoutX() > wall.getLayoutX()) && (izak.getPosition() == Position.LEFT)) collisionSide = "RIGHT";
             if ((izak.getLayoutY() > wall.getLayoutY()) && (izak.getPosition() == Position.BACK)) collisionSide = "DOWN";
 */
+
+//aby łzy opadały pod koniec lotu
+//                    if (bullet.getLayoutX() < 0.9 * (izak.getLayoutX() + izak.getShotRange())){
+//                        bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
+//                    }
+//                    else if((bullet.getLayoutX() >= 0.9 * (izak.getLayoutX() + izak.getShotRange())) && (bullet.getLayoutX() < (izak.getLayoutX() + izak.getShotRange()))){
+//                        bullet.setLayoutX(bullet.getLayoutX() + izak.getShotSpeed());
+//                        bullet.setLayoutY(bullet.getLayoutY() + 0.35 * izak.getShotSpeed());        //aby łzy opadały pod koniec lotu
+//                    }
+//                    else{
+//                        root.getChildren().remove(bullet);
+//                    }
