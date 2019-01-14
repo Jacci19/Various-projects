@@ -63,7 +63,7 @@ public class IzakMain extends Application {
         stage.setScene(scene);
         stage.show();
 
-        AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.5 * izak.getSpeed()))) {
+        AnimationTimerExt timer = new AnimationTimerExt((int) (100 / (0.6 * izak.getSpeed()))) {
             int index = 0;
 
             @Override
