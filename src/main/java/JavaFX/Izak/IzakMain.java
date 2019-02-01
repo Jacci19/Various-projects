@@ -374,6 +374,7 @@ public class IzakMain extends Application {
         placeWallVertical(12, -40, 40);
 
         placeWallVertical(4, 760, 40);
+        placeWallVertical(2, 760, 800);
 
 
 

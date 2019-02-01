@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-/** Main GUI component for the NetWatch program.
+/** SudGame_Main GUI component for the NetWatch program.
  * @author    Ian F. Darwin, http://www.darwinsys.com/
  */
 // BEGIN main
